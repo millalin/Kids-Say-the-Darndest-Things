@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Muokkaa sanontaa</th>
+    </tr>
+    {% for quote in quotes %}
+    <tr>
+      <td>{{ quote.quote }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
