@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('quotes_create') }}">
+  <input type="text" name="quote"/>
+  <input type="submit" value="Add a new quote"/>
+</form>
+{% endblock %}
