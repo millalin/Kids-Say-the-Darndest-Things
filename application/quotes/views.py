@@ -21,20 +21,18 @@ def quotes_create():
     return  redirect(url_for("quotes_index"))
 
 # sivun haku kun sanontaa halutaan muokata
-@app.route("/quotes/modifyState/<quote_id>/", methods=["GET"])
+@app.route("/quotes/modifyState/<quote_id>/", methods=["GET", "POST"])
 def quotes_modifyState(quote_id):
 
-    q = Quote.query.get(quote_id)
-    
-    return render_template("quotes/modifyState.html", quote_id = q)
+    return render_template("quotes/modifystate.html", quote_id = quote_id)
 
-@app.route("/quotes/<quote_id>/", methods=["GET", "POST"])
+@app.route("/quotes/<quote_id>/", methods=["POST"])
 def quotes_update(quote_id):
 
     quote = Quote.query.get(quote_id)
     q = Quote(request.form.get("quote"))
-
-    quote.quote = q
+    
+    quote.quote = q.quote
     
     db.session().commit()
 

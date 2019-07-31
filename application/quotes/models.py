@@ -9,4 +9,3 @@ class Quote(db.Model):
     
     def __init__(self, quote):
         self.quote = quote
-        

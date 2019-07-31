@@ -8,6 +8,12 @@
     {% for quote in quotes %}
     <tr>
       <td>{{ quote.quote }}</td>
+      <td>
+          <form method="POST" action="{{ url_for('quotes_modifyState', quote_id = quote.id) }}">
+              <button type="submit" class=>Muokkaa sanontaa</button> 
+              </form>
+            </a>
+      </td>
     </tr>
     {% endfor %}
   </table>

@@ -1,8 +1,0 @@
-{% extends "layout.html" %}
-  
-{% block body %}
-<form method="POST" action="{{ url_for('quotes_update', quote_id = quote.id) }}">
-  <input type="text" name="quote"/>
-  <input type="submit" value="Update quote"/>
-</form>
-{% endblock %}
