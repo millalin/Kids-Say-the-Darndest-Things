@@ -26,4 +26,4 @@ Tietokannassa on 7 tietokantataulua, joista 2 on liitostauluja.
 
 [Tietokantakaavio](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/tietokantakaavio.png)
 
-
+[Käyttötapaukset](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/kayttotapaukset.md)
