@@ -4,6 +4,8 @@ Kids Say the Darnest Things sovelluksessa on mahdollista pitää kirjaa omien la
 
 Kaikki käyttäjät voivat selata eri sanontoja ja kirjautunut käyttäjä voi lisätä tietokantaan lapsia ja heille sanontoja. Kirjautunut käyttäjä voi myös tykätä eri sanonnoista ja suosituimmat sanonnat on mahdollista listata Top 10 listalle. Lisäksi kirjautuneen käyttäjän on mahdollista listata omien lastensa sanonnat ja muokata niitä. Ylläpitäjä voi muokata sanontoja ja poistaa epäasianmukaisuuksia. 
 
+Sovellus löytyy [Herokusta](https://kidssaythedarnestthings.herokuapp.com/)
+
 Toimintojen listaus:
 
 
@@ -23,4 +25,5 @@ Toimintojen listaus:
 Tietokannassa on 7 tietokantataulua, joista 2 on liitostauluja. 
 
 [Tietokantakaavio](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/tietokantakaavio.png)
+
 
