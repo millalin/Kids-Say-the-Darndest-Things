@@ -1,6 +1,7 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.quotes.models import Quote
+from application.quotes.forms import QuoteForm
 
 
 @app.route("/quotes", methods=["GET"])
@@ -9,13 +10,18 @@ def quotes_index():
 
 @app.route("/quotes/new/")
 def quotes_form():
-    return render_template("quotes/new.html")
+    return render_template("quotes/new.html", form = QuoteForm())
 
 @app.route("/quotes/", methods=["POST"])
 def quotes_create():
-    q = Quote(request.form.get("quote"))
+    form = QuoteForm(request.form)
 
-    db.session().add(q)
+    if not form.validate():
+        return render_template("quotes/new.html", form = form)
+
+    q = Quote(form.name.data)
+
+    db.session.add(q)
     db.session().commit()
   
     return  redirect(url_for("quotes_index"))

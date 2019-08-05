@@ -6,6 +6,14 @@
   </head>
 
   <body>
+      {% if current_user.is_authenticated %}
+      <p>
+	Kirjautunut nimellä {{ current_user.name }}
+      </p>
+      {% else %}
+      <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+      {% endif %}
+      
       <ul>
           <li><a href="{{ url_for('quotes_index') }}">Listaa sanonnat</a></li>
           <li><a href="{{ url_for('quotes_form') }}">Lisää sanonta</a></li>
