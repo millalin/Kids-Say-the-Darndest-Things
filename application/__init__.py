@@ -1,4 +1,4 @@
-# flask-sovellus
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -9,7 +9,6 @@ app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
-# oman sovelluksen toiminnallisuudet
 from application import views
 
 from application.quotes import models
@@ -17,6 +16,9 @@ from application.quotes import views
 
 from application.auth import models
 from application.auth import views
+
+from application.child import models
+from application.child import views
 
 # kirjautuminen
 from application.auth.models import User
@@ -34,5 +36,5 @@ login_manager.login_message = "Please login to use this functionality."
 def load_user(user_id):
     return User.query.get(user_id)
 
-# luodaan taulut tietokantaan tarvittaessa
+# luodaan taulut tietokantaan jos tarve
 db.create_all()

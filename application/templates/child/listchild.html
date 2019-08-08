@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Lapset</th>
+    </tr>
+    {% for child in quotes %}
+    <tr>
+      <td>{{ child.name }}</td>
+      <td>{{ child.birthday }}</td>
+      <td>
+          <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
+              <button type="submit" class=>Muokkaa lapsen tietoja</button> 
+              </form>
+            </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

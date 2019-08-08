@@ -1,0 +1,47 @@
+from application import app, db
+from flask import redirect, render_template, request, url_for
+from application.child.models import Child
+from application.child.forms import ChildForm
+from datetime import datetime, date
+
+@app.route("/child", methods=["GET"])
+def child_index():
+    return render_template("child/listchild.html", quotes = Child.query.all())
+
+@app.route("/child/newchild/")
+def child_form():
+    return render_template("child/newchild.html", form = ChildForm())
+
+@app.route("/child/", methods=["GET","POST"])
+def child_create():
+    form = ChildForm(request.form)
+
+    if not form.validate():
+        return render_template("child/newchild.html", form = form)
+
+    c = Child(name = form.name.data, birthday = form.birthday.data)
+
+    db.session.add(c)
+    db.session().commit()
+  
+    return  redirect(url_for("child_index"))
+
+@app.route("/child/modifychild/<child_id>/", methods=["GET", "POST"])
+def child_modifychild(child_id):
+
+    return render_template("child/modifyChild.html", child_id = child_id)
+
+@app.route("/child/<child_id>/", methods=["POST"])
+def child_update(child_id):
+
+    child = Child.query.get(child_id)
+    form = ChildForm(request.form)
+    
+
+
+    child.name = form.name.data
+    child.birthday =form.birthday.data
+    
+    db.session().commit()
+
+    return redirect(url_for("child_index"))
