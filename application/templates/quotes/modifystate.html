@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('quotes_update', quote_id = quote_id) }}">
-  <input type="text" name="quote"/>
+<form method="POST" action="{{ url_for('quotes_update', quote_id = quote_id, child_id = child_id) }}">
+  <input type="text" name="name"/>
   <input type="submit" value="Muokkaa"/>
 </form>
 {% endblock %}
+

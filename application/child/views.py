@@ -44,8 +44,6 @@ def child_update(child_id):
     child = Child.query.get(child_id)
     form = ChildForm(request.form)
     
-
-
     child.name = form.name.data
     child.birthday =form.birthday.data
     
