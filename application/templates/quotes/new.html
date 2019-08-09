@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('quotes_create') }}">
+<form method="POST" action="{{ url_for('quotes_create', child_id = child_id) }}">
   <table>
   <tr>
     <td>

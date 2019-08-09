@@ -10,6 +10,10 @@
       <td>{{ child.name }}</td>
       <td>{{ child.birthday }}</td>
       <td>
+            <form method="POST" action="{{ url_for('quotes_form', child_id = child.id) }}">
+                    <button type="submit" class=>Lisää sanonta</button> 
+                </form>
+            
           <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
               <button type="submit" class=>Muokkaa lapsen tietoja</button> 
               </form>

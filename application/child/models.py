@@ -7,7 +7,14 @@ class Child(db.Model):
     onupdate=db.func.current_timestamp())
     name = db.Column(db.String(20), nullable=False)
     birthday = db.Column(db.Date, nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+                           nullable=False)
+
+    quotes = db.relationship("Quote", backref='child', lazy=True)
     
     def __init__(self, name, birthday):
         self.name = name
         self.birthday = birthday
+
+    def get_id(self):
+        return self.id

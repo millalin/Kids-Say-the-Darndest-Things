@@ -6,6 +6,9 @@ class Quote(db.Model):
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
     quote = db.Column(db.String(2000), nullable=False)
+
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'),
+                           nullable=False)
     
     def __init__(self, quote):
         self.quote = quote
