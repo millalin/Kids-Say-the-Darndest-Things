@@ -1,0 +1,29 @@
+
+{% extends "layout.html" %} {% block body %}
+
+<th>Käyttäjän {{ current_user.name }} lapset </th>
+<br>
+
+{% if find_users_children is defined %}
+<ol>
+    {% for child in find_users_children %}
+    <tr>
+        <td>{{ child.name }}</td>
+        <td>{{ child.birthday }}</td>
+        <td>
+              <form method="POST" action="{{ url_for('quotes_form', child_id = child.id) }}">
+                      <button type="submit" class=>Lisää sanonta</button> 
+                  </form>
+              
+            <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
+                <button type="submit" class=>Muokkaa lapsen tietoja</button> 
+                </form>
+  
+               
+              </a>
+        </td>
+      </tr>
+  {% endfor %}
+</ol>
+ {% endif %} 
+     {% endblock %}

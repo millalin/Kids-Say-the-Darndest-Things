@@ -12,7 +12,7 @@
           Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a> 
           <ul>
           <li><a href="{{ url_for('child_form') }}">Lisää lapsi</a></li>
-          <li><a href="{{ url_for('child_index') }}">Listaa lapset</a></li>
+          <li><a href="{{ url_for('child_userchildren') }}">Listaa lapset</a></li>
         </ul>
         </p>
         {% else %}

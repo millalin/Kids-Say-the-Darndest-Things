@@ -1,10 +1,8 @@
 from application import db
+from application.models import Base
 
-class Quote(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
+class Quote(Base):
+  
     quote = db.Column(db.String(2000), nullable=False)
 
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'),

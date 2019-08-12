@@ -9,6 +9,11 @@ from flask_login import login_required, current_user
 def child_index():
     return render_template("child/listchild.html", quotes = Child.query.all())
 
+@app.route("/child/userlist/", methods=["GET"])
+@login_required
+def child_userchildren():
+    return render_template("child/ownchildren.html", find_users_children = Child.find_users_children())
+
 @app.route("/child/newchild/")
 def child_form():
     return render_template("child/newchild.html", form = ChildForm())
@@ -29,7 +34,7 @@ def child_create():
     db.session.add(c)
     db.session().commit()
   
-    return  redirect(url_for("child_index"))
+    return  redirect(url_for("child_userchildren"))
 
 @app.route("/child/modifychild/<child_id>/", methods=["GET", "POST"])
 @login_required
@@ -49,4 +54,4 @@ def child_update(child_id):
     
     db.session().commit()
 
-    return redirect(url_for("child_index"))
+    return redirect(url_for("child_userchildren"))
