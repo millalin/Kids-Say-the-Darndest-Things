@@ -23,8 +23,8 @@ class Child(Base):
     @staticmethod
     def find_users_children():
         stmt = text("SELECT Child.id, Child.name, Child.birthday FROM Child"
-                     " WHERE Account_id=:cid"
-                     " ORDER BY Child.id").params(cid = current_user.id)
+                     " WHERE Account_id=:cuid"
+                     " ORDER BY Child.id").params(cuid = current_user.id)
         res = db.engine.execute(stmt)
 
         response = []

@@ -10,6 +10,11 @@ from application.child.models import Child
 def quotes_index():
     return render_template("quotes/list.html", quotes = Quote.query.all())
 
+@app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
+@login_required
+def quotes_childquotes(child_id):
+    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id)    
+
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_form(child_id):
@@ -34,22 +39,21 @@ def quotes_create(child_id):
     return  redirect(url_for("quotes_index"))
 
 # sivun haku kun sanontaa halutaan muokata
-@app.route("/quotes/modifyState/<child_id>/<quote_id>", methods=["GET", "POST"])
+@app.route("/child/quotes/modifyState/<quote_id>", methods=["GET", "POST"])
 @login_required
-def quotes_modifyState(quote_id, child_id):
+def quotes_modifyState(quote_id):
 
-    return render_template("quotes/modifystate.html",quote_id = quote_id, child_id = child_id)
+    return render_template("quotes/modifystate.html",quote_id = quote_id)
 
-@app.route("/quotes/<child_id>/<quote_id>", methods=["POST"])
+@app.route("/child/quotes/<quote_id>", methods=["POST"])
 @login_required
-def quotes_update(quote_id, child_id):
+def quotes_update(quote_id):
 
     quote = Quote.query.get(quote_id)
     form = QuoteForm(request.form)
     quote.quote = form.name.data
-    quote.child_id = child_id
+    
 
-    print("hahahahaha"+form.name.data)
     db.session().commit()
 
     return redirect(url_for("quotes_index"))

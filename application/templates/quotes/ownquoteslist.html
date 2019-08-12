@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Sanonnat</th>
+    </tr>
+    {% for quote in find_child_quotes(child_id) %}
+    <tr>
+      <td>{{ quote.quote }}</td>
+      <td>
+        
+          <form method="POST" action="{{ url_for('quotes_modifyState', quote_id = quote.id, child_id = quote.child_id) }}">
+              <button type="submit" class=>Muokkaa sanontaa</button> 
+              </form>
+            </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

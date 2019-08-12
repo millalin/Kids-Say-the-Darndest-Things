@@ -15,6 +15,10 @@
                       <button type="submit" class=>Lisää sanonta</button> 
                   </form>
               
+                  <form method="POST" action="{{ url_for('quotes_childquotes', child_id = child.id) }}">
+                    <button type="submit" class=>Lapsen sanonnat</button> 
+                </form>
+            
             <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
                 <button type="submit" class=>Muokkaa lapsen tietoja</button> 
                 </form>
