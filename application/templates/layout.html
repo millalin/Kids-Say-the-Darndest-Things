@@ -50,12 +50,17 @@
 
         </p>
         {% else %}
-
+      </ul>
+      <div class="form-inline mt-2 mt-md-0"></div>
         <p>
 
           <span class="navbar-text">
-            <li class="navbar-text"><a href="{{ url_for('auth_login') }}">Kirjaudu</a></li>
-            <li class="navbar-text"><a href="{{ url_for('user_create') }}">Rekisteröidy</a></li>
+            
+              <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+            
+            
+              <a href="{{ url_for('user_create') }}">Rekisteröidy</a>
+            
           </span>
         </p>
         {% endif %}
