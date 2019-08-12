@@ -25,3 +25,17 @@ class Quote(Base):
             response.append({"id":row[0], "quote":row[1]})
 
         return response
+
+    
+    @staticmethod
+    def quotes_with_names():
+        stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n FROM Quote"
+                     " JOIN Child ON Child.id = Quote.child_id"
+                     " GROUP BY Quote.id")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1], "n":row[2]})
+
+        return response

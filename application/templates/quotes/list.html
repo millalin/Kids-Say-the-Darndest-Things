@@ -5,10 +5,10 @@
     <tr>
       <th>Sanonnat</th>
     </tr>
-    {% for quote in quotes %}
+    {% for quote in list %}
     <tr>
-      <td>{{ quote.quote }}</td>
-      <td>{{ quote.child_id }}</td>
+      <td>{{ quote.name }}</td>
+      <td>{{ quote.n }}</td>
     </tr>
     {% endfor %}
   </table>

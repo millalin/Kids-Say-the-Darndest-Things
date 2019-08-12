@@ -5,10 +5,15 @@ from application.quotes.forms import QuoteForm
 from flask_login import login_required
 from application.child.models import Child
 
+#@app.route("/auth", methods=["GET"])
+#def user_index():
+    #childrencount = User.how_many_children()
+    #return render_template("auth/userlist.html", childrencount = childrencount)
 
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
-    return render_template("quotes/list.html", quotes = Quote.query.all())
+    list = Quote.quotes_with_names()
+    return render_template("quotes/list.html", quotes = Quote.query.all(), list=list)
 
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required
