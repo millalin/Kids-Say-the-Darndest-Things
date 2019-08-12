@@ -1,5 +1,8 @@
 from application import db
 from application.models import Base
+from sqlalchemy.sql import text
+from flask_login import current_user
+
 
 class User(Base):
 
@@ -28,3 +31,16 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
+    @staticmethod
+    def how_many_children():
+        stmt = text("SELECT Account.id, Account.name, COUNT(Child.id) AS total FROM Account"
+                     " JOIN Child ON Child.account_id = Account.id"
+                     " GROUP BY Account.id")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1], "total":row[2]})
+
+        return response

@@ -5,6 +5,11 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, NewuserForm
 
+@app.route("/auth", methods=["GET"])
+def user_index():
+    childrencount = User.how_many_children()
+    return render_template("auth/userlist.html", childrencount = childrencount)
+
 @app.route("/auth/newuser/")
 def user_form():
     return render_template("auth/newuser.html", form = NewuserForm())

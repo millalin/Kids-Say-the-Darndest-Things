@@ -1,0 +1,16 @@
+
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Käyttäjät</th>
+    </tr>
+    {% for user in childrencount %}
+    <tr>
+        <td>{{ user.name }}</td>
+      <td>lapsia: {{ user.total }} kpl </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
