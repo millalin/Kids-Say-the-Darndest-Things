@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Sanonnat</th>
-    </tr>
-    {% for quote in list %}
-    <tr>
-      <td>{{ quote.name }}</td>
-      <td>{{ quote.n }}</td>
-      <td>{{ quote.agesaid }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+<table>
+  <tr>
+    <h2>Sanonnat</h2>
+  </tr>
+  {% for quote in list %}
+  <blockquote class="blockquote">
+    <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
+    <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta</footer>
+  </blockquote>
+
+  {% endfor %}
+</table>
 {% endblock %}

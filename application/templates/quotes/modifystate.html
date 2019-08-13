@@ -3,7 +3,7 @@
 {% block body %}
 <form method="POST" action="{{ url_for('quotes_update', quote_id = quote_id) }}">
   <p>
-    Lapsen nimi <input type="text" name="name"/>
+    Sanonta <input type="text" name="name"/>
   Ikä jolloin sanottu <input type="text" name="age"/>
   <input type="submit" value="Muokkaa"/>
 </p>

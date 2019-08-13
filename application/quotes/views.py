@@ -14,7 +14,9 @@ def quotes_index():
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required
 def quotes_childquotes(child_id):
-    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id)    
+    child = Child.query.get(child_id)
+    name = child.name
+    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)    
 
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
 @login_required
@@ -64,4 +66,16 @@ def quotes_update(quote_id):
 #@app.route("/quotes/<child_id>/list", methods=["GET"])
 #def quotes_ownquotes():
     #return render_template("quotes/list.html", quotes = Quote.query.all())
+
+@app.route("/child/quotes/<quote_id>/del", methods=["GET","POST"])
+@login_required
+def quotes_delete(quote_id):
+    
+    quote = Quote.query.get(quote_id)
+        
+        
+    db.session.delete(quote)
+    db.session().commit()
+    
+    return redirect(url_for("quotes_index"))
  

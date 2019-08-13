@@ -1,22 +1,32 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
+
+
+<h2> {{name}} sanonnat </h2>
+<br>
+<table>
     <tr>
-      <th>Sanonnat</th>
+        <th>Sanonta</th>
+        <th>Ikä, jolloin sanottu</th>
     </tr>
     {% for quote in find_child_quotes(child_id) %}
     <tr>
-      <td>{{ quote.quote }}</td>
-      <td>{{ quote.agesaid }}</td>
-      <td>
-        
-          <form method="POST" action="{{ url_for('quotes_modifyState', quote_id = quote.id, child_id = quote.child_id) }}">
-              <button type="submit" class=>Muokkaa sanontaa</button> 
-              </form>
+        <td>{{quote.quote }} &nbsp; &nbsp; &nbsp;</td>
+        <td>{{ quote.agesaid }} vuotta</td>
+        <td>
+            <a href="{{ url_for('quotes_modifyState', quote_id = quote.id, child_id = quote.child_id)}}">
+                <button type="submit" class="btn btn-default">Muokkaa</button>
             </a>
-      </td>
+        </td>
+
+        <td>
+            <a href="{{ url_for('quotes_delete', quote_id = quote.id)}}">
+                <button type="submit" class="btn btn-default">Poista</button>
+            </a>
+        </td>
     </tr>
+
     {% endfor %}
-  </table>
+</table>
 {% endblock %}

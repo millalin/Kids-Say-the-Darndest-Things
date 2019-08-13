@@ -1,33 +1,42 @@
+{% extends "layout.html" %}
 
-{% extends "layout.html" %} {% block body %}
+{% block body %}
 
-<th>Käyttäjän {{ current_user.name }} lapset </th>
+
+<h2> {{ current_user.name }} lapset </h2>
 <br>
-
-{% if find_users_children is defined %}
-<ol>
-    {% for child in find_users_children %}
+<table>
     <tr>
-        <td>{{ child.name }}</td>
-        <td>{{ child.birthday }}</td>
+        <th>Lapsen nimi</th>
+        <th>Syntymäpäivä</th>
+    </tr>
+    {% for child in find_users_children %}
+
+    <tr>
+        <td>{{ child.name }} &nbsp; &nbsp; &nbsp;</td>
+        <td>{{ child.birthday }} </td>
         <td>
-              <form method="POST" action="{{ url_for('quotes_form', child_id = child.id) }}">
-                      <button type="submit" class=>Lisää sanonta</button> 
-                  </form>
-              
-                  <form method="POST" action="{{ url_for('quotes_childquotes', child_id = child.id) }}">
-                    <button type="submit" class=>Lapsen sanonnat</button> 
-                </form>
-            
-            <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
-                <button type="submit" class=>Muokkaa lapsen tietoja</button> 
-                </form>
-  
-               
-              </a>
+            <a href="{{ url_for('quotes_form', child_id = child.id) }}">
+                <button type="submit" class="btn btn-default">Lisää sanonta</button>
+            </a>
         </td>
-      </tr>
-  {% endfor %}
-</ol>
- {% endif %} 
-     {% endblock %}
+        <td>
+            <a href="{{ url_for('quotes_childquotes', child_id = child.id) }}">
+                <button type="submit" class="btn btn-default">Lapsen sanonnat</button>
+            </a>
+        </td>
+        <td>
+            <a href="{{ url_for('child_modifychild', child_id = child.id) }}">
+                <button type="submit" class="btn btn-default">Muokkaa lapsen tietoja</button>
+            </a>
+        </td>
+    </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}
+
+
+
+
+
