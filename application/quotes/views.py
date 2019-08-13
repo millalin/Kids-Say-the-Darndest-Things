@@ -5,15 +5,11 @@ from application.quotes.forms import QuoteForm
 from flask_login import login_required
 from application.child.models import Child
 
-#@app.route("/auth", methods=["GET"])
-#def user_index():
-    #childrencount = User.how_many_children()
-    #return render_template("auth/userlist.html", childrencount = childrencount)
 
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
     list = Quote.quotes_with_names()
-    return render_template("quotes/list.html", quotes = Quote.query.all(), list=list)
+    return render_template("quotes/list.html", list=list)
 
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required
@@ -35,6 +31,7 @@ def quotes_create(child_id):
         return render_template("quotes/new.html", form = form)
 
     q = Quote(form.name.data)
+    q.agesaid = form.age.data
     q.child_id = child_id
     
 
@@ -57,6 +54,7 @@ def quotes_update(quote_id):
     quote = Quote.query.get(quote_id)
     form = QuoteForm(request.form)
     quote.quote = form.name.data
+    quote.agesaid = form.age.data
     
 
     db.session().commit()

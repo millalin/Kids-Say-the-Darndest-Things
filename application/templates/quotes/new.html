@@ -17,6 +17,19 @@
           {% endfor %}
         </ul>
       </td>
+      <td>
+          {{ form.age.label }}
+        </td>
+        <td>
+          {{ form.age }}
+        </td>
+        <td>
+            <ul>
+              {% for error in form.age.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </td>
     </tr>
     <tr>
       <td colspan="2">

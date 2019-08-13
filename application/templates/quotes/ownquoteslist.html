@@ -8,6 +8,7 @@
     {% for quote in find_child_quotes(child_id) %}
     <tr>
       <td>{{ quote.quote }}</td>
+      <td>{{ quote.agesaid }}</td>
       <td>
         
           <form method="POST" action="{{ url_for('quotes_modifyState', quote_id = quote.id, child_id = quote.child_id) }}">
