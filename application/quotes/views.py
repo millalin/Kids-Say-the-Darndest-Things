@@ -8,8 +8,8 @@ from application.child.models import Child
 
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
-    list = Quote.quotes_with_names()
-    return render_template("quotes/list.html", list=list)
+    
+    return render_template("quotes/list.html", list=Quote.quotes_with_names())
 
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required

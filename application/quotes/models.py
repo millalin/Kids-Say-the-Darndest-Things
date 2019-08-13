@@ -32,7 +32,7 @@ class Quote(Base):
     def quotes_with_names():
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
-                     " GROUP BY Quote.id")
+                     " GROUP BY Quote.id, Child.name")
         res = db.engine.execute(stmt)
 
         response = []
