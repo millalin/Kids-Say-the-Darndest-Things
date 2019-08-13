@@ -6,6 +6,11 @@ Kaikki käyttäjät voivat selata eri sanontoja ja kirjautunut käyttäjä voi l
 
 Sovellus löytyy [Herokusta](https://kidssaythedarnestthings.herokuapp.com/)
 
+Testitunnukset kirjautumiseen:
+
+- käyttäjänimi: user
+- salasana: password
+
 Toimintojen listaus:
 
 

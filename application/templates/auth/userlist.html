@@ -4,12 +4,12 @@
 {% block body %}
   <table>
     <tr>
-      <th>Käyttäjät</th>
+      <h3>Käyttäjät</h3>
     </tr>
     {% for user in childrencount %}
     <tr>
-        <td>{{ user.name }}</td>
-      <td>lapsia: {{ user.total }} kpl </td>
+        <td>{{ user.name }} &nbsp; &nbsp; &nbsp;</td>
+      <td>Lapsia: {{ user.total }} kpl </td>
     </tr>
     {% endfor %}
   </table>
