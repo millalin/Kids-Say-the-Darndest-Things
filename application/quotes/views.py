@@ -69,7 +69,7 @@ def quotes_create(child_id):
 @login_required
 def quotes_modifyState(quote_id):
 
-    return render_template("quotes/modifystate.html",quote_id = quote_id)
+    return render_template("quotes/modifystate.html",form = QuoteForm(), quote_id = quote_id)
 
 @app.route("/child/quotes/<quote_id>", methods=["POST"])
 @login_required

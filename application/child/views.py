@@ -40,7 +40,7 @@ def child_create():
 @login_required
 def child_modifychild(child_id):
 
-    return render_template("child/modifyChild.html", child_id = child_id)
+    return render_template("child/modifyChild.html", form = ChildForm(), child_id = child_id)
 
 @app.route("/child/<child_id>/", methods=["POST"])
 @login_required
