@@ -11,10 +11,12 @@
       <td>Muokattu: {{ quote.date_modified }} &nbsp; &nbsp; &nbsp;</td>
       <td> Sanottu {{ quote.agesaid }} -vuotiaana&nbsp; &nbsp; &nbsp;</td>
 </p>
-<p> 
-        
-    
- 
+
+
+<p> Kategoriat: 
+        {% for c in categorieslist %}
+    <ul><li>{{ c.name }}</li></ul>
+    {% endfor %}
 </p>
 <td>
     <a href="{{ url_for('quotes_childquotes', child_id = quote.child_id)}}">

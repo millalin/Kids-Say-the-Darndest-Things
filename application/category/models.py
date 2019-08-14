@@ -12,11 +12,14 @@ class Category(Base):
     def __init__(self, name):
         self.name = name
         
+    def getId(self):
+        return self.id
+
     @staticmethod
     def categories_of(qid):
          
-        stmt = text("SELECT DISTINCT Category.id, Category.name FROM Category, quotecategory" 
-                    " WHERE (quotecategory.quote_id=:q)").params(q=qid)
+        stmt = text("SELECT DISTINCT Category.id, Category.name FROM Category, Quote" 
+                    " WHERE (Quote.id=:q)").params(q=qid)
 
         #stmt = text("SELECT DISTINCT Category.id, Category.name FROM Category WHERE (Quote.id=:quote)" 
                         #" JOIN quotecatecory on Category.id = quotecategory.category_id"
@@ -28,4 +31,18 @@ class Category(Base):
         for row in res:
             response.append({"id":row[0], "name":row[1]})
     
+        return response
+
+    
+    def findCategories(q_id):
+        
+        stmt = text("SELECT Category.id, Category.name FROM Category"
+                    " JOIN quotecategory ON quotecategory.category_id = Category.id"
+                    " WHERE quotecategory.quote_id = :quote_id" ).params(quote_id=q_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1]})
+
         return response

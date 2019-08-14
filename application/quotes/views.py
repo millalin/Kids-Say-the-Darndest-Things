@@ -53,13 +53,13 @@ def quotes_create(child_id):
     allcategories=form.categories.data
 
     for category in  allcategories:
-        category = Category(category) 
         
+        category = Category(category)
 
         q.quotecategory.append(category)     
 
-        db.session.add(q)
-        db.session().commit()
+    db.session.add(q)
+    db.session().commit()
   
     return  redirect(url_for("quotes_index"))
 
@@ -106,4 +106,5 @@ def quotes_showOne(quote_id):
 
     quote = Quote.query.get(quote_id)
     child_id = quote.child_id
-    return render_template("quotes/showOneQuote.html",categorieslist=Category.categories_of(quote_id),child_id = child_id, quote=quote)
+    quote_id=quote_id
+    return render_template("quotes/showOneQuote.html",categorieslist=Category.findCategories(quote_id),child_id = child_id, quote=quote)
