@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h4 style = "color: teal">Sanonta</h4>
+<br />
+
+<p> 
+    <td>{{ quote.quote }} &nbsp; &nbsp; &nbsp;</td>
+      <td>Luotu: {{ quote.date_created }} &nbsp; &nbsp; &nbsp; </td>
+      <td>Muokattu: {{ quote.date_modified }} &nbsp; &nbsp; &nbsp;</td>
+      <td> Sanottu {{ quote.agesaid }} -vuotiaana&nbsp; &nbsp; &nbsp;</td>
+</p>
+<p> 
+        
+    
+ 
+</p>
+<td>
+    <a href="{{ url_for('quotes_childquotes', child_id = quote.child_id)}}">
+        <button type="submit" class="btn btn-default">Palaa listaukseen</button>
+    </a>
+</td>
+
+
+
+
+
+
+
+{% endblock %}

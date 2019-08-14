@@ -26,6 +26,9 @@ from application.auth import views
 from application.child import models
 from application.child import views
 
+from application.category import models
+
+
 # kirjautuminen
 from application.auth.models import User
 from os import urandom

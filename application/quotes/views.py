@@ -54,8 +54,7 @@ def quotes_create(child_id):
 
     for category in  allcategories:
         category = Category(category) 
-        db.session().add(category)             
-        db.session().commit()
+        
 
         q.quotecategory.append(category)     
 
@@ -101,3 +100,10 @@ def quotes_delete(quote_id):
     
     return redirect(url_for("quotes_index"))
  
+@app.route("/child/quotes/show/<quote_id>", methods=["GET", "POST"])
+@login_required
+def quotes_showOne(quote_id):
+
+    quote = Quote.query.get(quote_id)
+    child_id = quote.child_id
+    return render_template("quotes/showOneQuote.html",categorieslist=Category.categories_of(quote_id),child_id = child_id, quote=quote)
