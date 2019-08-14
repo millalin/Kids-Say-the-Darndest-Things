@@ -4,6 +4,7 @@ from application.quotes.models import Quote
 from application.quotes.forms import QuoteForm
 from flask_login import login_required
 from application.child.models import Child
+from application.category.models import Category
 
 
 @app.route("/quotes", methods=["GET"])
@@ -24,21 +25,42 @@ def quotes_form(child_id):
     
     return render_template("quotes/new.html", form = QuoteForm(), child_id=child_id)
 
-@app.route("/quotes/<child_id>", methods=["POST", "GET"])
+@app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_create(child_id):
     form = QuoteForm(request.form)
 
-    if not form.validate():
-        return render_template("quotes/new.html", form = form)
-
-    q = Quote(form.name.data)
-    q.agesaid = form.age.data
-    q.child_id = child_id
     
 
-    db.session.add(q)
-    db.session().commit()
+
+    #pakko valita vähintään yksi kategoria
+    
+    #if not form.validate or not form.categories.data:
+        #return render_template("quotes/new.html", form=form, cate_error= "Sanonnalle täytyy valita vähintään yksi kategoria")
+
+    if not form.validate() or not form.categories.data:
+        if not form.categories.data:
+            form.categories.errors.append("Sanonnalle täytyy valita vähintään yksi kategoria")
+        return render_template("quotes/new.html", form = form, categories=form.categories.data,child_id=child_id)    
+
+
+
+        
+    q = Quote(quote = form.name.data, agesaid = form.age.data)
+    #q.agesaid = form.age.data
+    q.child_id = child_id
+
+    allcategories=form.categories.data
+
+    for category in  allcategories:
+        category = Category(category) 
+        db.session().add(category)             
+        db.session().commit()
+
+        q.quotecategory.append(category)     
+
+        db.session.add(q)
+        db.session().commit()
   
     return  redirect(url_for("quotes_index"))
 

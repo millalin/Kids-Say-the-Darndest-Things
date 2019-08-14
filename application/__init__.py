@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import psycopg2
 
+
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:

@@ -27,7 +27,7 @@ Toimintojen listaus:
 - top 10 tykätyt haku (kirjautunut käyttäjä)
 
 
-Tietokannassa on 7 tietokantataulua, joista 2 on liitostauluja. 
+Tietokannassa on 6 tietokantataulua, joista 1 on liitostaulu. 
 
 [Tietokantakaavio](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/tietokantakaavio.png)
 

@@ -3,6 +3,12 @@ from application.models import Base
 
 from sqlalchemy.sql import text
 
+#many to many liitostaulu sanonnan ja kategorian välille
+quotecategory = db.Table('quotecategory',
+    db.Column('quote_id',  db.Integer, db.ForeignKey('quote.id'), primary_key=True),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'), primary_key=True)
+)
+
 class Quote(Base):
   
     quote = db.Column(db.String(2000), nullable=False)
@@ -11,8 +17,13 @@ class Quote(Base):
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'),
                            nullable=False)
     
-    def __init__(self, quote):
+    #many to many riippuvuussuhde, määrittely 
+    quotecategory = db.relationship('Category', secondary=quotecategory, lazy='subquery',
+        backref=db.backref('quotes', lazy=True))
+
+    def __init__(self, quote, agesaid):
         self.quote = quote
+        self.agesaid = agesaid
 
     @staticmethod
     def find_child_quotes(child_id):
