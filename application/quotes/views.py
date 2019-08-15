@@ -22,15 +22,23 @@ def quotes_childquotes(child_id):
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_form(child_id):
+    listcategories=db.session.query(Category).all()
+    #Now forming the list of tuples for SelectField
+    cate_list=[(i.name,i.name) for i in listcategories]
     
-    return render_template("quotes/new.html", form = QuoteForm(), child_id=child_id)
+    
+    form = QuoteForm()
+    
+    form.categories.choices = cate_list
+
+    return render_template("quotes/new.html", form = form, child_id=child_id)
 
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_create(child_id):
-
+    
     form = QuoteForm(request.form)
-
+    
 
     #pakko valita vähintään yksi kategoria
     

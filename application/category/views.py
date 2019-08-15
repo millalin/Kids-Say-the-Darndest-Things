@@ -22,9 +22,6 @@ def category_create():
         return render_template("category/newcategory.html", form = form)
 
     c = Category(name = form.name.data)
-    
-    
-    
 
     db.session.add(c)
     db.session().commit()
