@@ -27,3 +27,14 @@ def category_create():
     db.session().commit()
   
     return  redirect(url_for("category_index"))
+
+@app.route("/category/delete/<category_id>", methods=["GET","POST"])
+@login_required
+def category_delete(category_id):
+    
+    category = Category.query.get(category_id)
+    
+    db.session.delete(category)
+    db.session().commit()
+    
+    return redirect(url_for("category_index"))

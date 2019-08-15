@@ -22,17 +22,17 @@ def quotes_childquotes(child_id):
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_form(child_id):
-    available_groups=db.session.query(Category).all()
+    cates=db.session.query(Category).all()
     
    # my_cate = [(x.id(), x.name()) for x in my_choices]
-    groups_list=[(i.id,i.name) for i in available_groups]
+    #c_list=[(i.name,i.name) for i in cates]
     
     
     form = QuoteForm()
     
-    form.categories.choices = groups_list
+    #form.categories.choices = c_list
 
-    return render_template("quotes/new.html", form = form, child_id=child_id)
+    return render_template("quotes/new.html", form = form, child_id=child_id,cates=cates)
 
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required
@@ -46,7 +46,7 @@ def quotes_create(child_id):
     #if not form.validate or not form.categories.data:
         #return render_template("quotes/new.html", form=form, cate_error= "Sanonnalle täytyy valita vähintään yksi kategoria")
 
-    if not form.categories.data:
+    if not form.categories.data or not form.validate:
         if not form.categories.data:
             form.categories.errors.append("Sanonnalle täytyy valita vähintään yksi kategoria")
         return render_template("quotes/new.html", form = form, categories=form.categories.data,child_id=child_id)    

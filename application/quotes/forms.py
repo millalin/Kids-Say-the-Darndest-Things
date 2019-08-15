@@ -14,9 +14,11 @@ class QuoteForm(FlaskForm):
 
     
     #my_choices = Category.query.all()
+    cates=db.session.query(Category).all()
+    c_list=[(i.name,i.name) for i in cates]
     
     #my_cate = [(x.getName(), x.getName()) for x in my_choices]
-    categories = SelectBox('Valitse kategoriat, johon sanonta kuuluu:', coerce=int)
+    categories = SelectBox('Valitse kategoriat, johon sanonta kuuluu:', choices=c_list, validators = [validators.DataRequired])
  
    
     class Meta:
