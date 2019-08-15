@@ -25,12 +25,12 @@ def quotes_form(child_id):
     cates=db.session.query(Category).all()
     
    # my_cate = [(x.id(), x.name()) for x in my_choices]
-    #c_list=[(i.name,i.name) for i in cates]
+    c_list=[(i.name,i.name) for i in cates]
     
     
     form = QuoteForm()
     
-    #form.categories.choices = c_list
+    form.categories.choices = c_list
 
     return render_template("quotes/new.html", form = form, child_id=child_id,cates=cates)
 
