@@ -28,9 +28,8 @@ def quotes_form(child_id):
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_create(child_id):
-    form = QuoteForm(request.form)
 
-    
+    form = QuoteForm(request.form)
 
 
     #pakko valita vähintään yksi kategoria
@@ -79,6 +78,14 @@ def quotes_update(quote_id):
     quote.quote = form.name.data
     quote.agesaid = form.age.data
     
+    allcategories=form.categories.data
+
+    for category in  allcategories:
+        
+        category = Category(category)
+
+        quote.quotecategory.append(category)     
+
 
     db.session().commit()
 

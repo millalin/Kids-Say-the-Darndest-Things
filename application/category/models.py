@@ -15,6 +15,9 @@ class Category(Base):
     def getId(self):
         return self.id
 
+    def getName(self):
+        return self.name
+
     @staticmethod
     def categories_of(qid):
          
@@ -44,5 +47,18 @@ class Category(Base):
         response = []
         for row in res:
             response.append({"id":row[0], "name":row[1]})
+
+        return response
+
+        
+    def categoriesname():
+        
+        stmt = text("SELECT Category.name FROM Category")
+                    
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"name":row[0]})
 
         return response

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Kategoriat</th>
+    </tr>
+    {% for cat in c %}
+    <tr>
+      <td>{{ cat.id }}</td>
+      <td>{{ cat.name }}</td>
+      <td>
+            <form method="POST" action="{{ url_for('user_create') }}">
+                    <button type="submit" class=>Vaihda tähän muokkaus, EI TOIMI NYT</button> 
+                </form>
+            
+         
+
+             
+            </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

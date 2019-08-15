@@ -27,7 +27,7 @@ from application.child import models
 from application.child import views
 
 from application.category import models
-
+from application.category import views
 
 # kirjautuminen
 from application.auth.models import User
