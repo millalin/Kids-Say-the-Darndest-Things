@@ -11,6 +11,7 @@ def user_index():
     childrencount = User.how_many_children()
     child_in_all = Child.childrencount()
     user_in_all = User.usercount()
+    
     return render_template("auth/userlist.html", childrencount = childrencount, child_in_all=child_in_all,user_in_all=user_in_all)
 
 @app.route("/auth/newuser/")

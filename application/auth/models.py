@@ -35,7 +35,7 @@ class User(Base):
     @staticmethod
     def how_many_children():
         stmt = text("SELECT Account.id, Account.username, COUNT(Child.id) AS total FROM Account"
-                     " JOIN Child ON Child.account_id = Account.id"
+                     " LEFT JOIN Child ON Child.account_id = Account.id"
                      " GROUP BY Account.id")
         res = db.engine.execute(stmt)
 
