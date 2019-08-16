@@ -13,6 +13,7 @@ Testitunnukset kirjautumiseen:
 
 Toimintojen listaus:
 
+* Tällä hetkellä useat toiminnot toimivat, mutta listaus on lopulliseen ohjelmaan tarkoitettu. Sanontoja ei vielä voi hakea kategorioittain ja ylläpitäjän oikeuksia ei ole lisätty, joten kaikki näkyvät kirjautuneelle käyttäjälle. Tykkäystoiminto puuttuu myös vielä kokonaan ja on tulossa myöhemmin lopulliseen sovellukseen. 
 
 - Rekisteröityminen
 - Kirjautuminen
