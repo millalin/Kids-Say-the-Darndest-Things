@@ -76,7 +76,16 @@ def quotes_create(child_id):
 @login_required
 def quotes_modifyState(quote_id):
 
-    return render_template("quotes/modifystate.html",form = QuoteForm(), quote_id = quote_id)
+    cates=db.session.query(Category).all()
+    
+   # my_cate = [(x.id(), x.name()) for x in my_choices]
+    c_list=[(i.name,i.name) for i in cates]
+    
+    
+    form = QuoteForm()
+    
+    form.categories.choices = c_list
+    return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, cates=cates)
 
 @app.route("/child/quotes/<quote_id>", methods=["POST"])
 @login_required
