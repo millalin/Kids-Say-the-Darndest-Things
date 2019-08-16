@@ -32,3 +32,15 @@ class Child(Base):
             response.append({"id":row[0], "name":row[1], "birthday":row[2]})
 
         return response
+
+    @staticmethod
+    def childrencount():
+        stmt = text("SELECT COUNT(Child.id) AS total FROM Child")
+                 
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0]})
+
+        return response

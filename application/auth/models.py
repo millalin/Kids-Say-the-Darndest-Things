@@ -44,3 +44,16 @@ class User(Base):
             response.append({"id":row[0], "username":row[1], "total":row[2]})
 
         return response
+
+
+    @staticmethod
+    def usercount():
+        stmt = text("SELECT COUNT(Account.id) AS total FROM Account")
+                 
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0]})
+
+        return response

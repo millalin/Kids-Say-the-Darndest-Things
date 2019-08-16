@@ -3,12 +3,15 @@ from flask_login import login_user, logout_user
 
 from application import app, db
 from application.auth.models import User
+from application.child.models import Child
 from application.auth.forms import LoginForm, NewuserForm
 
 @app.route("/auth", methods=["GET"])
 def user_index():
     childrencount = User.how_many_children()
-    return render_template("auth/userlist.html", childrencount = childrencount)
+    child_in_all = Child.childrencount()
+    user_in_all = User.usercount()
+    return render_template("auth/userlist.html", childrencount = childrencount, child_in_all=child_in_all,user_in_all=user_in_all)
 
 @app.route("/auth/newuser/")
 def user_form():

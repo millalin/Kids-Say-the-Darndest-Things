@@ -16,5 +16,13 @@
       <td>Lapsia: {{ user.total }} kpl </td>
     </tr>
     {% endfor %}
+    <tr>
+        {% for user in user_in_all %}
+        <h6>Käyttäjiä yhteensä: {{user.total}} &nbsp; &nbsp; &nbsp;</h6>
+        {% endfor %}
+        {% for child in child_in_all %}
+      <h6>Lapsia yhteensä: {{child.total}}</h6>
+      {% endfor %}
+    </tr>
   </table>
 {% endblock %}
