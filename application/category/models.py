@@ -50,6 +50,18 @@ class Category(Base):
 
         return response
 
+    def findCategoryId(name):
+        
+        stmt = text("SELECT Category.id FROM Category"
+                    " WHERE Category.name=:category_name" ).params(category_name=name)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0]})
+
+        return response
+
     def findCategory(name):
         
         

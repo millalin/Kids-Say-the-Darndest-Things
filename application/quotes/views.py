@@ -2,6 +2,7 @@ from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.quotes.models import Quote
 from application.quotes.forms import QuoteForm
+from application.category.forms import CategorySelectForm
 from flask_login import login_required
 from application.child.models import Child
 from application.category.models import Category
@@ -11,6 +12,26 @@ from application.category.models import Category
 def quotes_index():
     
     return render_template("quotes/list.html", list=Quote.quotes_with_names())
+
+@app.route("/quotes/bycategory/", methods=["POST", "GET"])
+def quotes_get():
+    cates=Category.query.all()
+    c_list=[(i.name,i.name) for i in cates]
+    form = CategorySelectForm()
+    form.selection.choices = c_list
+
+    return render_template("quotes/selectcategory.html", form = form)
+
+@app.route("/quotes/bycategory/list", methods=["GET", "POST"])
+def quotes_by():
+    form=CategorySelectForm()
+    name=form.selection.data
+    
+    category = Category.findCategory(name)
+    category_id=category.getId()
+
+    list = Quote.quotes_of_category(category_id)
+    return render_template("quotes/listbycategory.html", list=list)
 
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required

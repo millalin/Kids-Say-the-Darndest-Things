@@ -51,3 +51,19 @@ class Quote(Base):
             response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
 
         return response
+
+    @staticmethod
+    def quotes_of_category(id):
+        stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
+                     " JOIN Child ON Child.id = Quote.child_id"
+                     " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
+            
+                     " WHERE quotecategory.category_id=:c_id"
+                     " GROUP BY Quote.id, Child.name").params(c_id = id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
+
+        return response

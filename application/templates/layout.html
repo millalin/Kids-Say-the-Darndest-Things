@@ -23,6 +23,8 @@
           <a class="nav-link" href="{{ url_for('quotes_index') }}">Listaa sanonnat</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku</a></li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ url_for('user_index') }}">Listaa käyttäjät</a>
         </li>
 
@@ -34,10 +36,10 @@
               <a class="nav-link" href="{{ url_for('child_form') }}">Lisää lapsi</a></li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('child_userchildren') }}">Listaa lapsesi</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat</a></li>
               <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat</a></li>
           </ul>
 
 
@@ -46,7 +48,7 @@
       </ul>
 
 
-      
+
       <div class="form-inline mt-2 mt-md-0">
 
         <p class="navbar-text">
@@ -57,17 +59,17 @@
 
         </p>
         {% else %}
-      </ul>
-      <div class="form-inline mt-2 mt-md-0"></div>
+        </ul>
+        <div class="form-inline mt-2 mt-md-0"></div>
         <p>
 
           <span class="navbar-text">
-            
-              <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
-            
-            
-              <a href="{{ url_for('user_create') }}">Rekisteröidy</a>
-            
+
+            <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+
+
+            <a href="{{ url_for('user_create') }}">Rekisteröidy</a>
+
           </span>
         </p>
         {% endif %}
