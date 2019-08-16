@@ -50,10 +50,33 @@ class Category(Base):
 
         return response
 
+    def findCategory(name):
+        
+        
+        if not name:
+            return
+        
+        i = Category.query.filter_by(name=name).first()
+            
+        return i
+
+
         
     def categoriesname():
         
         stmt = text("SELECT Category.name FROM Category")
+                    
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"name":row[0]})
+
+        return response
+
+    def categoriesall():
+        
+        stmt = text("SELECT DISTINCT Category.name FROM Category")
                     
         res = db.engine.execute(stmt)
 

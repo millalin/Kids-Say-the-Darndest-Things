@@ -22,17 +22,15 @@ def quotes_childquotes(child_id):
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
 @login_required
 def quotes_form(child_id):
-    cates=db.session.query(Category).all()
+    cates=Category.query.all()
     
-   # my_cate = [(x.id(), x.name()) for x in my_choices]
+   
     c_list=[(i.name,i.name) for i in cates]
     
-    
     form = QuoteForm()
-    
     form.categories.choices = c_list
 
-    return render_template("quotes/new.html", form = form, child_id=child_id,cates=cates)
+    return render_template("quotes/new.html", form = form, child_id=child_id)
 
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required
@@ -61,10 +59,10 @@ def quotes_create(child_id):
     allcategories=form.categories.data
 
     for category in  allcategories:
-        
-        category = Category(category)
-
-        q.quotecategory.append(category)     
+       
+        c = Category.findCategory(category)
+       
+        q.quotecategory.append(c)     
 
     db.session.add(q)
     db.session().commit()
@@ -100,9 +98,9 @@ def quotes_update(quote_id):
 
     for category in  allcategories:
         
-        category = Category(category)
+        c = Category.findCategory(category)
 
-        quote.quotecategory.append(category)     
+        quote.quotecategory.append(c)     
 
 
     db.session().commit()

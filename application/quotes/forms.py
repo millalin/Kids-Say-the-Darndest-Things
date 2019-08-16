@@ -12,13 +12,7 @@ class QuoteForm(FlaskForm):
     name = TextAreaField("Sanonta", [validators.Length(min=5, message="Sanonnan tulee olla vähintään 5 merkkiä pitkä")])
     age = IntegerField("Ikä jolloin sanottu", [validators.NumberRange(min=0, max=99, message="iän tulee olla väliltä 0-99")])
 
-    
-    #my_choices = Category.query.all()
-    #cates=db.session.query(Category).all()
-    #c_list=[(i.name,i.name) for i in cates]
-    
-    #my_cate = [(x.getName(), x.getName()) for x in my_choices]
-    categories = SelectBox('Valitse kategoriat, johon sanonta kuuluu:', coerce=str, validators = [validators.DataRequired])
+    categories = SelectBox('Valitse kategoriat, johon sanonta kuuluu:', coerce=str)
  
    
     class Meta:
