@@ -31,7 +31,7 @@ def quotes_by():
     category_id=category.getId()
 
     list = Quote.quotes_of_category(category_id)
-    return render_template("quotes/listbycategory.html", list=list)
+    return render_template("quotes/listbycategory.html", list=list, name=name)
 
 @app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required
