@@ -1,33 +1,44 @@
+
 {% extends "layout.html" %}
 
 {% block body %}
-
-<h4 style = "color: teal">Sanonta</h4>
-<br />
-
-<p> 
-    <td>{{ quote.quote }} &nbsp; &nbsp; &nbsp;</td>
-      <td>Luotu: {{ quote.date_created }} &nbsp; &nbsp; &nbsp; </td>
-      <td>Muokattu: {{ quote.date_modified }} &nbsp; &nbsp; &nbsp;</td>
-      <td> Sanottu {{ quote.agesaid }} -vuotiaana&nbsp; &nbsp; &nbsp;</td>
-</p>
-
-
-<p> Kategoriat: 
-        {% for c in categorieslist %}
-    <td>{{ c.name }} &nbsp; &nbsp; &nbsp;</td>
+  <table>
+      <tr>
+            <th>Sanonta: &nbsp; &nbsp; &nbsp;</th>
+            <th>Luotu &nbsp; &nbsp; &nbsp; </th>
+            <th>Muokattu:  &nbsp; &nbsp; &nbsp;</th>
+            <th> Ikä &nbsp; &nbsp; &nbsp;</th>
+      </tr>
+    <tr>
+      <h3 style="color: teal">Sanonta</h3>
+    </tr>
+    
+    <tr>
+        <td>{{ quote.quote }} &nbsp; &nbsp; &nbsp;</td>
+        <td>{{ quote.date_created }} &nbsp; &nbsp; &nbsp; </td>
+        <td>{{ quote.date_modified }} &nbsp; &nbsp; &nbsp;</td>
+        <td>  {{ quote.agesaid }} -vuotiaana&nbsp; &nbsp; &nbsp;</td>
+    </tr>
+    <tr>
+            <th>Kategoriat: &nbsp; &nbsp; &nbsp;</th>
+            
+      </tr>
+    
+      {% for c in categorieslist %}
+      
+    <tr>
+            <td>{{ c.name }} &nbsp; &nbsp; &nbsp;</td>
+    </tr>
     {% endfor %}
-</p>
-<td>
-    <a href="{{ url_for('quotes_childquotes', child_id = quote.child_id)}}">
-        <button type="submit" class="btn btn-default">Palaa listaukseen</button>
-    </a>
-</td>
-
-
-
-
-
-
-
+    <td>
+            <a href="{{ url_for('quotes_childquotes', child_id = quote.child_id)}}">
+                <button type="submit" class="btn btn-default">Palaa listaukseen</button>
+            </a>
+        </td>
+  </table>
 {% endblock %}
+
+
+
+
+

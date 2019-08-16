@@ -15,6 +15,7 @@ def child_userchildren():
     return render_template("child/ownchildren.html", find_users_children = Child.find_users_children())
 
 @app.route("/child/newchild/")
+@login_required
 def child_form():
     return render_template("child/newchild.html", form = ChildForm())
 

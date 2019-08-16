@@ -6,10 +6,12 @@ from flask_login import login_required, current_user
 
 
 @app.route("/category", methods=["GET"])
+@login_required
 def category_index():
     return render_template("category/listcategory.html", c = Category.query.all())
 
 @app.route("/category/newcategory/")
+@login_required
 def category_form():
     return render_template("category/newcategory.html", form = CategoryForm())
 

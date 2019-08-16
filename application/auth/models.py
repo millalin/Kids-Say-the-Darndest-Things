@@ -34,13 +34,13 @@ class User(Base):
 
     @staticmethod
     def how_many_children():
-        stmt = text("SELECT Account.id, Account.name, COUNT(Child.id) AS total FROM Account"
+        stmt = text("SELECT Account.id, Account.username, COUNT(Child.id) AS total FROM Account"
                      " JOIN Child ON Child.account_id = Account.id"
                      " GROUP BY Account.id")
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"id":row[0], "name":row[1], "total":row[2]})
+            response.append({"id":row[0], "username":row[1], "total":row[2]})
 
         return response
