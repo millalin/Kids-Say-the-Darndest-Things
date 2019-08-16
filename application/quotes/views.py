@@ -44,12 +44,22 @@ def quotes_create(child_id):
     #if not form.validate or not form.categories.data:
         #return render_template("quotes/new.html", form=form, cate_error= "Sanonnalle täytyy valita vähintään yksi kategoria")
 
-    if not form.categories.data or not form.validate:
-        if not form.categories.data:
-            form.categories.errors.append("Sanonnalle täytyy valita vähintään yksi kategoria")
-        return render_template("quotes/new.html", form = form, categories=form.categories.data,child_id=child_id)    
+    #if not form.categories.data or not form.validate:
+        #if not form.categories.data:
+            #form.categories.errors.append("Sanonnalle täytyy valita vähintään yksi kategoria")
+        #return render_template("quotes/new.html", form = form, categories=form.categories.data,child_id=child_id)    
 
+    cates=Category.query.all()
+    
+   
+    c_list=[(i.name,i.name) for i in cates]
+        
+    form = QuoteForm()
+    form.categories.choices = c_list
 
+    if not form.validate():
+        
+        return render_template("quotes/new.html", form = form, child_id=child_id)
 
         
     q = Quote(quote = form.name.data, agesaid = form.age.data)
