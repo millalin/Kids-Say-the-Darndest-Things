@@ -1,5 +1,7 @@
 from application import db
 from application.models import Base
+from flask_login import current_user
+from application.likes.models import Likes
 
 from sqlalchemy.sql import text
 
@@ -16,14 +18,20 @@ class Quote(Base):
 
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'),
                            nullable=False)
+
+    #likes = db.relationship("Like", backref='quote', lazy=True)
     
     #many to many riippuvuussuhde, määrittely 
     quotecategory = db.relationship('Category', secondary=quotecategory, lazy='subquery',
         backref=db.backref('quotes', lazy=True))
 
-    def __init__(self, quote, agesaid):
+    def __init__(self, quote, agesaid,child_id):
         self.quote = quote
         self.agesaid = agesaid
+        self.child_id = child_id
+
+    def get_id(self):
+        return self.id
 
     @staticmethod
     def find_child_quotes(child_id):
@@ -46,9 +54,11 @@ class Quote(Base):
                      " GROUP BY Quote.id, Child.name")
         res = db.engine.execute(stmt)
 
+
         response = []
         for row in res:
             response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
+
 
         return response
 
@@ -67,3 +77,21 @@ class Quote(Base):
             response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
 
         return response
+
+    @staticmethod
+    def users_like(quote_id):
+        l = Likes.query.filter_by(account_id=current_user.id, quote_id=quote_id).first()
+        
+        state = "Et ole vielä tykännyt tästä"
+        if l:
+            if l.like_count == 1:
+                state = "Olet tykännyt tästä sanonnasta"
+            elif l.like_count == -1:
+                state = "Et ole tykännyt tästä sanonnasta"
+        return state
+
+    
+
+    
+
+

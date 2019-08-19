@@ -11,14 +11,17 @@ class User(Base):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    role = db.Column(db.String(20), nullable=False)
 
 
     children = db.relationship("Child", backref='account', lazy=True)
+    #likes = db.relationship("Like", backref='account', lazy=True)
 
-    def __init__(self, name, username, password):
+    def __init__(self, name, username, password, role):
         self.name = name
         self.username = username
         self.password = password
+        self.role = role
   
     def get_id(self):
         return self.id
@@ -31,6 +34,9 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
+    def get_role(self):
+        return self.role
 
     @staticmethod
     def how_many_children():

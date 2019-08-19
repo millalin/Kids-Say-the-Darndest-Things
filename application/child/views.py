@@ -59,4 +59,3 @@ def child_update(child_id):
     db.session().commit()
 
     return redirect(url_for("child_userchildren"))
-

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.child.models import Child
 from application.auth.forms import LoginForm, NewuserForm
@@ -25,7 +25,17 @@ def user_create():
     if not form.validate():
         return render_template("auth/newuser.html", form = form)
 
-    u = User(name = form.name.data, username = form.username.data, password = form.password.data)
+    alreadyExistsUser = User.query.filter_by(username=form.username.data).first()
+    if alreadyExistsUser:
+        form.username.errors.append("käyttäjätunnus on jo olemassa, valitse toinen käyttäjätunnus")
+        return render_template("auth/newuser.html", form = form)
+
+    u = User(name = form.name.data, username = form.username.data, password = form.password.data, role = "USER")
+
+    username = form.username.data
+    if username == "admin":
+        u = User(name = form.name.data, username = form.username.data, password = form.password.data, role = "ADMIN")
+    
 
     db.session().add(u)
     db.session().commit()  
@@ -38,7 +48,7 @@ def auth_login():
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
-    # validoinnit
+    
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:

@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 
 {% block body %}
@@ -7,19 +6,19 @@
 <h2 style="color: teal"> Kategoriat </h2>
 <br>
 <table>
-   
+
     {% for category in c %}
 
     <tr>
         <td>{{ category.name }} &nbsp; &nbsp; &nbsp;</td>
-        
+        {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
         <td>
             <a href="{{ url_for('category_delete', category_id = category.id)}}">
                 <button type="submit" class="btn btn-default">Poista kategoria</button>
             </a>
         </td>
-      
-    
+        {% endif %}
+
     </tr>
 
     {% endfor %}

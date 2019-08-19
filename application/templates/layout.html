@@ -23,7 +23,7 @@
           <a class="nav-link" href="{{ url_for('quotes_index') }}">Listaa sanonnat</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku</a></li>
+          <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku</a></li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('user_index') }}">Listaa käyttäjät</a>
         </li>
@@ -38,8 +38,10 @@
               <a class="nav-link" href="{{ url_for('child_userchildren') }}">Listaa lapsesi</a></li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat</a></li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
+            {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
+            {% endif %}
           </ul>
 
 

@@ -4,13 +4,33 @@
 <table>
   <tr>
     <h2 style="color: teal">Sanonnat</h2>
-  </tr>
-  {% for quote in list %}
-  <blockquote class="blockquote">
-    <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
-    <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta</footer>
-  </blockquote>
 
-  {% endfor %}
+    {% for quote in list %}
+
+
+    <blockquote class="blockquote">
+
+      <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
+
+      <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta 
+
+        {% if current_user.is_authenticated %}
+
+
+    
+        <a href="{{ url_for('like_new', quote_id = quote.id)}}">
+
+          <button type="button" class="btn btn-purple btn-xs">Näytä ja tykkää</button>
+        </a>
+        
+        {% endif %}
+
+      </footer>
+
+
+
+    </blockquote>
+
+    {% endfor %}
 </table>
 {% endblock %}

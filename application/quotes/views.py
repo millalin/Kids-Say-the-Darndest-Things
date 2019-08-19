@@ -1,17 +1,26 @@
-from application import app, db
+from application import app, db, login_required
 from flask import redirect, render_template, request, url_for
 from application.quotes.models import Quote
 from application.quotes.forms import QuoteForm
 from application.category.forms import CategorySelectForm
-from flask_login import login_required
+
 from application.child.models import Child
+from application.likes.models import Likes
 from application.category.models import Category
+from flask_login import current_user
 
 
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
-    
-    return render_template("quotes/list.html", list=Quote.quotes_with_names())
+    likes=Likes.query.all()
+    quotes=Quote.query.all()
+    if current_user.is_authenticated:
+        list=Quote.quotes_with_names()
+        
+    else:
+        list=Quote.quotes_with_names()
+        
+    return render_template("quotes/list.html", list=list, likes=likes,quotes=quotes)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
@@ -33,15 +42,15 @@ def quotes_by():
     list = Quote.quotes_of_category(category_id)
     return render_template("quotes/listbycategory.html", list=list, name=name)
 
-@app.route("/child/quotes/list/<child_id>", methods=["POST","GET"])
-@login_required
+@app.route("/quotes/list/<child_id>", methods=["POST","GET"])
+@login_required(role="ANY")
 def quotes_childquotes(child_id):
     child = Child.query.get(child_id)
     name = child.name
     return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)    
 
 @app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
-@login_required
+@login_required(role="ANY")
 def quotes_form(child_id):
     cates=Category.query.all()
     
@@ -54,22 +63,11 @@ def quotes_form(child_id):
     return render_template("quotes/new.html", form = form, child_id=child_id)
 
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
-@login_required
+@login_required(role="ANY")
 def quotes_create(child_id):
     
     form = QuoteForm(request.form)
-    
-
-    #pakko valita vähintään yksi kategoria
-    
-    #if not form.validate or not form.categories.data:
-        #return render_template("quotes/new.html", form=form, cate_error= "Sanonnalle täytyy valita vähintään yksi kategoria")
-
-    #if not form.categories.data or not form.validate:
-        #if not form.categories.data:
-            #form.categories.errors.append("Sanonnalle täytyy valita vähintään yksi kategoria")
-        #return render_template("quotes/new.html", form = form, categories=form.categories.data,child_id=child_id)    
-
+ 
     cates=Category.query.all()
     
    
@@ -83,9 +81,7 @@ def quotes_create(child_id):
         return render_template("quotes/new.html", form = form, child_id=child_id)
 
         
-    q = Quote(quote = form.name.data, agesaid = form.age.data)
-    #q.agesaid = form.age.data
-    q.child_id = child_id
+    q = Quote(quote = form.name.data, agesaid = form.age.data, child_id = child_id)
 
     allcategories=form.categories.data
 
@@ -101,8 +97,8 @@ def quotes_create(child_id):
     return  redirect(url_for("quotes_index"))
 
 # sivun haku kun sanontaa halutaan muokata
-@app.route("/child/quotes/modifyState/<quote_id>", methods=["GET", "POST"])
-@login_required
+@app.route("/quotes/modifyState/<quote_id>", methods=["GET", "POST"])
+@login_required(role="ANY")
 def quotes_modifyState(quote_id):
 
     cates=db.session.query(Category).all()
@@ -116,8 +112,8 @@ def quotes_modifyState(quote_id):
     form.categories.choices = c_list
     return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, cates=cates)
 
-@app.route("/child/quotes/<quote_id>", methods=["POST"])
-@login_required
+@app.route("/quotes/<quote_id>", methods=["POST"])
+@login_required(role="ANY")
 def quotes_update(quote_id):
 
     quote = Quote.query.get(quote_id)
@@ -142,8 +138,8 @@ def quotes_update(quote_id):
 #def quotes_ownquotes():
     #return render_template("quotes/list.html", quotes = Quote.query.all())
 
-@app.route("/child/quotes/<quote_id>/del", methods=["GET","POST"])
-@login_required
+@app.route("/quotes/<quote_id>/del", methods=["GET","POST"])
+@login_required(role="ANY")
 def quotes_delete(quote_id):
     
     quote = Quote.query.get(quote_id)
@@ -154,8 +150,8 @@ def quotes_delete(quote_id):
     
     return redirect(url_for("quotes_index"))
  
-@app.route("/child/quotes/show/<quote_id>", methods=["GET", "POST"])
-@login_required
+@app.route("/quotes/show/<quote_id>", methods=["GET", "POST"])
+@login_required(role="ANY")
 def quotes_showOne(quote_id):
 
     quote = Quote.query.get(quote_id)
