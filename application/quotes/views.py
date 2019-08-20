@@ -20,7 +20,7 @@ def quotes_index():
     else:
         list=Quote.quotes_with_names()
         
-    return render_template("quotes/list.html", list=list, likes=likes,quotes=quotes)
+    return render_template("quotes/list.html", list=list, likes=likes,quotes=quotes, Quote=Quote)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
@@ -69,8 +69,6 @@ def quotes_create(child_id):
     form = QuoteForm(request.form)
  
     cates=Category.query.all()
-    
-   
     c_list=[(i.name,i.name) for i in cates]
         
     form = QuoteForm()
@@ -94,30 +92,40 @@ def quotes_create(child_id):
     db.session.add(q)
     db.session().commit()
   
-    return  redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_childquotes", child_id=child_id))
 
 # sivun haku kun sanontaa halutaan muokata
-@app.route("/quotes/modifyState/<quote_id>", methods=["GET", "POST"])
+@app.route("/quotes/modifyState/<quote_id>/<child_id>", methods=["GET", "POST"])
 @login_required(role="ANY")
-def quotes_modifyState(quote_id):
+def quotes_modifyState(quote_id, child_id):
 
     cates=db.session.query(Category).all()
-    
-   # my_cate = [(x.id(), x.name()) for x in my_choices]
     c_list=[(i.name,i.name) for i in cates]
     
     
     form = QuoteForm()
     
     form.categories.choices = c_list
-    return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, cates=cates)
+    
+    return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, child_id=child_id)
 
-@app.route("/quotes/<quote_id>", methods=["POST"])
+@app.route("/quotes/<quote_id>/<child_id>", methods=["POST"])
 @login_required(role="ANY")
-def quotes_update(quote_id):
+def quotes_update(quote_id,child_id):
 
     quote = Quote.query.get(quote_id)
     form = QuoteForm(request.form)
+
+    cates=Category.query.all()
+    c_list=[(i.name,i.name) for i in cates]
+        
+    form = QuoteForm()
+    form.categories.choices = c_list
+    if not form.validate():
+    
+        return render_template("quotes/modifystate.html",form = form, quote_id = quote_id,child_id=child_id)
+
+
     quote.quote = form.name.data
     quote.agesaid = form.age.data
     
@@ -130,17 +138,18 @@ def quotes_update(quote_id):
         quote.quotecategory.append(c)     
 
 
+
     db.session().commit()
 
-    return redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_childquotes", child_id=child_id))
 
 #@app.route("/quotes/<child_id>/list", methods=["GET"])
 #def quotes_ownquotes():
     #return render_template("quotes/list.html", quotes = Quote.query.all())
 
-@app.route("/quotes/<quote_id>/del", methods=["GET","POST"])
+@app.route("/quotes/<quote_id>/del/<child_id>", methods=["GET","POST"])
 @login_required(role="ANY")
-def quotes_delete(quote_id):
+def quotes_delete(quote_id,child_id):
     
     quote = Quote.query.get(quote_id)
         
@@ -148,7 +157,7 @@ def quotes_delete(quote_id):
     db.session.delete(quote)
     db.session().commit()
     
-    return redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_childquotes", child_id=child_id))
  
 @app.route("/quotes/show/<quote_id>", methods=["GET", "POST"])
 @login_required(role="ANY")

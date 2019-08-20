@@ -82,11 +82,11 @@ class Quote(Base):
     def users_like(quote_id):
         l = Likes.query.filter_by(account_id=current_user.id, quote_id=quote_id).first()
         
-        state = "Et ole vielä tykännyt tästä"
+        state = "Et ole tykännyt tästä sanonnasta"
         if l:
             if l.like_count == 1:
-                state = "Olet tykännyt tästä sanonnasta"
-            elif l.like_count == -1:
+                state = "Olet tykännyt tästä sanonnasta ."
+            elif l.like_count == 0:
                 state = "Et ole tykännyt tästä sanonnasta"
         return state
 

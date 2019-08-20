@@ -51,7 +51,7 @@ def child_update(child_id):
     form = ChildForm(request.form)
     
     if not form.validate():
-        return render_template("child/modifyChild.html", form = form)
+        return render_template("child/modifyChild.html", form = form, child_id=child_id)
 
     child.name = form.name.data
     child.birthday =form.birthday.data

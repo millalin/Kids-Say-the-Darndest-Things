@@ -40,7 +40,7 @@ def user_create():
     db.session().add(u)
     db.session().commit()  
 
-    return  redirect(url_for("quotes_index"))
+    return  redirect(url_for("auth_login"))
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():

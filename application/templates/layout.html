@@ -20,7 +20,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
 
-          <a class="nav-link" href="{{ url_for('quotes_index') }}">Listaa sanonnat</a>
+          <a class="nav-link" href="{{ url_for('quotes_index') }}">Listaa kaikki sanonnat</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku</a></li>
@@ -35,7 +35,7 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('child_form') }}">Lisää lapsi</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Listaa lapsesi</a></li>
+              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi sanonnat</a></li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat</a></li>
             {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}

@@ -1,27 +1,32 @@
+
 {% extends "layout.html" %}
+
 
 {% block body %}
 <table>
   <tr>
-    <h2 style="color: teal">Sanonnat</h2>
+    <h1 style="color: teal">Sanonnat</h1>
 
     {% for quote in list %}
 
 
-    <blockquote class="blockquote">
+    <blockquote class="blockquote", style="font-size:23px">
 
       <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
 
       <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta 
 
         {% if current_user.is_authenticated %}
-
-
+        <div>
+      {{ Quote.query.get(quote.id).users_like(quote.id) }}
     
-        <a href="{{ url_for('like_new', quote_id = quote.id)}}">
-
-          <button type="button" class="btn btn-purple btn-xs">Näytä ja tykkää</button>
-        </a>
+        <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
+          <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
+      </a>
+      <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
+        <button type="submit" class="btn btn-purple btn-xs">Poista tykkäys</button>
+    </a>
+  </div>
         
         {% endif %}
 
