@@ -90,7 +90,17 @@ class Quote(Base):
                 state = "Et ole tykännyt tästä sanonnasta"
         return state
 
-    
+    @staticmethod
+    def likestatus(quote_id):
+        l = Likes.query.filter_by(account_id=current_user.id, quote_id=quote_id).first()
+        
+        state = 0
+        if l:
+            if l.like_count == 1:
+                state = 1
+            elif l.like_count == 0:
+                state = 0
+        return state
 
     
 

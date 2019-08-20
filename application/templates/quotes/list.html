@@ -19,15 +19,21 @@
         <div>
           {{ Quote.query.get(quote.id).users_like(quote.id) }}
 
-          <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
-            <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
-          </a>
+          {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
           <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
             <button type="submit" class="btn btn-purple btn-xs">Poista tykkäys</button>
           </a>
+          {% else %}
+
+          <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
+            <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
+          </a>
+
         </div>
 
         {% endif %}
+        {% endif %}
+
 
         {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
 
