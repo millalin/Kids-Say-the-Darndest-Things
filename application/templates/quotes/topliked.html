@@ -1,0 +1,27 @@
+
+{% extends "layout.html" %}
+
+
+{% block body %}
+<table>
+  <tr>
+    <h2 style="color: teal">Sanonnat Top 10</h2>
+
+    {% for quote in list %}
+
+
+    <blockquote class="blockquote", style="font-size:22px">
+
+      <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
+
+      <footer class="blockquote-footer"> Tykkäyksiä {{quote.num}} kpl
+
+      </footer>
+
+
+
+    </blockquote>
+
+    {% endfor %}
+</table>
+{% endblock %}

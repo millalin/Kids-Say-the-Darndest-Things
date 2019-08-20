@@ -19,7 +19,7 @@ class Quote(Base):
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'),
                            nullable=False)
 
-    #likes = db.relationship("Like", backref='quote', lazy=True)
+    
     
     #many to many riippuvuussuhde, määrittely 
     quotecategory = db.relationship('Category', secondary=quotecategory, lazy='subquery',
@@ -89,6 +89,8 @@ class Quote(Base):
             elif l.like_count == 0:
                 state = "Et ole tykännyt tästä sanonnasta"
         return state
+
+    
 
     
 

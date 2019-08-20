@@ -30,3 +30,19 @@ class Likes(Base):
 
         return response
 
+
+    @staticmethod
+    def topliked():
+        stmt = text(" SELECT quote.id, quote.quote, COUNT(likes.id) AS num FROM likes, quote"
+                    " WHERE quote.id=likes.quote_id AND like_count=1" 
+                    " GROUP BY like_count, quote.id, quote.quote"
+                    " ORDER BY num DESC"
+                    " LIMIT 10")
+
+        res = db.engine.execute(stmt)
+  
+        response = []
+        for row in res:
+            response.append({ "id":row[0], "name":row[1], "num":row[2]})
+
+        return response

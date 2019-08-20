@@ -12,15 +12,10 @@ from flask_login import current_user
 
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
-    likes=Likes.query.all()
-    quotes=Quote.query.all()
-    if current_user.is_authenticated:
-        list=Quote.quotes_with_names()
+    
+    list=Quote.quotes_with_names()
         
-    else:
-        list=Quote.quotes_with_names()
-        
-    return render_template("quotes/list.html", list=list, likes=likes,quotes=quotes, Quote=Quote)
+    return render_template("quotes/list.html", list=list, Quote=Quote)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
@@ -167,3 +162,11 @@ def quotes_showOne(quote_id):
     child_id = quote.child_id
     quote_id=quote_id
     return render_template("quotes/showOneQuote.html",categorieslist=Category.findCategories(quote_id),child_id = child_id, quote=quote)
+
+@app.route("/quotes/top", methods=["GET", "POST"])
+def quotes_top():
+
+    list=Likes.topliked()
+        
+    return render_template("quotes/topliked.html", list=list)
+
