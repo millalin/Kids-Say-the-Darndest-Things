@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 
 
@@ -10,26 +9,32 @@
     {% for quote in list %}
 
 
-    <blockquote class="blockquote", style="font-size:22px">
+    <blockquote class="blockquote" , style="font-size:22px">
 
       <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
 
-      <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta 
+      <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
 
         {% if current_user.is_authenticated %}
         <div>
-      {{ Quote.query.get(quote.id).users_like(quote.id) }}
-    
-        <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
-          <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
-      </a>
-      <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
-        <button type="submit" class="btn btn-purple btn-xs">Poista tykkäys</button>
-    </a>
-  </div>
-        
+          {{ Quote.query.get(quote.id).users_like(quote.id) }}
+
+          <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
+            <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
+          </a>
+          <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
+            <button type="submit" class="btn btn-purple btn-xs">Poista tykkäys</button>
+          </a>
+        </div>
+
         {% endif %}
 
+        {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
+
+        <a href="{{ url_for('quotes_admin_delete', quote_id = quote.id)}}">
+          <button type="submit" class="btn btn-purple btn-xs">Poista sanonta</button>
+        </a>
+        {% endif %}
       </footer>
 
 
