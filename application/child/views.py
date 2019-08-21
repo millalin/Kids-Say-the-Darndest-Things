@@ -91,7 +91,7 @@ def child_deleteConfirm(child_id):
         for quote in q:
             
             db.session.delete(quote)
-            likes = Likes.query.filter(Likes.quote_id)
+            likes = Likes.query.filter(quote.id==Likes.quote_id)
             for like in likes:
                 db.session.delete(like)
 
