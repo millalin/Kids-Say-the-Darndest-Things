@@ -48,8 +48,6 @@ def quotes_childquotes(child_id):
 @login_required(role="ANY")
 def quotes_form(child_id):
     cates=Category.query.all()
-    
-   
     c_list=[(i.name,i.name) for i in cates]
     
     form = QuoteForm()
@@ -96,11 +94,15 @@ def quotes_modifyState(quote_id, child_id):
 
     cates=db.session.query(Category).all()
     c_list=[(i.name,i.name) for i in cates]
-    
+
+    quote = Quote.query.get(quote_id)
     
     form = QuoteForm()
     
+    form.name.data = quote.quote
+    form.age.data = quote.agesaid
     form.categories.choices = c_list
+    
     
     return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, child_id=child_id)
 
