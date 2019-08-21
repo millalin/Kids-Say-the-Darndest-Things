@@ -4,37 +4,44 @@
 {% block body %}
 <table>
   <tr>
-    <h2 style="color: teal">Sanonnat</h2>
+    <h2 style="color: rgb(83, 82, 83)">Sanonnat</h2>
+    {% if current_user.is_authenticated %}
+    <p style="color: rgb(238, 132, 132)">Tykkää sanonnasta painamalla sydäntä</p>
+    {% endif %}
+    <br>
+    <br>
 
     {% for quote in list %}
 
 
     <blockquote class="blockquote" , style="font-size:22px">
 
-      <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
+      <p class="mb-0 " style="color:rgb(66, 62, 66);"><em>{{ quote.name }}</em></p>
 
       <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
 
         {% if current_user.is_authenticated %}
-        <div>
-          {{ Quote.query.get(quote.id).users_like(quote.id) }}
+        
 
           {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
           <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
-            <button type="submit" class="btn btn-purple btn-xs">Poista tykkäys</button>
-          </a>
+              <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
+            </a>
+  
           {% else %}
 
           <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
-            <button type="submit" class="btn btn-purple btn-xs">Tykkää</button>
+            <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
           </a>
 
-        </div>
+        
+        
 
         {% endif %}
         {% endif %}
 
-
+<br>
+<br>
         {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
 
         <a href="{{ url_for('quotes_admin_delete', quote_id = quote.id)}}">
