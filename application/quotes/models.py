@@ -102,7 +102,6 @@ class Quote(Base):
                 state = 0
         return state
 
-    
 
     
 

@@ -18,7 +18,9 @@
               <button type="submit" class=>Muokkaa lapsen tietoja</button> 
               </form>
 
-             
+              <form method="POST" action="{{ url_for('child_delete', child_id = child.id) }}">
+                  <button type="submit" class=>Poista lapsi</button> 
+                  </form>
             </a>
       </td>
     </tr>

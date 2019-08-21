@@ -1,7 +1,9 @@
 from application import app, db
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, flash
 from application.child.models import Child
-from application.child.forms import ChildForm
+from application.quotes.models import Quote
+from application.likes.models import Likes
+from application.child.forms import ChildForm, MakeSureForm
 from datetime import datetime, date
 from flask_login import login_required, current_user
 
@@ -61,4 +63,44 @@ def child_update(child_id):
     
     db.session().commit()
 
+    return redirect(url_for("child_userchildren"))
+
+
+@app.route("/child/<child_id>/delete", methods=["POST","GET"])
+@login_required
+def child_delete(child_id):
+
+   
+    form = MakeSureForm()
+
+    return render_template("child/deletechild.html", form = form, child_id=child_id)
+
+@app.route("/child/<child_id>/del", methods=["POST"])
+@login_required
+def child_deleteConfirm(child_id):
+
+    form = MakeSureForm(request.form)
+    ok = form.name.data
+    
+    if ok == "x":
+
+        c = Child.query.filter(Child.id == child_id).first()
+
+        # Etsitään lapsen lapsen sanonnat ja poistataan sanonnat sekä sanonnan tykkäykset
+        q = Quote.query.filter(Quote.child_id == child_id)
+        for quote in q:
+            
+            db.session.delete(quote)
+            likes = Likes.query.filter(Likes.quote_id)
+            for like in likes:
+                db.session.delete(like)
+
+
+        # Poistetaan lapsi
+        db.session().delete(c)
+        db.session().commit()
+        flash("Lapsi poistettu onnistuneesti", category="success")
+        return redirect(url_for("child_userchildren"))
+    
+    flash("Lasta ei poistettu", category="warning")
     return redirect(url_for("child_userchildren"))

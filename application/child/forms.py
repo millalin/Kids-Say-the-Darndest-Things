@@ -7,3 +7,9 @@ class ChildForm(FlaskForm):
  
     class Meta:
         csrf = False
+
+class MakeSureForm(FlaskForm):
+    name = StringField("Oletko varma, että haluat poistaa tämän lapsen. Vahvistaaksesi poiston, kirjoita x ja paina nappia")
+
+    class Meta:
+        csrf = False

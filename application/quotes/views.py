@@ -150,7 +150,6 @@ def quotes_delete(quote_id,child_id):
     
     quote = Quote.query.get(quote_id)
         
-        
     db.session.delete(quote)
     db.session().commit()
     
