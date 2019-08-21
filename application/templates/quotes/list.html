@@ -21,27 +21,27 @@
       <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
 
         {% if current_user.is_authenticated %}
-        
 
-          {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
-          <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
-              <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
-            </a>
-  
-          {% else %}
 
-          <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
-            <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
-          </a>
+        {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
+        <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
+          <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
+        </a>
 
-        
-        
+        {% else %}
+
+        <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
+          <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
+        </a>
+
+
+
 
         {% endif %}
         {% endif %}
 
-<br>
-<br>
+        <br>
+        <br>
         {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
 
         <a href="{{ url_for('quotes_admin_delete', quote_id = quote.id)}}">
