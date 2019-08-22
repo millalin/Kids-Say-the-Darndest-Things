@@ -107,7 +107,7 @@ def user_deleteConfirm(user_id):
                     db.session().delete(c)
         
         # Poistetaan käyttäjän omat tykkäykset
-        likesAccount = Likes.query.filter(Likes.user_id == user_id)
+        likesAccount = Likes.query.filter(Likes.account_id == user_id)
         for like in likesAccount:
                     db.session.delete(like)
 
