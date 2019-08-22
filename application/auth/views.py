@@ -92,12 +92,8 @@ def user_deleteConfirm(user_id):
         for c in children:
             # Etsitään kaikki lapsen sanonnat ja poistetaan ne, poistetaan lapsi tietokannasta
             c_id=c.id
-            print("XXXXXXXXXXXXXXXXXXXEEEEEEEEEEEEEEEEEEETTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt")
-            print(c_id)
             q = Quote.query.filter(Quote.child_id == c_id)
-            
-            print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-            print(q)
+          
             for quote in q: 
             
                 
@@ -110,6 +106,10 @@ def user_deleteConfirm(user_id):
                     db.session().delete(quote)
                     db.session().delete(c)
         
+        # Poistetaan käyttäjän omat tykkäykset
+        likesAccount = Likes.query.filter(Likes.user_id == user_id)
+        for like in likesAccount:
+                    db.session.delete(like)
 
         # Poistetaan lopuksi käyttäjä
         db.session().delete(user)
