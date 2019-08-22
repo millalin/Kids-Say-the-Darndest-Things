@@ -1,10 +1,12 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 
 from application import app, db, login_required
 from application.auth.models import User
 from application.child.models import Child
-from application.auth.forms import LoginForm, NewuserForm
+from application.quotes.models import Quote
+from application.likes.models import Likes
+from application.auth.forms import LoginForm, NewuserForm, MakeSureFormUser
 
 @app.route("/auth", methods=["GET"])
 def user_index():
@@ -63,3 +65,57 @@ def auth_login():
 def auth_logout():
     logout_user()
     return redirect(url_for("index")) 
+
+@app.route("/auth/<user_id>/delete", methods=["POST","GET"])
+@login_required(role="ADMIN")
+def user_delete(user_id):
+
+   
+    form = MakeSureFormUser()
+
+    return render_template("auth/deleteuser.html", form = form, user_id=user_id)
+
+@app.route("/auth/<user_id>/del", methods=["POST"])
+@login_required(role="ADMIN")
+def user_deleteConfirm(user_id):
+
+    form = MakeSureFormUser(request.form)
+    ok = form.name.data
+    
+    if ok == "x":
+
+        user = User.query.filter(User.id == user_id).first()
+
+        # Etsitään kaikki käyttäjän lapset
+        children = Child.query.filter(Child.account_id == user_id)
+
+        for c in children:
+            # Etsitään kaikki lapsen sanonnat ja poistetaan ne, poistetaan lapsi tietokannasta
+            c_id=c.id
+            print("XXXXXXXXXXXXXXXXXXXEEEEEEEEEEEEEEEEEEETTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt")
+            print(c_id)
+            q = Quote.query.filter(Quote.child_id == c_id)
+            
+            print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+            print(q)
+            for quote in q: 
+            
+                
+
+                # Etsitään kaikki sanontoihin liittyvät tykkäykset ja poistetaan ne
+                likes = Likes.query.filter(quote.id==Likes.quote_id)
+                
+                for like in likes:
+                    db.session.delete(like)
+                    db.session().delete(quote)
+                    db.session().delete(c)
+        
+
+        # Poistetaan lopuksi käyttäjä
+        db.session().delete(user)
+        db.session().commit()
+        flash("Käyttäjä poistettu onnistuneesti", category="success")
+        return redirect(url_for("user_index"))
+    
+    flash("Käyttäjää ei poistettu", category="warning")
+    return redirect(url_for("user_index"))

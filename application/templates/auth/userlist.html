@@ -15,6 +15,13 @@
         <td>{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
       <td>Lapsia: {{ user.total }} kpl </td>
     </tr>
+    {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
+    <td>
+      <a href="{{ url_for('user_delete', user_id = user.id) }}">
+          <button type="submit" class="btn btn-default">Poista käyttäjä</button>
+      </a>
+  </td>
+  {% endif %}
     {% endfor %}
     <tr>
         {% for user in user_in_all %}

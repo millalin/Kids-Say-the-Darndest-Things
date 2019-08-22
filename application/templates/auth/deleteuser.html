@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('user_deleteConfirm', user_id = user_id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+    
+    </tr>
+ 
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Poista" />
+      </td>
+    </tr>
+</form>
+{% endblock %}
