@@ -15,7 +15,7 @@ class UserForm(FlaskForm):
         csrf = False
 
 class MakeSureFormUser(FlaskForm):
-    name = StringField("Oletko varma, että haluat poistaa tämän käyttäjän. Vahvistaaksesi poiston, kirjoita x ja paina nappia")
+    name = StringField("Oletko varma, että haluat poistaa tämän käyttäjän? Vahvistaaksesi poiston, kirjoita x ja paina 'Poista'")
 
     class Meta:
         csrf = False

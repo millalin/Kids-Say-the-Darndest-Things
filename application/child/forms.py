@@ -9,7 +9,7 @@ class ChildForm(FlaskForm):
         csrf = False
 
 class MakeSureForm(FlaskForm):
-    name = StringField("Oletko varma, että haluat poistaa tämän lapsen. Vahvistaaksesi poiston, kirjoita x ja paina nappia")
+    name = StringField("Oletko varma, että haluat poistaa tämän lapsen? Vahvistaaksesi poiston, kirjoita x ja paina 'Poista'")
 
     class Meta:
         csrf = False

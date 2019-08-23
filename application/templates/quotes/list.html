@@ -40,14 +40,15 @@
         {% endif %}
         {% endif %}
 
-        <br>
-        <br>
         {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
 
         <a href="{{ url_for('quotes_admin_delete', quote_id = quote.id)}}">
           <button type="submit" class="btn btn-purple btn-xs">Poista sanonta</button>
         </a>
         {% endif %}
+        <br>
+        <br>
+
       </footer>
 
 

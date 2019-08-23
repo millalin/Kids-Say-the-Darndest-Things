@@ -154,6 +154,7 @@ def quotes_delete(quote_id,child_id):
     for like in likes:
         db.session.delete(like)
         
+        
     db.session.delete(quote)
     db.session().commit()
     
@@ -182,7 +183,8 @@ def quotes_admin_delete(quote_id):
     quote = Quote.query.get(quote_id)
     likes = Likes.query.filter(quote_id==Likes.quote_id)
     for like in likes:
-        db.session.delete(like)    
+        db.session.delete(like) 
+           
         
     db.session.delete(quote)
     db.session().commit()
