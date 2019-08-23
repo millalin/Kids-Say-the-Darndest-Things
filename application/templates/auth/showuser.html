@@ -45,10 +45,12 @@
     <td>{{ c.birthday }} &nbsp; &nbsp; &nbsp;</td>
   </tr>
   {% endfor %}
+  {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
   <td>
     <a href="{{ url_for('user_index') }}">
       <button type="submit" class="btn btn-default">Palaa listaukseen</button>
     </a>
   </td>
+  {% endif %}
 </table>
 {% endblock %}
