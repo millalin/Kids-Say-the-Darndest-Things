@@ -8,7 +8,12 @@ Sovellus löytyy [Herokusta](https://kids-say-the-darndest-things.herokuapp.com/
 
 Testitunnukset kirjautumiseen:
 
+Tavallinen käyttäjä:
 - käyttäjänimi: user
+- salasana: password
+
+Ylläpitäjä:
+- käyttäjänimi: admin
 - salasana: password
 
 Toimintojen listaus:

@@ -6,7 +6,7 @@ from application.auth.models import User
 from application.child.models import Child
 from application.quotes.models import Quote
 from application.likes.models import Likes
-from application.auth.forms import LoginForm, NewuserForm, MakeSureFormUser
+from application.auth.forms import LoginForm, UserForm, MakeSureFormUser
 
 @app.route("/auth", methods=["GET"])
 def user_index():
@@ -18,11 +18,11 @@ def user_index():
 
 @app.route("/auth/newuser/")
 def user_form():
-    return render_template("auth/newuser.html", form = NewuserForm())
+    return render_template("auth/newuser.html", form = UserForm())
 
 @app.route("/auth/", methods=["GET", "POST"])
 def user_create():
-    form = NewuserForm(request.form)
+    form = UserForm(request.form)
     
     if not form.validate():
         return render_template("auth/newuser.html", form = form)
@@ -41,7 +41,7 @@ def user_create():
 
     db.session().add(u)
     db.session().commit() 
-    flash("Rekisteröinti onnistunut. Uusi käyttäjä luotu.", category="success") 
+    flash("Rekisteröinti onnistunut. Uusi käyttäjä käyttäjätunnuksella " +username+ " luotu.", category="success") 
 
     return  redirect(url_for("auth_login"))
 
@@ -127,10 +127,41 @@ def user_deleteConfirm(user_id):
     return redirect(url_for("user_index"))
 
 @app.route("/auth/showuser/<user_id>", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required(role="ANY")
 def user_show(user_id):
 
     user = User.query.get(user_id)
     children = Child.query.filter(Child.account_id == user_id)
     
+    return render_template("auth/showuser.html", children=children, user = user)
+
+@app.route("/auth/updateuser/<user_id>", methods=["GET","POST"])
+@login_required(role="ANY")
+def user_update(user_id):
+
+    form=UserForm()
+    user = User.query.get(user_id)
+    form.name.data = user.name
+    form.username.data = user.username
+
+    return render_template("auth/updateuser.html", form = form, user_id = user_id)
+
+@app.route("/auth/<user_id>/", methods=["POST"])
+@login_required(role="ANY")
+def user_confirmupdate(user_id):
+
+    user = User.query.get(user_id)
+    form = UserForm(request.form)
+    
+    if not form.validate():
+        return render_template("auth/updateuser.html", form = form, user_id=user_id)
+
+    user.name = form.name.data
+    user.username =form.username.data
+    user.password = form.password.data
+    
+    db.session().commit()
+
+    children = Child.query.filter(Child.account_id == user_id)
+
     return render_template("auth/showuser.html", children=children, user = user)

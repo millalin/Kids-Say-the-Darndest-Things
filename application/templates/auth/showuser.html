@@ -1,48 +1,54 @@
-
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-      <tr>
-            <th>Käyttäjän id:: &nbsp; &nbsp; &nbsp;</th>
-            <th>Nimi: &nbsp; &nbsp; &nbsp;</th>
-            <th>Käyttäjänimi &nbsp; &nbsp; &nbsp; </th>
-            <th>Luotu:  &nbsp; &nbsp; &nbsp;</th>
-            <th> Muokattu: &nbsp; &nbsp; &nbsp;</th>
-      </tr>
-    <tr>
-      <h3 style="color: teal">Käyttäjä {{user.name}}</h3>
-    </tr>
-    
-    <tr>
-        <td>{{ user.id }} &nbsp; &nbsp; &nbsp;</td>
-        <td>{{ user.name }} &nbsp; &nbsp; &nbsp;</td>
-        <td>{{ user.username }} &nbsp; &nbsp; &nbsp; </td>
-        <td>{{ user.date_created }} &nbsp; &nbsp; &nbsp;</td>
-        <td>{{ user.date_modified }} &nbsp; &nbsp; &nbsp; </td>
-        
-    </tr>
-    <tr>
-            <th>Lapset: &nbsp; &nbsp; &nbsp;</th>
-            
-      </tr>
-      <tr>
-            <th>Lapsen nimi: &nbsp; &nbsp; &nbsp;</th>
-            <th>Lapsen syntymäpäivä: &nbsp; &nbsp; &nbsp;</th>
-            
-      </tr>
-    
-      {% for c in children %}
-      
-    <tr>
-            <td>{{ c.name }} &nbsp; &nbsp; &nbsp;</td>
-            <td>{{ c.birthday }} &nbsp; &nbsp; &nbsp;</td>
-    </tr>
-    {% endfor %}
-    <td>
-            <a href="{{ url_for('user_index') }}">
-                <button type="submit" class="btn btn-default">Palaa listaukseen</button>
-            </a>
-        </td>
-  </table>
+<table>
+  <tr>
+    <th>Käyttäjän id:: &nbsp; &nbsp; &nbsp;</th>
+    <th>Nimi: &nbsp; &nbsp; &nbsp;</th>
+    <th>Käyttäjänimi &nbsp; &nbsp; &nbsp; </th>
+    <th>Luotu: &nbsp; &nbsp; &nbsp;</th>
+    <th> Muokattu: &nbsp; &nbsp; &nbsp;</th>
+  </tr>
+  <tr>
+    <h3 style="color: teal">Käyttäjä {{user.name}}</h3>
+  </tr>
+
+  <tr>
+    <td>{{ user.id }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ user.name }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ user.username }} &nbsp; &nbsp; &nbsp; </td>
+    <td>{{ user.date_created }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ user.date_modified }} &nbsp; &nbsp; &nbsp; </td>
+
+  </tr>
+  {% if current_user.is_authenticated and current_user.role == 'USER' %}
+  <td>
+    <a href="{{ url_for('user_update', user_id=user.id, children=children) }}">
+      <button type="submit" class="btn btn-default">Muokkaa tietoja tai vaihda salasana</button>
+    </a>
+  </td>
+  {% endif %}
+  <tr>
+    <th>Lapset: &nbsp; &nbsp; &nbsp;</th>
+
+  </tr>
+  <tr>
+    <th>Lapsen nimi: &nbsp; &nbsp; &nbsp;</th>
+    <th>Lapsen syntymäpäivä: &nbsp; &nbsp; &nbsp;</th>
+
+  </tr>
+
+  {% for c in children %}
+
+  <tr>
+    <td>{{ c.name }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ c.birthday }} &nbsp; &nbsp; &nbsp;</td>
+  </tr>
+  {% endfor %}
+  <td>
+    <a href="{{ url_for('user_index') }}">
+      <button type="submit" class="btn btn-default">Palaa listaukseen</button>
+    </a>
+  </td>
+</table>
 {% endblock %}

@@ -91,7 +91,7 @@
 
         <p class="navbar-text">
 
-          Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+          Kirjautunut nimellä <a href="{{ url_for('user_show', user_id = current_user.id) }}">{{ current_user.name }}.</a> <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
 
 
 
