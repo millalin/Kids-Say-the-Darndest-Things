@@ -40,7 +40,8 @@ def user_create():
     
 
     db.session().add(u)
-    db.session().commit()  
+    db.session().commit() 
+    flash("Rekisteröinti onnistunut. Uusi käyttäjä luotu.", category="success") 
 
     return  redirect(url_for("auth_login"))
 
@@ -124,3 +125,12 @@ def user_deleteConfirm(user_id):
     
     flash("Käyttäjää ei poistettu", category="warning")
     return redirect(url_for("user_index"))
+
+@app.route("/auth/showuser/<user_id>", methods=["GET"])
+@login_required(role="ADMIN")
+def user_show(user_id):
+
+    user = User.query.get(user_id)
+    children = Child.query.filter(Child.account_id == user_id)
+    
+    return render_template("auth/showuser.html", children=children, user = user)

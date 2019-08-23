@@ -21,6 +21,11 @@
           <button type="submit" class="btn btn-default">Poista käyttäjä</button>
       </a>
   </td>
+  <td>
+    <a href="{{ url_for('user_show', user_id = user.id) }}">
+        <button type="submit" class="btn btn-default">Näytä käyttäjän tiedot</button>
+    </a>
+</td>
   {% endif %}
     {% endfor %}
     <tr>
