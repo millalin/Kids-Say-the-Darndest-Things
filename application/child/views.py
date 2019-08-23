@@ -84,14 +84,13 @@ def child_deleteConfirm(child_id):
     
     if ok == "x":
 
-        c = Child.query.filter(Child.id == child_id).first()
+        c = Child.query.get(child_id)
 
         # Etsitään lapsen lapsen sanonnat ja poistataan sanonnat sekä sanonnan tykkäykset
         q = Quote.query.filter(Quote.child_id == child_id)
         for quote in q:
-            
-            
-            likes = Likes.query.filter(quote.id==Likes.quote_id)
+               
+            likes = Likes.query.filter(Likes.quote_id==quote.id)
             for like in likes:
                 db.session.delete(like)
                 db.session.delete(quote)
