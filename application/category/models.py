@@ -18,7 +18,21 @@ class Category(Base):
     def getName(self):
         return self.name
 
-  
+   
+
+    
+    def findCategories(q_id):
+        stmt = text("SELECT Category.id, Category.name FROM Category"
+                    " JOIN quotecategory ON quotecategory.category_id = Category.id"
+                    " WHERE quotecategory.quote_id = :quote_id" ).params(quote_id=q_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1]})
+
+        return response
+
 
     # Etsii kategorianimen
     def findCategory(name):   
