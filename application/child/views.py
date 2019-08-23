@@ -32,7 +32,6 @@ def child_create():
     c = Child(name = form.name.data, birthday = form.birthday.data)
     
     c.account_id = current_user.id
-    
 
     db.session.add(c)
     db.session().commit()
@@ -42,6 +41,7 @@ def child_create():
 @app.route("/child/modifychild/<child_id>/", methods=["GET", "POST"])
 @login_required
 def child_modifychild(child_id):
+    # Asetetaan lomakkeelle valmiiksi olemassaolevat tiedot
     form=ChildForm()
     child = Child.query.get(child_id)
     form.name.data = child.name

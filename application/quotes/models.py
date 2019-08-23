@@ -20,7 +20,6 @@ class Quote(Base):
                            nullable=False)
 
     
-    
     #many to many riippuvuussuhde, määrittely 
     quotecategory = db.relationship('Category', secondary=quotecategory, lazy='subquery',
         backref=db.backref('quotes', lazy=True))
@@ -46,7 +45,7 @@ class Quote(Base):
 
         return response
 
-    
+    #Etsii sanonnan ja siihen liittyvät lapsen nimen sekä lapsen iän
     @staticmethod
     def quotes_with_names():
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
@@ -62,12 +61,12 @@ class Quote(Base):
 
         return response
 
+    # Hakee kaikki sanonnat tietyn kategorian mukaan
     @staticmethod
     def quotes_of_category(id):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
                      " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
-            
                      " WHERE quotecategory.category_id=:c_id"
                      " GROUP BY Quote.id, Child.name").params(c_id = id)
         res = db.engine.execute(stmt)
@@ -78,17 +77,6 @@ class Quote(Base):
 
         return response
 
-    @staticmethod
-    def users_like(quote_id):
-        l = Likes.query.filter_by(account_id=current_user.id, quote_id=quote_id).first()
-        
-        state = "Et ole tykännyt tästä sanonnasta"
-        if l:
-            if l.like_count == 1:
-                state = "Olet tykännyt tästä sanonnasta ."
-            elif l.like_count == 0:
-                state = "Et ole tykännyt tästä sanonnasta"
-        return state
 
     @staticmethod
     def likestatus(quote_id):

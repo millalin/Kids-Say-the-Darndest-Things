@@ -20,6 +20,7 @@ class Child(Base):
     def get_id(self):
         return self.id
 
+    #Etsii käyttäjän omat lapset
     @staticmethod
     def find_users_children():
         stmt = text("SELECT Child.id, Child.name, Child.birthday FROM Child"
@@ -33,6 +34,7 @@ class Child(Base):
 
         return response
 
+    #Laskee lapset yhteensä
     @staticmethod
     def childrencount():
         stmt = text("SELECT COUNT(Child.id) AS total FROM Child")

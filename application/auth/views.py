@@ -52,7 +52,6 @@ def auth_login():
 
     form = LoginForm(request.form)
     
-
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
@@ -70,7 +69,6 @@ def auth_logout():
 @app.route("/auth/<user_id>/delete", methods=["POST","GET"])
 @login_required(role="ADMIN")
 def user_delete(user_id):
-
    
     form = MakeSureFormUser()
 
@@ -138,7 +136,7 @@ def user_show(user_id):
 @app.route("/auth/updateuser/<user_id>", methods=["GET","POST"])
 @login_required(role="ANY")
 def user_update(user_id):
-
+    #asetetaan lomakkeelle valmiiksi olevat tiedot paitsi salasana
     form=UserForm()
     user = User.query.get(user_id)
     form.name.data = user.name

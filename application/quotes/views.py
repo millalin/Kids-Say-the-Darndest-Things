@@ -13,12 +13,14 @@ from flask_login import current_user
 @app.route("/quotes", methods=["GET"])
 def quotes_index():
     
+    # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät
     list=Quote.quotes_with_names()
         
     return render_template("quotes/list.html", list=list, Quote=Quote)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
+    # Asetetaan lomakkeelle valinnoiksi tällä hetkellä olemassaolevat adminin lisäämät kategoriat kategoriataulusta
     cates=Category.query.all()
     c_list=[(i.name,i.name) for i in cates]
     form = CategorySelectForm()
