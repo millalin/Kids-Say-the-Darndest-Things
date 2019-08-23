@@ -99,17 +99,22 @@ def user_deleteConfirm(user_id):
                 
 
                 # Etsitään kaikki sanontoihin liittyvät tykkäykset ja poistetaan ne
-                likes = Likes.query.filter(quote.id==Likes.quote_id)
+                likes = Likes.query.filter(Likes.quote_id == quote.id)
                 
                 for like in likes:
                     db.session.delete(like)
-                    db.session().delete(quote)
-                    db.session().delete(c)
+                    
+                db.session().delete(quote)
+                db.session().commit()
+                    
+            db.session().delete(c)
+            db.session().commit()
         
         # Poistetaan käyttäjän omat tykkäykset
         likesAccount = Likes.query.filter(Likes.account_id == user_id)
         for like in likesAccount:
                     db.session.delete(like)
+                    db.session().commit()
 
         # Poistetaan lopuksi käyttäjä
         db.session().delete(user)

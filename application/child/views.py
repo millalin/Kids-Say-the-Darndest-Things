@@ -93,8 +93,10 @@ def child_deleteConfirm(child_id):
             likes = Likes.query.filter(Likes.quote_id==quote.id)
             for like in likes:
                 db.session.delete(like)
-                db.session.delete(quote)
+                db.session().commit()
 
+            db.session.delete(quote)
+            db.session().commit()
 
         # Poistetaan lapsi
         db.session().delete(c)
