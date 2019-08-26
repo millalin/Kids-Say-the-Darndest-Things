@@ -17,7 +17,7 @@ class Child(Base):
         self.name = name
         self.birthday = birthday
 
-    def get_id(self):
+    def getId(self):
         return self.id
 
     #Etsii käyttäjän omat lapset

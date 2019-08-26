@@ -71,8 +71,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('child_form') }}">Lisää lapsi &nbsp;&nbsp;&nbsp;</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi tiedot ja &nbsp;&nbsp;&nbsp;<br> omat sanonnat</a></li>
+              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi  &nbsp;&nbsp;&nbsp;<br>tiedot</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('quotes_childquotes_by_child') }}">Lapsiesi &nbsp;&nbsp;&nbsp;<br>sanonnat</a></li>
             <li class="nav-item">
+                
               <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat &nbsp;&nbsp;&nbsp;</a></li>
             {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
             <li class="nav-item">

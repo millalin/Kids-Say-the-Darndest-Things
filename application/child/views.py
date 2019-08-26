@@ -29,6 +29,11 @@ def child_create():
     if not form.validate():
         return render_template("child/newchild.html", form = form)
 
+    alreadyExistsChild = Child.query.filter_by(name=form.name.data).first()
+    if alreadyExistsChild:
+        form.username.errors.append("Sinulla on jo tämänniminen lapsi on olemassa.")
+        return render_template("child/newchild.html", form = form)
+
     c = Child(name = form.name.data, birthday = form.birthday.data)
     
     c.account_id = current_user.id
@@ -106,3 +111,9 @@ def child_deleteConfirm(child_id):
     
     flash("Lasta ei poistettu", category="warning")
     return redirect(url_for("child_userchildren"))
+
+@app.route("/child/showchild/<child_id>")
+@login_required
+def child_showOne(child_id):
+    child = Child.query.get(child_id)
+    return render_template("child/showchild.html", child_id=child_id, child=child)

@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, url_for
 from application.quotes.models import Quote
 from application.quotes.forms import QuoteForm
 from application.category.forms import CategorySelectForm
+from application.child.forms import ChildSelectForm
 
 from application.child.models import Child
 from application.likes.models import Likes
@@ -57,10 +58,31 @@ def quotes_form(child_id):
 
     return render_template("quotes/new.html", form = form, child_id=child_id)
 
+@app.route("/quotes/new/selection", methods=["GET", "POST"])
+@login_required(role="ANY")
+def quotes_childquotes_by_child():
+    # Asetetaan valintavaihtoehdoiksi käyttäjän omat lapset
+    children=Child.query.filter(Child.account_id == current_user.id)
+    child_list=[(i.name,i.name) for i in children]
+    form = ChildSelectForm()
+    form.selection.choices = child_list
+
+    return render_template("quotes/selectchild.html", form=form)
+
+@app.route("/quotes/bychild/list", methods=["GET", "POST"])
+def quotes_by_child():
+    form=ChildSelectForm()
+    name=form.selection.data
+    
+    child = Child.query.filter_by(name=name).first()
+    child_id=child.getId()
+
+    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes,child_id=child_id, name=name)
+
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required(role="ANY")
 def quotes_create(child_id):
-    
+ 
     form = QuoteForm(request.form)
  
     cates=Category.query.all()

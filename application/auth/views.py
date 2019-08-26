@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 
-from application import app, db, login_required
+from application import app, db, login_required, bcrypt
 from application.auth.models import User
 from application.child.models import Child
 from application.quotes.models import Quote
@@ -32,11 +32,12 @@ def user_create():
         form.username.errors.append("käyttäjätunnus on jo olemassa, valitse toinen käyttäjätunnus")
         return render_template("auth/newuser.html", form = form)
 
-    u = User(name = form.name.data, username = form.username.data, password = form.password.data, role = "USER")
+    pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    u = User(name = form.name.data, username = form.username.data, password = pw_hash, role = "USER")
 
     username = form.username.data
     if username == "admin":
-        u = User(name = form.name.data, username = form.username.data, password = form.password.data, role = "ADMIN")
+        u = User(name = form.name.data, username = form.username.data, password = pw_hash, role = "ADMIN")
     
 
     db.session().add(u)
@@ -52,10 +53,17 @@ def auth_login():
 
     form = LoginForm(request.form)
     
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
                                error = "Käyttäjänimi tai salasana virheellinen")
+
+    password = form.password.data
+    
+    
+    if not bcrypt.check_password_hash(user.password, password):
+        return render_template("auth/loginform.html", form = form,
+                               error = "käyttäjänimi tai salasana virheellinen")
 
 
     login_user(user)
@@ -154,9 +162,11 @@ def user_confirmupdate(user_id):
     if not form.validate():
         return render_template("auth/updateuser.html", form = form, user_id=user_id)
 
+    pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+
     user.name = form.name.data
     user.username =form.username.data
-    user.password = form.password.data
+    user.password = pw_hash
     
     db.session().commit()
 
