@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 
+
 {% block body %}
 <form method="POST" action="{{ url_for('child_create') }}">
   <table>
+    <h5>Lisää uusi lapsi. Kirjoita syntymäpäivä muodossa yyyy-mm-dd</h5>
     <tr>
       <td>
         {{ form.name.label }}
@@ -13,7 +15,9 @@
       <td>
         <ul>
           {% for error in form.name.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
@@ -23,17 +27,21 @@
         {{ form.birthday.label }}
       </td>
       <td>
-        {{ form.birthday }} Kirjoita syntymäpäivä muodossa yyyy-mm-dd
+        {{ form.birthday }} 
       </td>
       <td>
         <ul>
           {% for error in form.birthday.errors %}
-          <li> Kirjoita syntymäpäivä muodossa yyyy-mm-dd</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
     </tr>
+ 
     <tr>
+        
       <td colspan="2">
         <input type="submit" value="Lisää lapsi" />
       </td>

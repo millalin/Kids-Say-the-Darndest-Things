@@ -1,6 +1,10 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_bootstrap import Bootstrap
+from flask_datepicker import datepicker
+
 app = Flask(__name__)
+
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -17,6 +21,9 @@ else:
   
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+Bootstrap(app)
+datepicker(app)
+
 
 # kirjautuminen
 from application.auth.models import User, current_user

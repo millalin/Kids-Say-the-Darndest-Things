@@ -13,8 +13,8 @@
     {% for user in childrencount %}
     <tr>
         
-        <td>{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
-      <td>Lapsia: {{ user.total }} kpl &nbsp; &nbsp; &nbsp;</td>
+        <td style="color: teal">{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
+      <td style="color: teal">Lapsia: {{ user.total }} kpl &nbsp; &nbsp; &nbsp;</td>
 
       {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
       <td>

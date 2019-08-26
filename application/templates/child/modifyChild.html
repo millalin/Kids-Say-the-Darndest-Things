@@ -13,7 +13,9 @@
       <td>
         <ul>
           {% for error in form.name.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
@@ -28,7 +30,9 @@
       <td>
         <ul>
           {% for error in form.birthday.errors %}
-          <li> Kirjoita syntymäpäivä muodossa yyyy-mm-dd</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
