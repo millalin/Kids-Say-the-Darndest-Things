@@ -94,14 +94,5 @@ def load_user(user_id):
 
 try: 
     db.create_all()
-    if db.session().query(User).first() != None:
-        print("Table not empty. Testuser not created")
-    else:
-        username = 'admin'
-        pwhash = bcrypt.generate_password_hash('password').decode('utf-8')
-        role = 'ADMIN'
-        account = User(username, pwhash, role)
-        db.session().add(account)
-        db.session().commit()
 except:
     pass

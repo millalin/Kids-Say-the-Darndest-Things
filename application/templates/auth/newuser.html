@@ -15,7 +15,9 @@
       <td>
         <ul>
           {% for error in form.name.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+          {{ error }}
+          </div>
           {% endfor %}
         </ul>
       </td>
@@ -30,7 +32,9 @@
       <td>
         <ul>
           {% for error in form.username.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
@@ -45,7 +49,9 @@
       <td>
         <ul>
           {% for error in form.password.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>
@@ -60,7 +66,9 @@
       <td>
         <ul>
           {% for error in form.password_again.errors %}
-          <li>{{ error }}</li>
+          <div class="alert alert-danger">
+              {{ error }}
+              </div>
           {% endfor %}
         </ul>
       </td>

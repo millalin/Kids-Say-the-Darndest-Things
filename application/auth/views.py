@@ -25,6 +25,7 @@ def user_create():
     form = UserForm(request.form)
     
     if not form.validate():
+        #form.name.errors.append( "Nimen tulee olla 2-30 merkin pituinen" )
         return render_template("auth/newuser.html", form = form)
 
     alreadyExistsUser = User.query.filter_by(username=form.username.data).first()
