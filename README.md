@@ -37,4 +37,10 @@ Tietokannassa on 6 tietokantataulua, joista 1 on liitostaulu.
 
 [Tietokantakaavio](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/tietokantakaavio.png)
 
-[Käyttötapaukset](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/kayttotapaukset.md)
+[Käyttötapaukset ja keskeiset SQL-lauseet](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/kayttotapaukset.md)
+
+[Sovelluksen asennusohje](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/asennusohje.md)
+
+[Sovelluksen käyttöohje](https://github.com/millalin/Kids-Say-the-Darndest-Things/blob/master/documentation/kayttoohje.md)
+
+
