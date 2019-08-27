@@ -207,9 +207,9 @@ def quotes_top():
         
     return render_template("quotes/topliked.html", list=list)
 
-@app.route("/quotes/<quote_id>/del/", methods=["GET","POST"])
+@app.route("/quotes/<page>/<quote_id>/del/", methods=["GET","POST"])
 @login_required(role="ADMIN")
-def quotes_admin_delete(quote_id):
+def quotes_admin_delete(quote_id, page):
     
     quote = Quote.query.get(quote_id)
     likes = Likes.query.filter(quote_id==Likes.quote_id)
@@ -220,5 +220,5 @@ def quotes_admin_delete(quote_id):
     db.session.delete(quote)
     db.session().commit()
     
-    return redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_index", page=page))
 

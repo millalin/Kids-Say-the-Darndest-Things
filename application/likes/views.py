@@ -8,9 +8,9 @@ from flask_login import current_user
 
 
 
-@app.route("/quotes/<quote_id>/like/", methods=["GET","POST"])
+@app.route("/quotes/<page>/<quote_id>/like/", methods=["GET","POST"])
 @login_required(role="ANY")
-def like_quote(quote_id):
+def like_quote(quote_id, page):
 
     q = Quote.query.get(quote_id)
     u = current_user
@@ -21,11 +21,11 @@ def like_quote(quote_id):
     db.session().commit()
 
 
-    return redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_index", page=page))
     
-@app.route("/quotes/<quote_id>/unlike/", methods=["GET","POST"])
+@app.route("/quotes/<page>/<quote_id>/unlike/", methods=["GET","POST"])
 @login_required(role="ANY")
-def unlike_quote(quote_id):
+def unlike_quote(quote_id, page):
 
     q = Quote.query.get(quote_id)
     u = current_user
@@ -36,4 +36,4 @@ def unlike_quote(quote_id):
     db.session().commit()
 
 
-    return redirect(url_for("quotes_index"))
+    return redirect(url_for("quotes_index", page=page))
