@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  
 
-  
+
+
   <title>Kids Say The Darndest Things</title>
 
   {% with messages = get_flashed_messages(with_categories=true) %}
@@ -20,7 +20,7 @@
   {% endfor %}
   {% endif %}
   {% endwith %}
-  
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -65,27 +65,31 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku &nbsp;&nbsp;&nbsp;</a></li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('user_index') }}">Listaa &nbsp;&nbsp;&nbsp;&nbsp;<br>käyttäjät</a>
-        </li>
 
-        {% if current_user.is_authenticated %}
-        <p>
+
+          {% if current_user.is_authenticated %}
+
 
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('child_form') }}">Lisää lapsi &nbsp;&nbsp;&nbsp;</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi  &nbsp;&nbsp;&nbsp;<br>tiedot</a></li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('quotes_childquotes_by_child') }}">Lapsiesi &nbsp;&nbsp;&nbsp;<br>sanonnat</a></li>
+              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi &nbsp;&nbsp;&nbsp;<br>tiedot</a>
+            </li>
             <li class="nav-item">
-                
+              <a class="nav-link" href="{{ url_for('quotes_childquotes_by_child') }}">Lapsiesi
+                &nbsp;&nbsp;&nbsp;<br>sanonnat</a></li>
+            <li class="nav-item">
+
               <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat &nbsp;&nbsp;&nbsp;</a></li>
             {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
-            {% endif %}
-          </ul>
+                <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
+            <a class="nav-link" href="{{ url_for('user_index') }}">Listaa &nbsp;&nbsp;&nbsp;&nbsp;<br>käyttäjät</a>
+        </li>
+       
+        {% endif %}
+      </ul>
 
 
 
@@ -98,7 +102,9 @@
 
         <p class="navbar-text">
 
-          Kirjautunut nimellä <a href="{{ url_for('user_show', user_id = current_user.id) }}">{{ current_user.name }}.</a> <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+          Kirjautunut nimellä <a
+            href="{{ url_for('user_show', user_id = current_user.id) }}">{{ current_user.name }}.</a> <a
+            href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
 
 
 
@@ -126,7 +132,7 @@
     {% block body %}
     <p>
       Content.
-  
+
     </p>
     {% endblock %}
 

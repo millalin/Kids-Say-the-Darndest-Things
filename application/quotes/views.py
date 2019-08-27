@@ -146,19 +146,18 @@ def quotes_update(quote_id,child_id):
     
         return render_template("quotes/modifystate.html",form = form, quote_id = quote_id,child_id=child_id)
 
+    quote.quotecategory.clear()
+    db.session().commit()    
 
     quote.quote = form.name.data
     quote.agesaid = form.age.data
     
     allcategories=form.categories.data
 
+    # käydään läpi kaikki valitut kategoriat ja lisätään ne sanonnalle
     for category in  allcategories:
-        
         c = Category.findCategory(category)
-
         quote.quotecategory.append(c)     
-
-
 
     db.session().commit()
 

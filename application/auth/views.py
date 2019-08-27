@@ -9,6 +9,7 @@ from application.likes.models import Likes
 from application.auth.forms import LoginForm, UserForm, MakeSureFormUser
 
 @app.route("/auth", methods=["GET"])
+@login_required(role="ADMIN")
 def user_index():
     childrencount = User.how_many_children()
     child_in_all = Child.childrencount()
