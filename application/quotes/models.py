@@ -47,10 +47,11 @@ class Quote(Base):
 
     #Etsii sanonnan ja siihen liittyvät lapsen nimen sekä lapsen iän
     @staticmethod
-    def quotes_with_names():
+    def quotes_with_names(num):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
-                     " GROUP BY Quote.id, Child.name")
+                     
+                     " ORDER BY Quote.id LIMIT 5 OFFSET 5*:offs").params(offs = num)
         res = db.engine.execute(stmt)
 
 
@@ -69,6 +70,7 @@ class Quote(Base):
                      " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
                      " WHERE quotecategory.category_id=:c_id"
                      " GROUP BY Quote.id, Child.name").params(c_id = id)
+                     
         res = db.engine.execute(stmt)
 
         response = []
@@ -89,6 +91,18 @@ class Quote(Base):
             elif l.like_count == 0:
                 state = 0
         return state
+
+    @staticmethod
+    def quotecount():
+        stmt = text("SELECT COUNT(Quote.id) AS total FROM Quote")
+                 
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0]})
+
+        return response[0]
 
 
     

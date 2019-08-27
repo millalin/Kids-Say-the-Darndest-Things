@@ -64,41 +64,41 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 #### Account
 
     CREATE TABLE account (
-   	 id INTEGER NOT NULL, 
-   	 date_created DATETIME, 
-   	 date_modified DATETIME, 
-   	 name VARCHAR(144) NOT NULL, 
-   	 username VARCHAR(144) NOT NULL, 
-   	 password VARCHAR(144) NOT NULL, 
-   	 role VARCHAR(20) NOT NULL, 
-   	 PRIMARY KEY (id)
-	)
+   	    id INTEGER NOT NULL, 
+   	    date_created DATETIME, 
+   	    date_modified DATETIME, 
+   	    name VARCHAR(144) NOT NULL, 
+   	    username VARCHAR(144) NOT NULL, 
+   	    password VARCHAR(144) NOT NULL, 
+   	    role VARCHAR(20) NOT NULL, 
+   	    PRIMARY KEY (id)
+  	    )
 
 #### Child
 
     CREATE TABLE child (
-   	id INTEGER NOT NULL, 
-    	date_created DATETIME, 
-   	date_modified DATETIME, 
-   	name VARCHAR(20) NOT NULL, 
-   	birthday DATE NOT NULL, 
-   	account_id INTEGER NOT NULL,
-   	PRIMARY KEY (id), 
-   	FOREIGN KEY(account_id) REFERENCES account (id)
-	)
+       	    id INTEGER NOT NULL, 
+       	    date_created DATETIME, 
+       	    date_modified DATETIME, 
+       	    name VARCHAR(20) NOT NULL, 
+       	    birthday DATE NOT NULL, 
+       	    account_id INTEGER NOT NULL,
+       	    PRIMARY KEY (id), 
+       	    FOREIGN KEY(account_id) REFERENCES account (id)
+       	    )
 
 #### Quote
 
     CREATE TABLE quote (
-  	 id INTEGER NOT NULL, 
-  	 date_created DATETIME, 
-   	date_modified DATETIME, 
-  	 quote VARCHAR(2000) NOT NULL, 
-  	 agesaid INTEGER NOT NULL, 
-  	 child_id INTEGER NOT NULL, 
- 	  PRIMARY KEY (id), 
-  	 FOREIGN KEY(child_id) REFERENCES child (id)
-	)
+  	    id INTEGER NOT NULL, 
+  	    date_created DATETIME, 
+   	    date_modified DATETIME, 
+  	    quote VARCHAR(2000) NOT NULL, 
+  	    agesaid INTEGER NOT NULL, 
+  	    child_id INTEGER NOT NULL, 
+ 	    PRIMARY KEY (id), 
+  	    FOREIGN KEY(child_id) REFERENCES child (id)
+	    )
 
 #### Category
 
@@ -113,27 +113,27 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 #### Likes
 
     CREATE TABLE likes (
-  	 id INTEGER NOT NULL, 
-   	date_created DATETIME, 
-   	date_modified DATETIME, 
-   	account_id INTEGER NOT NULL, 
-   	quote_id INTEGER NOT NULL, 
-   	like_count INTEGER NOT NULL, 
-   	PRIMARY KEY (id), 
-   	FOREIGN KEY(account_id) REFERENCES account (id), 
-   	FOREIGN KEY(quote_id) REFERENCES quote (id)
-	)
+  	    id INTEGER NOT NULL, 
+   	    date_created DATETIME, 
+   	    date_modified DATETIME, 
+   	    account_id INTEGER NOT NULL, 
+   	    quote_id INTEGER NOT NULL, 
+   	    like_count INTEGER NOT NULL, 
+   	    PRIMARY KEY (id), 
+   	    FOREIGN KEY(account_id) REFERENCES account (id), 
+   	    FOREIGN KEY(quote_id) REFERENCES quote (id)
+	    )
 
 
 #### Quotecategory 
 
     CREATE TABLE quotecategory (
-  	 quote_id INTEGER NOT NULL, 
-   	category_id INTEGER NOT NULL, 
-   	PRIMARY KEY (quote_id, category_id), 
-   	FOREIGN KEY(quote_id) REFERENCES quote (id), 
-   	FOREIGN KEY(category_id) REFERENCES category (id)
-	)
+  	    quote_id INTEGER NOT NULL, 
+   	    category_id INTEGER NOT NULL, 
+   	    PRIMARY KEY (quote_id, category_id), 
+   	    FOREIGN KEY(quote_id) REFERENCES quote (id), 
+   	    FOREIGN KEY(category_id) REFERENCES category (id)
+	    )
 
 
 ### Ohjelman rakenteeseen jääneet heikkoudet ja jatkokehitysideat

@@ -11,13 +11,21 @@ from application.category.models import Category
 from flask_login import current_user
 
 
-@app.route("/quotes", methods=["GET"])
-def quotes_index():
+@app.route("/quotes/<page>/", methods=["POST", "GET"])
+def quotes_index(page):
     
+    # Sivutus
+    quotecount = Quote.quotecount()
+    count=quotecount.get("total")
+    pages=int(count/5)
+    page_prev=int(page)-1
+    page_next=int(page)+1
+    page = int(page) -1
     # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät
-    list=Quote.quotes_with_names()
+    list =Quote.quotes_with_names(page)
+    
         
-    return render_template("quotes/list.html", list=list, Quote=Quote)
+    return render_template("quotes/list.html", list=list, Quote=Quote, page =page, pages=pages, page_prev=page_prev, page_next=page_next)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
