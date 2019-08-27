@@ -12,26 +12,26 @@
     <br>
 
 
-    {% for t in list %}
+    {% for quote in list %}
     
 
     <blockquote class="blockquote" , style="font-size:22px">
 
-      <p class="mb-0 " style="color:rgb(66, 62, 66);"><em>{{ t.name }}</em></p>
+      <p class="mb-0 " style="color:rgb(66, 62, 66);"><em>{{ quote.name }}</em></p>
 
-      <footer class="blockquote-footer"> {{ t.n }} {{t.agesaid}} vuotta
+      <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
 
         {% if current_user.is_authenticated %}
 
 
         {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
-        <a href="{{ url_for('unlike_quote', quote_id = t.id)}}">
+        <a href="{{ url_for('unlike_quote', quote_id = quote.id)}}">
           <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
         </a>
 
         {% else %}
 
-        <a href="{{ url_for('like_quote', quote_id = t.id)}}">
+        <a href="{{ url_for('like_quote', quote_id = quote.id)}}">
           <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
         </a>
 
