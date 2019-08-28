@@ -62,14 +62,19 @@
 
 
     <ul>
-      {% if page >0 %}
-      <a class="btn-purple" href="{{ url_for('quotes_index', page=page_prev) }}">Edellinen sivu</a>
+      {% if page >1 %}
+      <a href="{{ url_for('quotes_index', page=page_prev) }}">
+          <button type="submit" class="btn btn-secondary btn-xs">Edellinen sivu</button>
+      </a>
     
       {% endif %} {% if page < pages %}
-      <a class="btn" href="{{ url_for('quotes_index', page=page_next) }}">Seuraava sivu</a>
+      <a href="{{ url_for('quotes_index', page=page_next) }}">
+          <button type="submit" class="btn btn-secondary btn-xs">Seuraava sivu</button>
+      </a>
       
       {% endif %}
     </ul>
+    Sivu {{page}}
   
   
 

@@ -17,15 +17,15 @@ def quotes_index(page):
     # Sivutus
     quotecount = Quote.quotecount()
     count=quotecount.get("total")
-    pages=int(count/5)
+    pages=int(count/5)+1
     page_prev=int(page)-1
     page_next=int(page)+1
-    page = int(page) -1
+    get_quotes = int(page) -1
     # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät
-    list =Quote.quotes_with_names(page)
+    list =Quote.quotes_with_names(get_quotes)
     
         
-    return render_template("quotes/list.html", list=list, Quote=Quote, page =page, pages=pages, page_prev=page_prev, page_next=page_next)
+    return render_template("quotes/list.html", list=list, Quote=Quote, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next)
 
 @app.route("/quotes/bycategory/", methods=["POST", "GET"])
 def quotes_get():
