@@ -38,10 +38,51 @@ Rekisteröityneenä ja kirjautuneena käyttäjänä haluan...
          WHERE Child_id=?
          ORDER BY Quote.id
 
-- voida lisätä lapsen kohdalle sanontoja
+- voida lisätä lapselle sanontoja
+
+        INSERT INTO quote (date_created, date_modified, quote, agesaid, child_id) 
+        VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
+
+        INSERT INTO quotecategory (quote_id, category_id) VALUES (?, ?)
+
 - voida muokata lapsensa sanontaa
+
+        DELETE FROM quotecategory WHERE quotecategory.quote_id = ? 
+        AND quotecategory.category_id = ?
+
+        UPDATE quote SET date_modified=CURRENT_TIMESTAMP, quote=?, agesaid=? 
+        WHERE quote.id = ?
+
+        INSERT INTO quotecategory (quote_id, category_id) VALUES (?, ?)        
+
+- tarkastella sanonnan tietoja tarkemmin
+
+	SELECT quote.id, quote.date_created, quote.date_modified, quote.quote, quote.agesaid, quote.child_id  
+        FROM quote 
+        WHERE quote.id = ?
+
+	Sanonnan kategoriat:
+
+	SELECT category.id, category.date_created, category.date_modified, category.name
+        FROM (SELECT quote.id 
+        FROM quote 
+        WHERE quote.id = ?)  JOIN quotecategory ON quote_id = quotecategory.quote_id 
+        JOIN category ON category.id = quotecategory.category_id ORDER BY .quote_id
+	
 - voida poistaa lapsensa sanonnan
-- voida tykätä kustakin sanonnasta yhden kerran
+
+        DELETE FROM quotecategory WHERE quotecategory.quote_id = ? 
+        AND quotecategory.category_id = ?
+
+        DELETE FROM quote WHERE quote.id = ?
+
+- voida tykätä kustakin sanonnasta yhden kerran tai poistaa tykkäyksen
+
+	DELETE FROM likes WHERE likes.quote_id = ? AND likes.account_id = ?
+
+	INSERT INTO likes (date_created, date_modified, account_id, quote_id, like_count) 
+	VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
+
 - pystyä listaamaan lapseni
 
          SELECT Child.id, Child.name, Child.birthday FROM Child
@@ -50,9 +91,28 @@ Rekisteröityneenä ja kirjautuneena käyttäjänä haluan...
 
 
 - pystyä näkemään tarkemmat tiedot lapsestani
+
+	SELECT child.id, child.date_created, child.date_modified, child.name , child.birthday, child.account_id  
+	FROM child 
+	WHERE child.id = ?
+
 - pystyä muokkaamaan lapseni tietoja
+
+	UPDATE child SET date_modified=CURRENT_TIMESTAMP, name=?, birthday=? 
+	WHERE child.id = ?
+
 - pystyä poistamaan lisäämäni lapsen
- 
+
+	DELETE FROM child WHERE child.id = ?
+
+
+	Tässä poistettava myös lapseen liittyvät:
+
+	DELETE FROM likes WHERE likes.id = ?
+
+	DELETE FROM quotecategory WHERE quotecategory.quote_id = ? AND quotecategory.category_id = ?
+
+	DELETE FROM quote WHERE quote.id = ? 
 
 ### Ylläpitäjä
 

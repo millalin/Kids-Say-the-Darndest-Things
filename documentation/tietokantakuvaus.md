@@ -77,15 +77,15 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 #### Child
 
     CREATE TABLE child (
-       	    id INTEGER NOT NULL, 
-       	    date_created DATETIME, 
-       	    date_modified DATETIME, 
-       	    name VARCHAR(20) NOT NULL, 
-       	    birthday DATE NOT NULL, 
-       	    account_id INTEGER NOT NULL,
-       	    PRIMARY KEY (id), 
-       	    FOREIGN KEY(account_id) REFERENCES account (id)
-       	    )
+       	id INTEGER NOT NULL, 
+       	date_created DATETIME, 
+       	date_modified DATETIME, 
+       	name VARCHAR(20) NOT NULL, 
+       	birthday DATE NOT NULL, 
+       	account_id INTEGER NOT NULL,
+       	PRIMARY KEY (id), 
+       	FOREIGN KEY(account_id) REFERENCES account (id)
+       	)
 
 #### Quote
 
@@ -103,11 +103,11 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 #### Category
 
     CREATE TABLE category (
-  	 id INTEGER NOT NULL, 
-  	 date_created DATETIME, 
-  	 date_modified DATETIME, 
-  	 name VARCHAR(20) NOT NULL, 
-  	 PRIMARY KEY (id)
+  	    id INTEGER NOT NULL, 
+  	    date_created DATETIME, 
+  	    date_modified DATETIME, 
+  	    name VARCHAR(20) NOT NULL, 
+  	    PRIMARY KEY (id)
 	)
 
 #### Likes
@@ -140,5 +140,5 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 
 - sanontoja voisi olla kiva hakea lapsen iän perusteella
 - lapsilla voi olla tällä hetkellä vain yksi käyttäjätili (vanhempi). Tätä voisi muokata niin, että samoille lapsille voisi olla muitakin käyttäjiä (toinen vanhempi, isovanhempi tms) ja olisi mahdollista myös esimerkiksi tarkastella, kuka on lisännyt minkäkin sanonnan lapselle. 
-
+- lapsen lisäyksessä syntymäpäivän kohdalla voisi olla kalenterivalikko, josta päivämäärän voisi valita, nyt syöttäminen täytyy tehdä tietyssä muodossa
 
