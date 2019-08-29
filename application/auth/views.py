@@ -6,7 +6,7 @@ from application.auth.models import User
 from application.child.models import Child
 from application.quotes.models import Quote
 from application.likes.models import Likes
-from application.auth.forms import LoginForm, UserForm, MakeSureFormUser, UpdateForm
+from application.auth.forms import LoginForm, UserForm, MakeSureFormUser
 
 @app.route("/auth", methods=["GET"])
 @login_required(role="ADMIN")
