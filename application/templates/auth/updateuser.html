@@ -51,6 +51,23 @@
       </td>
     </tr>
     <tr>
+        <td>
+          {{ form.password_again.label }}
+        </td>
+        <td>
+          {{ form.password_again }}
+        </td>
+        <td>
+          <ul>
+            {% for error in form.password_again.errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+                </div>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    <tr>
       <td colspan="2">
         <input type="submit" value="Muokkaa" />
       </td>

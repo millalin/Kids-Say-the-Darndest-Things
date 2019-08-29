@@ -6,7 +6,7 @@ from application.auth.models import User
 from application.child.models import Child
 from application.quotes.models import Quote
 from application.likes.models import Likes
-from application.auth.forms import LoginForm, UserForm, MakeSureFormUser
+from application.auth.forms import LoginForm, UserForm, MakeSureFormUser, UpdateForm
 
 @app.route("/auth", methods=["GET"])
 @login_required(role="ADMIN")
@@ -162,6 +162,12 @@ def user_confirmupdate(user_id):
     form = UserForm(request.form)
     
     if not form.validate():
+        return render_template("auth/updateuser.html", form = form, user_id=user_id)
+
+    alreadyExistsUser = User.query.filter_by(username=form.username.data).first()
+    
+    if alreadyExistsUser and current_user != alreadyExistsUser:
+        form.username.errors.append("käyttäjätunnus on jo olemassa, valitse toinen käyttäjätunnus")
         return render_template("auth/updateuser.html", form = form, user_id=user_id)
 
     pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')

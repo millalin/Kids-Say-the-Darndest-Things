@@ -25,6 +25,10 @@ Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumi
 
 ### Rekisteröitynyt ja kirjautunut käyttjäjä 
 
+#### Omien tietojen näyttäminen ja muokkaaminen
+
+Omia tietojaan pääsee tarkastelemaan yläpalkin valikosta oikealta painamalla oman nimensä kohdasta. Tiedoissa näkyy id, nimi, käyttäjänimi, luomispäivä, muokkaamispäivä sekä lapsien listaus. Painikkeesta "Muokkaa tietoja tai vaihda salasana" pääsee vaihtamaan nimen, käyttäjänimen ja/tai salasanan. 
+
 #### Lapsen lisääminen
 
 Kirjautunut käyttäjä voi lisätä itselleen lapsia yläpalkin valikon kohdasta "Lisää lapsi". Lapselle tulee syöttää seuraavat tiedot:

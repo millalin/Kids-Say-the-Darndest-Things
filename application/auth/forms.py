@@ -7,7 +7,6 @@ class LoginForm(FlaskForm):
     username = StringField("Käyttäjänimi", [InputRequired()])
     password = PasswordField("Salasana", [InputRequired()])
   
-
 class UserForm(FlaskForm):
     name = StringField("Nimi", [validators.Length(min=2, max=30, message= "Nimen tulee olla 2-30 merkin pituinen" )])
     username = StringField("Käyttäjänimi", [validators.Regexp(r'^[\w.@+-]+$'),validators.Length(min=2, max=20, message= "Käyttäjänimen tulee olla 2-20 merkin pituinen" )])
