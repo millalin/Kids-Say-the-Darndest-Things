@@ -23,7 +23,7 @@ Jos pääkäyttäjää (admin) ei ole vielä luotu, sen voi luoda rekisteröitym
 Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumisessa tulee syöttää luotu käyttäjänimi sekä salasana. Kirjautumaan pääsee ylävalikosta $
 
 
-### Rekisteröitynyt ja kirjautunut käyttjäjä 
+### Rekisteröitynyt ja kirjautunut käyttäjä 
 
 #### Omien tietojen näyttäminen ja muokkaaminen
 

@@ -1,7 +1,7 @@
 from application import app, db, login_required
 from flask import redirect, render_template, request, url_for
 from application.quotes.models import Quote
-from application.quotes.forms import QuoteForm
+from application.quotes.forms import QuoteForm, AgeSelectForm
 from application.category.forms import CategorySelectForm
 from application.child.forms import ChildSelectForm
 
@@ -47,6 +47,21 @@ def quotes_by():
 
     list = Quote.quotes_of_category(category_id)
     return render_template("quotes/listbycategory.html", list=list, name=name)
+
+@app.route("/quotes/byage/", methods=["POST", "GET"])
+def quotes_get_age():
+    
+    form = AgeSelectForm()
+
+    return render_template("quotes/selectage.html", form = form)
+
+@app.route("/quotes/byage/list", methods=["GET", "POST"])
+def quotes_by_age():
+    form=AgeSelectForm()
+    age=form.age.data
+
+    list = Quote.quotes_of_age(age)
+    return render_template("quotes/listbyage.html", list=list, age=age)
 
 @app.route("/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required(role="ANY")

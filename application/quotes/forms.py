@@ -19,4 +19,9 @@ class QuoteForm(FlaskForm):
     class Meta:
         csrf = False
 
+class AgeSelectForm(FlaskForm):
+    age = IntegerField("Ikä jolloin sanottu", [validators.NumberRange(min=0, max=99, message="Iän tulee olla väliltä 0-99")]) 
+   
+    class Meta:
+        csrf = False
 

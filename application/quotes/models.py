@@ -79,6 +79,21 @@ class Quote(Base):
 
         return response
 
+    @staticmethod
+    def quotes_of_age(age):
+        stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
+                     " JOIN Child ON Child.id = Quote.child_id"
+                     " WHERE quote.agesaid=:age"
+                     " GROUP BY Quote.id, Child.name").params(age = age)
+                     
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
+
+        return response
+
 
     @staticmethod
     def likestatus(quote_id):
