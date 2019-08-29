@@ -77,15 +77,15 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 #### Child
 
     CREATE TABLE child (
-    id INTEGER NOT NULL, 
-    date_created DATETIME, 
-    date_modified DATETIME, 
-    name VARCHAR(20) NOT NULL, 
-    birthday DATE NOT NULL, 
-    account_id INTEGER NOT NULL,
-    PRIMARY KEY (id), 
-    FOREIGN KEY(account_id) REFERENCES account (id)
-    )
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        date_modified DATETIME, 
+        name VARCHAR(20) NOT NULL, 
+        birthday DATE NOT NULL, 
+        account_id INTEGER NOT NULL,
+        PRIMARY KEY (id), 
+        FOREIGN KEY(account_id) REFERENCES account (id)
+        )
 
 #### Quote
 

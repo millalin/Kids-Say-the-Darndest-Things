@@ -1,4 +1,4 @@
-# User Stories
+# User Stories sekä keskeiset SQL-lauseet
 
 ### Rekisteröimätön käyttäjä:
 
