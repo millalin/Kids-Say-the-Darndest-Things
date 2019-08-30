@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 
 
@@ -7,21 +6,25 @@
   <tr>
     <h2 style="color: teal">Sanonnat Top 10</h2>
 
-    {% for quote in list %}
+    <ol>
+      {% for quote in list %}
+      <li>
+
+        <blockquote class="blockquote" , style="font-size:23px">
+
+          <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
+
+          <p>
+            <font size="4px" color="858483"> &nbsp;&nbsp;&nbsp; - {{ quote.num }} tykkäystä </font>
+
+          </p>
+        </blockquote>
+      </li>
+      {% endfor %}
+    </ol>
 
 
-    <blockquote class="blockquote", style="font-size:22px">
-
-      <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
-
-      <footer class="blockquote-footer"> Tykkäyksiä {{quote.num}} kpl
-
-      </footer>
 
 
-
-    </blockquote>
-
-    {% endfor %}
 </table>
 {% endblock %}

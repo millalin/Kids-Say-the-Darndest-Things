@@ -14,7 +14,7 @@ from flask_login import current_user
 @app.route("/quotes/<page>/", methods=["POST", "GET"])
 def quotes_index(page):
     
-    # Sivutus, lasketaan sanonnat ja tämän perusteella sivutmäärä, parametrinä valmiiksi aina seuraavan ja edellisen sivun tiedot
+    # Sivutus, lasketaan sanonnat ja tämän perusteella sivutmäärä, parametrinä valmiiksi aina seuraavan ja edellisen sivun tiedot, 5 sanontaa/s
     quotecount = Quote.quotecount()
     count=quotecount.get("total")
     pages=(count/5)
@@ -57,7 +57,7 @@ def quotes_by_category():
 @app.route("/quotes/bycategory/list/<page>/<category_id>/<name>", methods=["GET", "POST"])
 def quotes_by(page, category_id, name):   
 
-    # Sivutus
+    # Sivutus, lasketaan monta sanontaa kategoriaan kuuluu ja sen mukaan sivut
     quotecount = Quote.quotecount_category(category_id)
     count=quotecount.get("total")
     pages=(count/5)
@@ -89,7 +89,7 @@ def quotes_get_by_age():
 @app.route("/quotes/byage/list/<page>/<age>", methods=["GET", "POST"])
 def quotes_by_age(page, age):
 
-    # Sivutus
+    # Sivutus, lasketaan monta sanontaa iällä on ja sen mukaan sivut
     quotecount = Quote.quotecount_age(age)
     count=quotecount.get("total")
     pages=(count/5)
@@ -278,4 +278,6 @@ def quotes_admin_delete(quote_id, page):
     db.session().commit()
     
     return redirect(url_for("quotes_index", page=page))
+
+
 

@@ -143,4 +143,4 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 - lapsilla voi olla tällä hetkellä vain yksi käyttäjätili (vanhempi). Tätä voisi muokata niin, että samoille lapsille voisi olla muitakin käyttäjiä (toinen vanhempi, isovanhempi tms) ja olisi mahdollista myös esimerkiksi tarkastella, kuka on lisännyt minkäkin sanonnan lapselle. 
 - lapsen lisäyksessä syntymäpäivän kohdalla voisi olla kalenterivalikko, josta päivämäärän voisi valita, nyt syöttäminen täytyy tehdä tietyssä muodossa
 - sivutuksessa voisi olla numerointi myös monta sivua, jotta voisi navigoida suoraan jollekin sivustolle (esimerkiksi nro 5)
-- haun voisi toteuttaa lisäksi myös esimerkiksi niin, että se hakisi sekä ikällä että kategorialla
+- haun voisi toteuttaa lisäksi myös esimerkiksi niin, että se hakisi sekä ikällä että kategorialla. Lisäksi oman lapsen sanonnoissa voisi olla ikähakutoiminto.

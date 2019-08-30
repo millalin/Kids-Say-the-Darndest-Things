@@ -15,11 +15,12 @@
     {% for quote in list %}
 
 
-    <blockquote class="blockquote" , style="font-size:22px">
+    <blockquote class="blockquote" , style="font-size:24px">
 
-      <p class="mb-0 " style="color:rgb(66, 62, 66);"><em>{{ quote.name }}</em></p>
+      <p class="mb-0 " style="color:rgb(3, 134, 127);"><em>{{ quote.name }}</em></p>
 
-      <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
+      <p>
+        <font size="4px" color="858483"> &nbsp;&nbsp;&nbsp; - {{ quote.n }} {{quote.agesaid}} vuotta </font>
 
         {% if current_user.is_authenticated %}
 
@@ -47,7 +48,7 @@
         <br>
         <br>
 
-      </footer>
+      </p>
 
 
 

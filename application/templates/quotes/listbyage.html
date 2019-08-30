@@ -4,32 +4,36 @@
 <table>
   <tr>
     <h2 style="color: teal">Sanonnat iällä {{age}} -vuotta</h2>
+    {% if current_user.is_authenticated %}
+    <p style="color: rgb(238, 132, 132)">Tykkää sanonnasta painamalla sydäntä</p>
+    {% endif %}
   </tr>
   {% if list is defined and list|length > 0 %}
   {% for quote in list %}
   <br>
   <br>
   <blockquote class="blockquote">
-    <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
-    <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta
+    <p class="mb-1 " style="color:teal;"><em>{{ quote.name }}</em></p>
+    <p>
+      <font size="4px" color="858483"> &nbsp;&nbsp;&nbsp; - {{ quote.n }} {{quote.agesaid}} vuotta </font>
 
-    {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated %}
 
 
-    {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
-    <a href="{{ url_for('unlike_quote_agelist', quote_id = quote.id, page=page, age=age)}}">
-      <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
-    </a>
+      {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
+      <a href="{{ url_for('unlike_quote_agelist', quote_id = quote.id, page=page, age=age)}}">
+        <button type="submit" class="btn2"><i class="fa fa-heart"></i></button>
+      </a>
 
-    {% else %}
+      {% else %}
 
-    <a href="{{ url_for('like_quote_agelist', quote_id = quote.id, page=page, age=age)}}">
-      <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
-    </a>
+      <a href="{{ url_for('like_quote_agelist', quote_id = quote.id, page=page, age=age)}}">
+        <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
+      </a>
 
-    {% endif %}
-    {% endif %}
-  </footer>
+      {% endif %}
+      {% endif %}
+    </p>
   </blockquote>
 
   {% endfor %}
@@ -43,14 +47,14 @@
 <ul>
   {% if page >1 %}
   <a href="{{ url_for('quotes_by_age', page=page_prev, age=age) }}">
-      <button type="submit" class="btn btn-secondary btn-xs">Edellinen sivu</button>
+    <button type="submit" class="btn btn-secondary btn-xs">Edellinen sivu</button>
   </a>
 
   {% endif %} {% if page < pages %}
   <a href="{{ url_for('quotes_by_age', page=page_next, age=age) }}">
-      <button type="submit" class="btn btn-secondary btn-xs">Seuraava sivu</button>
+    <button type="submit" class="btn btn-secondary btn-xs">Seuraava sivu</button>
   </a>
-  
+
   {% endif %}
 </ul>
 Sivu {{page}}
