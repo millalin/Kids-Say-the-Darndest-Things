@@ -7,6 +7,8 @@
   </tr>
   {% if list is defined and list|length > 0 %}
   {% for quote in list %}
+  <br>
+  <br>
   <blockquote class="blockquote">
     <p class="mb-0 " style="color:teal;"><em>{{ quote.name }}</em></p>
     <footer class="blockquote-footer"> {{ quote.n }} {{quote.agesaid}} vuotta</footer>
@@ -20,5 +22,19 @@
 
 </table>
 
+<ul>
+  {% if page >1 %}
+  <a href="{{ url_for('quotes_by_age', page=page_prev, age=age) }}">
+      <button type="submit" class="btn btn-secondary btn-xs">Edellinen sivu</button>
+  </a>
+
+  {% endif %} {% if page < pages %}
+  <a href="{{ url_for('quotes_by_age', page=page_next, age=age) }}">
+      <button type="submit" class="btn btn-secondary btn-xs">Seuraava sivu</button>
+  </a>
+  
+  {% endif %}
+</ul>
+Sivu {{page}}
 
 {% endblock %}

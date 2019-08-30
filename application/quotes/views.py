@@ -49,11 +49,8 @@ def quotes_by_category():
     return redirect(url_for("quotes_by", page=1, category_id=category_id, name=name))
 
 
-
-
 @app.route("/quotes/bycategory/list/<page>/<category_id>/<name>", methods=["GET", "POST"])
-def quotes_by(page, category_id, name):
-    
+def quotes_by(page, category_id, name):   
 
     # Sivutus
     quotecount = Quote.quotecount_category(category_id)
@@ -62,9 +59,6 @@ def quotes_by(page, category_id, name):
     page_prev=int(page)-1
     page_next=int(page)+1
     get_quotes = int(page) -1
-
-    print("SIVUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT")
-    print(pages)
 
     list = Quote.quotes_of_category(category_id, get_quotes)
     return render_template("quotes/listbycategory.html", list=list, name=name, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
@@ -76,16 +70,31 @@ def quotes_get_age():
 
     return render_template("quotes/selectage.html", form = form)
 
-@app.route("/quotes/byage/list", methods=["GET", "POST"])
-def quotes_by_age():
+@app.route("/quotes/byage/list", methods=["POST", "GET"])
+def quotes_get_by_age():
     form=AgeSelectForm(request.form)
 
     if not form.validate():
         return render_template("quotes/selectage.html", form = form)
 
     age=form.age.data
-    list = Quote.quotes_of_age(age)
-    return render_template("quotes/listbyage.html", list=list, age=age)
+
+    return redirect(url_for("quotes_by_age", page=1, age=age))
+
+@app.route("/quotes/byage/list/<page>/<age>", methods=["GET", "POST"])
+def quotes_by_age(page, age):
+    
+
+    # Sivutus
+    quotecount = Quote.quotecount_age(age)
+    count=quotecount.get("total")
+    pages=(count/5)
+    page_prev=int(page)-1
+    page_next=int(page)+1
+    get_quotes = int(page) -1
+
+    list = Quote.quotes_of_age(age, get_quotes)
+    return render_template("quotes/listbyage.html", list=list, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next)
 
 @app.route("/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required(role="ANY")

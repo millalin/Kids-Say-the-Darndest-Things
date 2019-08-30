@@ -79,11 +79,11 @@ class Quote(Base):
         return response
 
     @staticmethod
-    def quotes_of_age(age):
+    def quotes_of_age(age, num):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
                      " WHERE quote.agesaid=:age"
-                     " GROUP BY Quote.id, Child.name").params(age = age)
+                     " ORDER BY Quote.id LIMIT 5 OFFSET 5*:offs").params(age = age, offs = num)
                      
         res = db.engine.execute(stmt)
 
@@ -133,5 +133,16 @@ class Quote(Base):
 
         return response[0]
     
+    @staticmethod
+    def quotecount_age(age):
+        stmt = text("SELECT COUNT(Quote.id) AS total FROM Quote"
+                     " WHERE quote.agesaid=:age").params(age = age)
+                 
+        res = db.engine.execute(stmt)
 
+        response = []
+        for row in res:
+            response.append({"total":row[0]})
+
+        return response[0]
 
