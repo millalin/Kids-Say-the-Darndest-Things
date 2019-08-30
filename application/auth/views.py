@@ -11,6 +11,7 @@ from application.auth.forms import LoginForm, UserForm, MakeSureFormUser
 @app.route("/auth", methods=["GET"])
 @login_required(role="ADMIN")
 def user_index():
+    # Lasketaan käyttäjälistaukseen käyttäjien omat lapsimäärät, kaikkien lasten määrä sekä  käyttäjien määrä
     childrencount = User.how_many_children()
     child_in_all = Child.childrencount()
     user_in_all = User.usercount()
@@ -26,14 +27,15 @@ def user_create():
     form = UserForm(request.form)
     
     if not form.validate():
-        #form.name.errors.append( "Nimen tulee olla 2-30 merkin pituinen" )
         return render_template("auth/newuser.html", form = form)
 
+    # Tarkastetaan onko samanniminen käyttäjä jo olemassa
     alreadyExistsUser = User.query.filter_by(username=form.username.data).first()
     if alreadyExistsUser:
         form.username.errors.append("käyttäjätunnus on jo olemassa, valitse toinen käyttäjätunnus")
         return render_template("auth/newuser.html", form = form)
 
+    # Salasanan salaus
     pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
     u = User(name = form.name.data, username = form.username.data, password = pw_hash, role = "USER")
 
@@ -80,6 +82,7 @@ def auth_logout():
 @login_required(role="ADMIN")
 def user_delete(user_id):
    
+    # Tarkistuslomake, jotta käyttäjää ei poisteta liian helpolla
     form = MakeSureFormUser()
 
     return render_template("auth/deleteuser.html", form = form, user_id=user_id)
@@ -91,6 +94,7 @@ def user_deleteConfirm(user_id):
     form = MakeSureFormUser(request.form)
     ok = form.name.data
     
+    # Jos tarkistuslomakkeella on varmistettu käyttäjän poisto
     if ok == "x":
 
         user = User.query.filter(User.id == user_id).first()
@@ -166,10 +170,12 @@ def user_confirmupdate(user_id):
 
     alreadyExistsUser = User.query.filter_by(username=form.username.data).first()
     
+    # Tarkistetaan muokkauksessa ettei samannimistä käyttäjää ole, oma olemassaoleva käyttäjätunnus käy
     if alreadyExistsUser and current_user != alreadyExistsUser:
         form.username.errors.append("käyttäjätunnus on jo olemassa, valitse toinen käyttäjätunnus")
         return render_template("auth/updateuser.html", form = form, user_id=user_id)
 
+    # Salasanan salaus
     pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 
     user.name = form.name.data

@@ -14,32 +14,37 @@ from flask_login import current_user
 @app.route("/quotes/<page>/", methods=["POST", "GET"])
 def quotes_index(page):
     
-    # Sivutus
+    # Sivutus, lasketaan sanonnat ja tämän perusteella sivutmäärä, parametrinä valmiiksi aina seuraavan ja edellisen sivun tiedot
     quotecount = Quote.quotecount()
     count=quotecount.get("total")
     pages=(count/5)
     page_prev=int(page)-1
     page_next=int(page)+1
     get_quotes = int(page) -1
+
     # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät 5 kerrallaan (joka sivulle)
     list =Quote.quotes_with_names(get_quotes)
     
-        
     return render_template("quotes/list.html", list=list, Quote=Quote, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next)
 
-@app.route("/quotes/bycategory/", methods=["POST", "GET"])
+@app.route("/quotes/search/", methods=["POST", "GET"])
 def quotes_get():
     # Asetetaan lomakkeelle valinnoiksi tällä hetkellä olemassaolevat adminin lisäämät kategoriat kategoriataulusta
     cates=Category.query.all()
     c_list=[(i.name,i.name) for i in cates]
-    form = CategorySelectForm()
-    form.selection.choices = c_list
+    form1 = CategorySelectForm()
+    form1.selection.choices = c_list
 
-    return render_template("quotes/selectcategory.html", form = form)
+    #haetaan toinen lomake ikävalinnalle
+    form2 = AgeSelectForm()
+
+    return render_template("quotes/select.html", form1 = form1, form2 = form2)
 
 
 @app.route("/quotes/bycategory/list", methods=["POST", "GET"])
 def quotes_by_category():
+
+    #Otataan talteen kategoria id, jotta voidaan hakea oikean kategorian sanonnat
     form=CategorySelectForm(request.form)
     name=form.selection.data
     
@@ -60,30 +65,29 @@ def quotes_by(page, category_id, name):
     page_next=int(page)+1
     get_quotes = int(page) -1
 
+    #haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_category(category_id, get_quotes)
     return render_template("quotes/listbycategory.html", list=list, name=name, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
 
-@app.route("/quotes/byage/", methods=["POST", "GET"])
-def quotes_get_age():
-    
-    form = AgeSelectForm()
-
-    return render_template("quotes/selectage.html", form = form)
 
 @app.route("/quotes/byage/list", methods=["POST", "GET"])
 def quotes_get_by_age():
-    form=AgeSelectForm(request.form)
+    form2=AgeSelectForm(request.form)
+    # Asetetaan lomakkeelle valinnoiksi tällä hetkellä olemassaolevat adminin lisäämät kategoriat kategoriataulusta
+    cates=Category.query.all()
+    c_list=[(i.name,i.name) for i in cates]
+    form1 = CategorySelectForm()
+    form1.selection.choices = c_list    
 
-    if not form.validate():
-        return render_template("quotes/selectage.html", form = form)
+    if not form2.validate():
+        return render_template("quotes/select.html", form2 = form2, form1=form1)
 
-    age=form.age.data
+    age=form2.age.data
 
     return redirect(url_for("quotes_by_age", page=1, age=age))
 
 @app.route("/quotes/byage/list/<page>/<age>", methods=["GET", "POST"])
 def quotes_by_age(page, age):
-    
 
     # Sivutus
     quotecount = Quote.quotecount_age(age)
@@ -93,12 +97,14 @@ def quotes_by_age(page, age):
     page_next=int(page)+1
     get_quotes = int(page) -1
 
+    # haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_age(age, get_quotes)
     return render_template("quotes/listbyage.html", list=list, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next)
 
 @app.route("/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required(role="ANY")
 def quotes_childquotes(child_id):
+
     child = Child.query.get(child_id)
     name = child.name
     return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)    
@@ -127,6 +133,8 @@ def quotes_childquotes_by_child():
 
 @app.route("/quotes/bychild/list", methods=["GET", "POST"])
 def quotes_by_child():
+
+    # Haetaan lapsi, jonka sanontoja halutaan nähdä ja otetaan id talteen
     form=ChildSelectForm()
     name=form.selection.data
     
@@ -154,6 +162,7 @@ def quotes_create(child_id):
         
     q = Quote(quote = form.name.data, agesaid = form.age.data, child_id = child_id)
 
+    # Haetaan valitut kategoriat ja lisätään ne yksitellen sanonnalle
     allcategories=form.categories.data
 
     for category in  allcategories:
@@ -193,11 +202,12 @@ def quotes_update(quote_id,child_id):
     quote = Quote.query.get(quote_id)
     form = QuoteForm(request.form)
 
+    # Talletetaan lomakkeelle kategoriavalinnat, tarpeen sivun uudelleennäytössä
     cates=Category.query.all()
     c_list=[(i.name,i.name) for i in cates]
-        
     form = QuoteForm()
     form.categories.choices = c_list
+    
     if not form.validate():
     
         return render_template("quotes/modifystate.html",form = form, quote_id = quote_id,child_id=child_id)
@@ -219,10 +229,8 @@ def quotes_update(quote_id,child_id):
 
     return redirect(url_for("quotes_childquotes", child_id=child_id))
 
-#@app.route("/quotes/<child_id>/list", methods=["GET"])
-#def quotes_ownquotes():
-    #return render_template("quotes/list.html", quotes = Quote.query.all())
 
+# Sanonnan poisto
 @app.route("/quotes/<quote_id>/del/<child_id>", methods=["GET","POST"])
 @login_required(role="ANY")
 def quotes_delete(quote_id,child_id):
@@ -232,13 +240,13 @@ def quotes_delete(quote_id,child_id):
     likes = Likes.query.filter(quote_id==Likes.quote_id)
     for like in likes:
         db.session.delete(like)
-        
-        
+                
     db.session.delete(quote)
     db.session().commit()
     
     return redirect(url_for("quotes_childquotes", child_id=child_id))
  
+# Yhden sanonnan tietojen näyttäminen
 @app.route("/quotes/show/<quote_id>", methods=["GET", "POST"])
 @login_required(role="ANY")
 def quotes_showOne(quote_id):
@@ -251,10 +259,12 @@ def quotes_showOne(quote_id):
 @app.route("/quotes/top", methods=["GET", "POST"])
 def quotes_top():
 
+    # Haetaan 10 eniten tykkäystä saadyt sanonnat
     list=Likes.topliked()
         
     return render_template("quotes/topliked.html", list=list)
 
+# Ylläpitäjän sanonnan poisto
 @app.route("/quotes/<page>/<quote_id>/del/", methods=["GET","POST"])
 @login_required(role="ADMIN")
 def quotes_admin_delete(quote_id, page):
@@ -264,7 +274,6 @@ def quotes_admin_delete(quote_id, page):
     for like in likes:
         db.session.delete(like) 
            
-        
     db.session.delete(quote)
     db.session().commit()
     

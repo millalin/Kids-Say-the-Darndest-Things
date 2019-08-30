@@ -18,8 +18,8 @@ Toiminnot ovat kirjautuneelle käyttäjälle, ellei toisin mainita.
 
 Käyttäjä (CRUD)
 
-- käyttäjän rekisteröityminen, tunnusten luominen
-- rekisteröityneen käyttäjän kirjautuminen
+- käyttäjän rekisteröityminen, tunnusten luominen (kaikki käyttäjät)
+- rekisteröityneen käyttäjän kirjautuminen 
 - kaikkien käyttäjien listaus (vain admin)
 - käyttäjän tietojen tarkastelu 
 - Käyttäjän tietojen muokkaaminen
@@ -41,6 +41,8 @@ Sanonta (CRUD)
 - omien lasten sanontojen listaus
 - omien lasten sanonnan poisto
 - kaikkien sanontojen poistomahdollisuus (vain admin)
+- sanonnan listaus kategorian mukaan (myös ei kirjautunut)
+- sanonnan listaus iän mukaan (myös ei kirjautunut)
 
 Kategoria (CRD)
 
@@ -52,7 +54,7 @@ Tykkäys (CD)
 
 - tykkäyksen lisääminen sanonnalle
 - tykkäyksen poisto
-- top 10 tykätyt lista
+- top 10 tykätyt lista (myös ei kirjautunut)
 
 
 ### Tietokannan normalisointi
@@ -140,4 +142,4 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 
 - lapsilla voi olla tällä hetkellä vain yksi käyttäjätili (vanhempi). Tätä voisi muokata niin, että samoille lapsille voisi olla muitakin käyttäjiä (toinen vanhempi, isovanhempi tms) ja olisi mahdollista myös esimerkiksi tarkastella, kuka on lisännyt minkäkin sanonnan lapselle. 
 - lapsen lisäyksessä syntymäpäivän kohdalla voisi olla kalenterivalikko, josta päivämäärän voisi valita, nyt syöttäminen täytyy tehdä tietyssä muodossa
-
+- sivutuksessa voisi olla numerointi myös monta sivua, jotta voisi navigoida suoraan jollekin sivustolle (esimerkiksi nro 5)

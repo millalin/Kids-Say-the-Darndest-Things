@@ -15,14 +15,14 @@ Rekisteröimättömänä asiakkaana haluan..
         JOIN Child ON Child.id = Quote.child_id
         JOIN quotecategory ON quotecategory.quote_id = Quote.id
         WHERE quotecategory.category_id=?
-        GROUP BY Quote.id, Child.name
+        ODER BY Quote.id
 
 - hakea sanontoja iän mukaan
 
         SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote
         JOIN Child ON Child.id = Quote.child_id
         WHERE quote.agesaid=?
-        GROUP BY Quote.id, Child.name
+        ORDER BY Quote.id
 
 - hakea top 10 (eniten tykätyt) listan ja lukea sen sanonnat
 
@@ -32,14 +32,28 @@ Rekisteröimättömänä asiakkaana haluan..
         ORDER BY num DESC
         LIMIT 10
 
-- voida rekisteröityä ja kirjautua sen jälkeen
+- voida rekisteröityä 
 
+        INSERT INTO account (date_created, date_modified, name, username, password, role) 
+        VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?)
+
+- ja rekisteröitymisen jälkeen kirjautua 
+
+        SELECT account.id, account.date_created, account.date_modified, 
+        account.name, account.username, account.password, account.role 
+        FROM account 
+        WHERE account.username = ?
+       
 
 ### Kirjautunut käyttäjä:
 
 Rekisteröityneenä ja kirjautuneena käyttäjänä haluan...
 
 - voida lisätä lapsia tietokantaan
+
+        INSERT INTO child (date_created, date_modified, name, birthday, account_id) 
+        VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
+
 - voida listata omien lapseni omat sanonnat
 
          SELECT Quote.id, Quote.quote, Quote.agesaid FROM Quote
@@ -65,7 +79,8 @@ Rekisteröityneenä ja kirjautuneena käyttäjänä haluan...
 
 - tarkastella sanonnan tietoja tarkemmin
 
-        SELECT quote.id, quote.date_created, quote.date_modified, quote.quote, quote.agesaid, quote.child_id  
+        SELECT quote.id, quote.date_created, quote.date_modified, 
+        quote.quote, quote.agesaid, quote.child_id  
         FROM quote 
         WHERE quote.id = ?
 
@@ -102,7 +117,8 @@ Rekisteröityneenä ja kirjautuneena käyttäjänä haluan...
 
 - pystyä näkemään tarkemmat tiedot lapsestani
 
-        SELECT child.id, child.date_created, child.date_modified, child.name , child.birthday, child.account_id  
+        SELECT child.id, child.date_created, child.date_modified, child.name , 
+        child.birthday, child.account_id  
         FROM child 
         WHERE child.id = ?
 
@@ -130,7 +146,8 @@ Ylläpitäjänä haluan...
 
 - voida lisätä ja poistaa kategorioita
 
-        INSERT INTO category (date_created, date_modified, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
+        INSERT INTO category (date_created, date_modified, name) 
+        VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
 
         DELETE FROM category WHERE category.id = ?
 
@@ -144,11 +161,13 @@ Ylläpitäjänä haluan...
 
 - nähdä käyttäjien tarkemmat tiedot ja listauksen käyttäjän lapsista
 
-        SELECT account.id, account.date_created, account.date_modified, account.name, account.username, account.password, account.role 
+        SELECT account.id, account.date_created, account.date_modified, 
+        account.name, account.username, account.password, account.role 
         FROM account 
         WHERE account.id = ?
 
-        SELECT child.id, child.date_created, child.date_modified, child.name, child.birthday, child.account_id 
+        SELECT child.id, child.date_created, child.date_modified, child.name, 
+        child.birthday, child.account_id 
         FROM child 
         WHERE child.account_id = ?
 

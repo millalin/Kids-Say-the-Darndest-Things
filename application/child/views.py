@@ -11,6 +11,7 @@ from flask_login import login_required, current_user
 def child_index():
     return render_template("child/listchild.html", quotes = Child.query.all())
 
+# Käyttäjän omien lapsien halu kyselyllä
 @app.route("/child/userlist/", methods=["GET"])
 @login_required
 def child_userchildren():
@@ -29,6 +30,7 @@ def child_create():
     if not form.validate():
         return render_template("child/newchild.html", form = form)
 
+    # Tarkastetaan, ettei käyttäjällä ole samannimistä lasta
     alreadyExistsChild = Child.query.filter_by(name=form.name.data).first()
     if alreadyExistsChild:
         form.username.errors.append("Sinulla on jo tämänniminen lapsi on olemassa.")
@@ -75,7 +77,7 @@ def child_update(child_id):
 @login_required
 def child_delete(child_id):
 
-   
+    # Tarkastuslomake, jottei lasta tule poistettua liian helpolla
     form = MakeSureForm()
 
     return render_template("child/deletechild.html", form = form, child_id=child_id)
@@ -87,6 +89,7 @@ def child_deleteConfirm(child_id):
     form = MakeSureForm(request.form)
     ok = form.name.data
     
+    # jos tarkastuslomakkeeseen on syötetty oikea tieto, jolla halutaan varmistaa poisto
     if ok == "x":
 
         c = Child.query.get(child_id)
@@ -112,6 +115,7 @@ def child_deleteConfirm(child_id):
     flash("Lasta ei poistettu", category="warning")
     return redirect(url_for("child_userchildren"))
 
+# Yhden lapsen tietojen näyttäminen
 @app.route("/child/showchild/<child_id>")
 @login_required
 def child_showOne(child_id):
