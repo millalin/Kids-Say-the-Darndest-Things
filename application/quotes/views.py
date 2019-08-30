@@ -67,7 +67,7 @@ def quotes_by(page, category_id, name):
 
     #haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_category(category_id, get_quotes)
-    return render_template("quotes/listbycategory.html", list=list, name=name, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
+    return render_template("quotes/listbycategory.html", list=list, name=name, Quote=Quote, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
 
 
 @app.route("/quotes/byage/list", methods=["POST", "GET"])
@@ -99,7 +99,7 @@ def quotes_by_age(page, age):
 
     # haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_age(age, get_quotes)
-    return render_template("quotes/listbyage.html", list=list, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next)
+    return render_template("quotes/listbyage.html", list=list, Quote=Quote, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next)
 
 @app.route("/quotes/list/<child_id>", methods=["POST","GET"])
 @login_required(role="ANY")
