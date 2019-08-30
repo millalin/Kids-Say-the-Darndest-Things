@@ -49,8 +49,7 @@ class Quote(Base):
     @staticmethod
     def quotes_with_names(num):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
-                     " JOIN Child ON Child.id = Quote.child_id"
-                     
+                     " JOIN Child ON Child.id = Quote.child_id"        
                      " ORDER BY Quote.id LIMIT 5 OFFSET 5*:offs").params(offs = num)
         res = db.engine.execute(stmt)
 
@@ -64,12 +63,12 @@ class Quote(Base):
 
     # Hakee kaikki sanonnat tietyn kategorian mukaan
     @staticmethod
-    def quotes_of_category(id):
+    def quotes_of_category(id, num):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
                      " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
                      " WHERE quotecategory.category_id=:c_id"
-                     " GROUP BY Quote.id, Child.name").params(c_id = id)
+                     " ORDER BY Quote.id LIMIT 5 OFFSET 5*:offs").params(c_id = id, offs = num)
                      
         res = db.engine.execute(stmt)
 
@@ -120,6 +119,19 @@ class Quote(Base):
         return response[0]
 
 
+    @staticmethod
+    def quotecount_category(category_id):
+        stmt = text("SELECT COUNT(Quote.id) AS total FROM Quote"
+                     " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
+                     " WHERE quotecategory.category_id=:c_id").params(c_id = category_id)
+                 
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0]})
+
+        return response[0]
     
 
 

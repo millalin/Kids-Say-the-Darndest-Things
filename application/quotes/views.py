@@ -17,11 +17,11 @@ def quotes_index(page):
     # Sivutus
     quotecount = Quote.quotecount()
     count=quotecount.get("total")
-    pages=int(count/5)+1
+    pages=(count/5)
     page_prev=int(page)-1
     page_next=int(page)+1
     get_quotes = int(page) -1
-    # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät
+    # Haetaan kyselyllä kaikki sanonnat sekä niihin liittyvät lapsen nimet ja iät 5 kerrallaan (joka sivulle)
     list =Quote.quotes_with_names(get_quotes)
     
         
@@ -37,16 +37,37 @@ def quotes_get():
 
     return render_template("quotes/selectcategory.html", form = form)
 
-@app.route("/quotes/bycategory/list", methods=["GET", "POST"])
-def quotes_by():
-    form=CategorySelectForm()
+
+@app.route("/quotes/bycategory/list", methods=["POST", "GET"])
+def quotes_by_category():
+    form=CategorySelectForm(request.form)
     name=form.selection.data
     
     category = Category.findCategory(name)
     category_id=category.getId()
 
-    list = Quote.quotes_of_category(category_id)
-    return render_template("quotes/listbycategory.html", list=list, name=name)
+    return redirect(url_for("quotes_by", page=1, category_id=category_id, name=name))
+
+
+
+
+@app.route("/quotes/bycategory/list/<page>/<category_id>/<name>", methods=["GET", "POST"])
+def quotes_by(page, category_id, name):
+    
+
+    # Sivutus
+    quotecount = Quote.quotecount_category(category_id)
+    count=quotecount.get("total")
+    pages=(count/5)
+    page_prev=int(page)-1
+    page_next=int(page)+1
+    get_quotes = int(page) -1
+
+    print("SIVUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT")
+    print(pages)
+
+    list = Quote.quotes_of_category(category_id, get_quotes)
+    return render_template("quotes/listbycategory.html", list=list, name=name, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
 
 @app.route("/quotes/byage/", methods=["POST", "GET"])
 def quotes_get_age():
@@ -57,9 +78,12 @@ def quotes_get_age():
 
 @app.route("/quotes/byage/list", methods=["GET", "POST"])
 def quotes_by_age():
-    form=AgeSelectForm()
-    age=form.age.data
+    form=AgeSelectForm(request.form)
 
+    if not form.validate():
+        return render_template("quotes/selectage.html", form = form)
+
+    age=form.age.data
     list = Quote.quotes_of_age(age)
     return render_template("quotes/listbyage.html", list=list, age=age)
 

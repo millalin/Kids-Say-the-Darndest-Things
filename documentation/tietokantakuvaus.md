@@ -138,7 +138,6 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 
 ### Ohjelman rakenteeseen jääneet heikkoudet ja jatkokehitysideat
 
-- sanontoja voisi olla kiva hakea lapsen iän perusteella
 - lapsilla voi olla tällä hetkellä vain yksi käyttäjätili (vanhempi). Tätä voisi muokata niin, että samoille lapsille voisi olla muitakin käyttäjiä (toinen vanhempi, isovanhempi tms) ja olisi mahdollista myös esimerkiksi tarkastella, kuka on lisännyt minkäkin sanonnan lapselle. 
 - lapsen lisäyksessä syntymäpäivän kohdalla voisi olla kalenterivalikko, josta päivämäärän voisi valita, nyt syöttäminen täytyy tehdä tietyssä muodossa
 

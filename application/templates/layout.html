@@ -58,15 +58,16 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
 
-          <a class="nav-link" href="{{ url_for('quotes_index', page=1) }}">Listaa kaikki &nbsp;&nbsp;&nbsp;<br> sanonnat </a>
+          <a class="nav-link" href="{{ url_for('quotes_index', page=1) }}">Listaa kaikki &nbsp;&nbsp;&nbsp;<br> sanonnat
+          </a>
         </li>
         <a class="nav-link" href="{{ url_for('quotes_top') }}">Top 10 &nbsp;&nbsp;&nbsp;<br>tykätyt</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku &nbsp;&nbsp;&nbsp;<br>(kategoria)</a></li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('quotes_get_age') }}">Haku &nbsp;&nbsp;&nbsp;<br>(ikä)</a></li>
-            <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('quotes_get_age') }}">Haku &nbsp;&nbsp;&nbsp;<br>(ikä)</a></li>
+        <li class="nav-item">
 
           {% if current_user.is_authenticated %}
 

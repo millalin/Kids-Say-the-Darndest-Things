@@ -2,24 +2,28 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('quotes_by_age') }}">
-    <table>
-        <tr>
-            <td>
-                <ul class="list-unstyled">
-                    <li> {{ form.age.label }}</li>
-                    <li style="color:teal;"> {{ form.age }}</li>
-                </ul>
-                <ul>
-                    {% for error in form.age.errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit" class="btn btn-secondary">Näytä sanonnat valitulle iälle</button>
-            </td>
-        </tr>
+  <table>
+    <tr>
+      <td>
+        {{ form.age.label }}
+      </td>
+      <td>
+        {{ form.age }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.age.errors %}
+          <div class="alert alert-danger">
+            {{ error }}
+          </div>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit" class="btn btn-secondary">Näytä sanonnat valitulle iälle</button>
+      </td>
+    </tr>
 </form>
 {% endblock %}

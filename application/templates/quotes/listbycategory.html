@@ -13,4 +13,19 @@
 
   {% endfor %}
 </table>
+
+<ul>
+  {% if page >1 %}
+  <a href="{{ url_for('quotes_by', page=page_prev, category_id=category_id, name=name) }}">
+      <button type="submit" class="btn btn-secondary btn-xs">Edellinen sivu</button>
+  </a>
+
+  {% endif %} {% if page < pages %}
+  <a href="{{ url_for('quotes_by', page=page_next, category_id=category_id, name=name) }}">
+      <button type="submit" class="btn btn-secondary btn-xs">Seuraava sivu</button>
+  </a>
+  
+  {% endif %}
+</ul>
+Sivu {{page}}
 {% endblock %}

@@ -17,6 +17,13 @@ Rekisteröimättömänä asiakkaana haluan..
         WHERE quotecategory.category_id=?
         GROUP BY Quote.id, Child.name
 
+- hakea sanontoja iän mukaan
+
+        SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote
+        JOIN Child ON Child.id = Quote.child_id
+        WHERE quote.agesaid=?
+        GROUP BY Quote.id, Child.name
+
 - hakea top 10 (eniten tykätyt) listan ja lukea sen sanonnat
 
         SELECT quote.id, quote.quote, COUNT(likes.id) AS num FROM likes, quote
