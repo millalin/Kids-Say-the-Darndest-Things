@@ -9,7 +9,7 @@ Rekisteröimättömänä asiakkaana haluan..
         SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote 
         JOIN Child ON Child.id = Quote.child_id GROUP BY Quote.id, Child.name
 
-- hakea sanontoja eri kategorioiden mukaan
+- hakea sanontoja eri kategorioiden mukaan 
 
         SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote
         JOIN Child ON Child.id = Quote.child_id
@@ -17,12 +17,25 @@ Rekisteröimättömänä asiakkaana haluan..
         WHERE quotecategory.category_id=?
         ODER BY Quote.id
 
+    Ja nähdä yhteenvedon monta sanontaa kategoriassa on monelta eri lapselta
+
+        SELECT COUNT(Quote.id) AS total, COUNT (DISTINCT Child.id) AS childcount FROM Quote
+        JOIN Child ON Child.id = Quote.child_id
+        JOIN quotecategory ON quotecategory.quote_id = Quote.id
+        WHERE quotecategory.category_id = ?
+
 - hakea sanontoja iän mukaan
 
         SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote
         JOIN Child ON Child.id = Quote.child_id
         WHERE quote.agesaid=?
         ORDER BY Quote.id
+
+     Ja nähdä yhteenvedon monta sanontaa tällä iällä on ja monelta eri lapselta
+
+        SELECT COUNT(Quote.id) AS total, COUNT (DISTINCT Child.id) AS childcount FROM Quote
+        JOIN Child ON Child.id = Quote.child_id
+        WHERE quote.agesaid = ?
 
 - hakea top 10 (eniten tykätyt) listan ja lukea sen sanonnat
 

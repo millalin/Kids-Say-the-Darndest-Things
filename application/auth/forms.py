@@ -9,7 +9,7 @@ class LoginForm(FlaskForm):
   
 class UserForm(FlaskForm):
     name = StringField("Nimi", [validators.Length(min=2, max=30, message= "Nimen tulee olla 2-30 merkin pituinen" )])
-    username = StringField("Käyttäjänimi", [validators.Regexp(r'^[\w.@+-]+$'),validators.Length(min=2, max=20, message= "Käyttäjänimen tulee olla 2-20 merkin pituinen" )])
+    username = StringField("Käyttäjänimi", [validators.Regexp(r'^[\w.@+-]+$', message = "Kirjoita käyttäjätunnus ilman välilyöntiä"),validators.Length(min=2, max=20, message= "Käyttäjänimen tulee olla 2-20 merkin pituinen" )])
     #password = PasswordField("Salasana", [validators.Length(min=8, message= "Salasanan tulee olla vähintään 8 merkkiä pitkä" )])
     password = StringField('Salasana', [InputRequired(), validators.Length(min=8), EqualTo('password_again', message='Salasanojen täytyy täsmätä')], widget=PasswordInput(hide_value=False))
     password_again = StringField('Toista salasana', widget=PasswordInput(hide_value=False))
