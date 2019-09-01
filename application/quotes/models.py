@@ -79,6 +79,21 @@ class Quote(Base):
         return response
 
     @staticmethod
+    def quotes_of_category_count(id):
+        stmt = text("SELECT COUNT(Quote.id) AS total, COUNT (DISTINCT Child.id) AS childcount FROM Quote"
+                     " JOIN Child ON Child.id = Quote.child_id"
+                     " JOIN quotecategory ON quotecategory.quote_id = Quote.id"
+                     " WHERE quotecategory.category_id=:c_id").params(c_id = id)
+                     
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0], "childcount":row[1]})
+
+        return response
+
+    @staticmethod
     def quotes_of_age(age, num):
         stmt = text("SELECT Quote.id, Quote.quote, Child.name AS n, Quote.agesaid FROM Quote"
                      " JOIN Child ON Child.id = Quote.child_id"
@@ -90,6 +105,20 @@ class Quote(Base):
         response = []
         for row in res:
             response.append({"id":row[0], "name":row[1], "n":row[2], "agesaid":row[3]})
+
+        return response
+
+    @staticmethod
+    def quotes_of_age_count(age):
+        stmt = text("SELECT COUNT(Quote.id) AS total, COUNT (DISTINCT Child.id) AS childcount FROM Quote"
+                     " JOIN Child ON Child.id = Quote.child_id"
+                     " WHERE quote.agesaid=:age").params(age = age)
+                     
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"total":row[0], "childcount":row[1]})
 
         return response
 

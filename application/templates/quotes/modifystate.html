@@ -4,72 +4,68 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('quotes_update', quote_id = quote_id, child_id=child_id) }}">
-    <table>
-        <div>
-      <tr>
-          <div class="form-group row">
-        <td>
-          {{ form.name.label }}
-        </td>
-        <td>
-          {{ form.name }}
-      
-        </td>
-        </div>
-        </div><table></table>
-  
-        <br>
-        <td>
-          <ul>
-            {% for error in form.name.errors %}
-            <div class="alert alert-danger">
-              {{ error }}
+    <h4 style="color: teal">Muokkaa sanontaa</h4>
+        <div class="table-condensed">
+            <table class="table">
+                <tr>
+                  <td>
+               {{ form.name.label }}
+                  </td>
+                  <td>
+                     {{ form.name }}
+                  </td>
+                  <td>
+                    <ul>
+                      {% for error in form.name.errors %}
+                      <div class="alert alert-danger">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                     {{ form.age.label }}
+                  </td>
+                  <td>
+                     {{ form.age }}
+                  </td>
+                  <td>
+              <ul>
+                {% for error in form.age.errors %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                   <ul class="list-unstyled">
+                  <td>
+                     {{ form.categories.label }}
+                  </td>
+                  <td>
+                     {{ form.categories }}
+                  </td>
+                  </ul>
+                  <td>
+                    <ul>
+                      {% for error in form.categories.errors %}
+                      <div class="alert alert-danger">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+        
+            <tr>
+              <td colspan="4">
+                <button type="submit" class="btn btn-secondary">Muokkaa</button>
+              </td>
+            </table>
             </div>
-            {% endfor %}
-          </ul>
-        </td>
-  
-      </tr>
-  
-      <tr>
-  
-  
-        <td>
-          {{ form.age.label }}
-        </td>
-        <td>
-          {{ form.age }}
-        </td>
-        <td>
-          <ul>
-            {% for error in form.age.errors %}
-            <div class="alert alert-danger">
-              {{ error }}
-            </div>
-            {% endfor %}
-          </ul>
-        </td>
-        <br>
-      </tr>
-  
-      <td>
-        <ul class="list-unstyled">
-          <li> {{ form.categories.label }}</li>
-          <li style="color:teal;"> {{ form.categories }}</li>
-        </ul>
-        <ul>
-          {% for error in form.categories.errors %}
-          <div class="alert alert-danger">
-            {{ error }}
-          </div>
-          {% endfor %}
-        </ul>
-      </td>
-      </tr>
-      <tr>
-      <td colspan="2">
-        <button type="submit" class="btn btn-secondary">Muokkaa</button>
-      </td>
-    </tr>
-</form>
+        </form>
 {% endblock %}

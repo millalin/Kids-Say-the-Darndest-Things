@@ -67,7 +67,8 @@ def quotes_by(page, category_id, name):
 
     #haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_category(category_id, get_quotes)
-    return render_template("quotes/listbycategory.html", list=list, name=name, Quote=Quote, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id)
+    counts = Quote.quotes_of_category_count(category_id)
+    return render_template("quotes/listbycategory.html", list=list, name=name, Quote=Quote, page =int(page), pages=pages, page_prev=page_prev, page_next=page_next, category_id=category_id, counts=counts)
 
 
 @app.route("/quotes/byage/list", methods=["POST", "GET"])
@@ -99,49 +100,41 @@ def quotes_by_age(page, age):
 
     # haetaan listalle sivulle kuuluvat sanonnat
     list = Quote.quotes_of_age(age, get_quotes)
-    return render_template("quotes/listbyage.html", list=list, Quote=Quote, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next)
+    counts = Quote.quotes_of_age_count(age)
+    return render_template("quotes/listbyage.html", list=list, Quote=Quote, age=age, page=int(page), pages=pages, page_prev=page_prev, page_next=page_next, counts=counts)
 
-@app.route("/quotes/list/<child_id>", methods=["POST","GET"])
+
+
+# Lapsen valinta kun lisätään sanonta
+@app.route("/quotes/newquote/selection", methods=["GET", "POST"])
 @login_required(role="ANY")
-def quotes_childquotes(child_id):
-
-    child = Child.query.get(child_id)
-    name = child.name
-    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)    
-
-@app.route("/quotes/new/<child_id>", methods=["POST", "GET"])
-@login_required(role="ANY")
-def quotes_form(child_id):
-    cates=Category.query.all()
-    c_list=[(i.name,i.name) for i in cates]
-    
-    form = QuoteForm()
-    form.categories.choices = c_list
-
-    return render_template("quotes/new.html", form = form, child_id=child_id)
-
-@app.route("/quotes/new/selection", methods=["GET", "POST"])
-@login_required(role="ANY")
-def quotes_childquotes_by_child():
+def quotes_addquotes_by_child():
     # Asetetaan valintavaihtoehdoiksi käyttäjän omat lapset
     children=Child.query.filter(Child.account_id == current_user.id)
     child_list=[(i.name,i.name) for i in children]
     form = ChildSelectForm()
     form.selection.choices = child_list
 
-    return render_template("quotes/selectchild.html", form=form)
+    return render_template("quotes/selectchildquote.html", form=form, child_list=child_list)
 
-@app.route("/quotes/bychild/list", methods=["GET", "POST"])
-def quotes_by_child():
 
-    # Haetaan lapsi, jonka sanontoja halutaan nähdä ja otetaan id talteen
-    form=ChildSelectForm()
-    name=form.selection.data
+@app.route("/quotes/bychild/add", methods=["GET", "POST"])
+def quotes_add_by_child():
+
+    # Haetaan lapsi, jolle sanonta lisätään ja otetaan id talteen
+    form2=ChildSelectForm()
+    name=form2.selection.data
     
     child = Child.query.filter_by(name=name).first()
     child_id=child.getId()
 
-    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes,child_id=child_id, name=name)
+    # Haetaan valintalomakkeelle olemassaolevat kategoriat
+    cates=Category.query.all()
+    c_list=[(i.name,i.name) for i in cates]
+    form = QuoteForm()
+    form.categories.choices = c_list
+
+    return render_template("quotes/new.html",child_id=child_id, form=form, name=name)
 
 @app.route("/quotes/new/create/<child_id>", methods=["POST", "GET"])
 @login_required(role="ANY")
@@ -175,6 +168,42 @@ def quotes_create(child_id):
     db.session().commit()
   
     return redirect(url_for("quotes_childquotes", child_id=child_id))
+
+# Kun listataan lapsen sanonnat
+@app.route("/quotes/list/selection", methods=["GET", "POST"])
+@login_required(role="ANY")
+def quotes_childquotes_by_child():
+    # Asetetaan valintavaihtoehdoiksi käyttäjän omat lapset
+    children=Child.query.filter(Child.account_id == current_user.id)
+    child_list=[(i.name,i.name) for i in children]
+    form = ChildSelectForm()
+    form.selection.choices = child_list
+
+    return render_template("quotes/selectchild.html", form=form, child_list=child_list)
+
+@app.route("/quotes/list/bychild", methods=["GET", "POST"])
+def quotes_by_child():
+
+    # Haetaan lapsi, jonka sanontoja halutaan nähdä ja otetaan id talteen
+    form=ChildSelectForm()
+    name=form.selection.data
+    
+    child = Child.query.filter_by(name=name).first()
+    child_id=child.getId()
+
+    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes,child_id=child_id, name=name)
+
+# Lapsen sanontojen listaus, paluu lomakkeelta
+@app.route("/quotes/list/<child_id>", methods=["POST","GET"])
+@login_required(role="ANY")
+def quotes_childquotes(child_id):
+
+    child = Child.query.get(child_id)
+    name = child.name
+    return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)  
+    
+
+
 
 # sivun haku kun sanontaa halutaan muokata
 @app.route("/quotes/modifyState/<quote_id>/<child_id>", methods=["GET", "POST"])

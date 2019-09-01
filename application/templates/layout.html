@@ -66,39 +66,39 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('quotes_get') }}">Haku &nbsp;&nbsp;&nbsp;</a></li>
         <li class="nav-item">
-          
 
           {% if current_user.is_authenticated %}
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Omat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>lapset </a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="{{ url_for('child_form') }}">Lisää lapsi</a>
+            <a class="dropdown-item" href="{{ url_for('child_userchildren') }}">Lapsiesi tiedot</a>
+          </div>
+        </li>
 
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('child_form') }}">Lisää lapsi &nbsp;&nbsp;&nbsp;</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('child_userchildren') }}">Lapsiesi &nbsp;&nbsp;&nbsp;<br>tiedot</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('quotes_childquotes_by_child') }}">Lapsiesi
-                &nbsp;&nbsp;&nbsp;<br>sanonnat</a></li>
-            <li class="nav-item">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Omat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>sanonnat </a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="{{ url_for('quotes_addquotes_by_child') }}">Lisää sanonta</a>
+            <a class="dropdown-item" href="{{ url_for('quotes_childquotes_by_child') }}">Lapsiesi sanonnat</a>
+          </div>
+        </li>
 
-              <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat &nbsp;&nbsp;&nbsp;</a></li>
-            {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
-            <a class="nav-link" href="{{ url_for('user_index') }}">Listaa &nbsp;&nbsp;&nbsp;&nbsp;<br>käyttäjät</a>
+        <li class="nav-item">
+
+          <a class="nav-link" href="{{ url_for('category_index') }}">Listaa kategoriat &nbsp;&nbsp;&nbsp;</a></li>
+        {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('category_form') }}">Lisää kategoria</a></li>
+        <a class="nav-link" href="{{ url_for('user_index') }}">Listaa &nbsp;&nbsp;&nbsp;&nbsp;<br>käyttäjät</a>
         </li>
 
         {% endif %}
       </ul>
-
-
-
-
       </ul>
-
-
-
       <div class="form-inline mt-2 mt-md-0">
 
         <p class="navbar-text">
@@ -106,9 +106,6 @@
           Kirjautunut nimellä <a
             href="{{ url_for('user_show', user_id = current_user.id) }}">{{ current_user.name }}.</a> <a
             href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
-
-
-
         </p>
         {% else %}
         </ul>
@@ -116,12 +113,8 @@
         <p>
 
           <span class="navbar-text">
-
             <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
-
-
             <a href="{{ url_for('user_form') }}">Rekisteröidy</a>
-
           </span>
         </p>
         {% endif %}

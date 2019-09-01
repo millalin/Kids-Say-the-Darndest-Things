@@ -3,7 +3,9 @@
 {% block body %}
 <form method="POST" action="{{ url_for('quotes_by_category') }}">
   <table>
-    <h4>Jos haluat hakea sanonnat kategorian mukaan</h4>
+    <h3 style="color: teal">Valitse hakutoiminto joko kategorian tai iän mukaan</h3>
+    <br>
+    <h5>Jos haluat hakea sanonnat kategorian mukaan</h5>
 
     <tr>
       <td>
@@ -35,7 +37,7 @@
   <table>
     <br>
     <br>
-    <h4>Jos haluat hakea sanonnat iän mukaan</h4>
+    <h5>Jos haluat hakea sanonnat iän mukaan</h5>
     <tr>
       <td>
         {{ form2.age.label }}

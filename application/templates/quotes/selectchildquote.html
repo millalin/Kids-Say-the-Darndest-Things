@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('quotes_by_child') }}">
+<form method="POST" action="{{ url_for('quotes_add_by_child') }}">
     <table>
             {% if child_list|length > 0 %}
         <tr>
             <td>
-                
                 <ul class="list-unstyled">
-                    <li> Valitse lapsi, jonka sanonnat haluat nähdä</li>
+                    <li> Valitse lapsi, jolle haluat lisätä sanonnan</li>
                     <li style="color:teal;"> {{ form.selection }}</li>
                 </ul>
                 <ul>
@@ -17,10 +16,11 @@
                     {% endfor %}
                 </ul>
             </td>
+
         </tr>
         <tr>
             <td colspan="2">
-                <button type="submit" class="btn btn-secondary">Lapsen sanonnat</button>
+                <button type="submit" class="btn btn-secondary">Lisää sanonta lapselle</button>
             </td>
         </tr>
         {% else %}

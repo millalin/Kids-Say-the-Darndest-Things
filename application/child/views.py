@@ -6,6 +6,8 @@ from application.likes.models import Likes
 from application.child.forms import ChildForm, MakeSureForm
 from datetime import datetime, date
 from flask_login import login_required, current_user
+from datetime import date
+from wtforms import ValidationError
 
 @app.route("/child", methods=["GET"])
 def child_index():
@@ -33,8 +35,9 @@ def child_create():
     # Tarkastetaan, ettei käyttäjällä ole samannimistä lasta
     alreadyExistsChild = Child.query.filter_by(name=form.name.data).first()
     if alreadyExistsChild:
-        form.username.errors.append("Sinulla on jo tämänniminen lapsi on olemassa.")
+        form.username.errors.append("Sinulla on jo tämänniminen lapsi olemassa.")
         return render_template("child/newchild.html", form = form)
+
 
     c = Child(name = form.name.data, birthday = form.birthday.data)
     

@@ -9,7 +9,13 @@
     {% endif %}
   </tr>
   {% if list is defined and list|length > 0 %}
+
+  {% for sum in counts %}
+  Valitulla iällä sanontoja yhteensä {{sum.total}} kappaletta {{sum.childcount}} lapselta
+  {% endfor%}
+  
   {% for quote in list %}
+
   <br>
   <br>
   <blockquote class="blockquote">
