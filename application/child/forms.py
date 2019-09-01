@@ -4,7 +4,7 @@ from datetime import date
 
 
 class ChildForm(FlaskForm):
-    name = StringField("Lapsen nimi", [validators.Length(min=2, max=30, message="Nimen tulee olla 2-30 merkkiä pitkä")])
+    name = StringField("Lapsen nimi", [validators.Length(min=2, max=20, message="Nimen tulee olla 2-20 merkkiä pitkä")])
     birthday = DateField("Lapsen syntymäpäivä", [validators.DataRequired (message="Kirjoita syntymäpäivä muodossa yyyy-mm-dd")])
 
 

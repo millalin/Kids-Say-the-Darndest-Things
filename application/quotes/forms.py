@@ -10,7 +10,7 @@ class SelectBox(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 class QuoteForm(FlaskForm):
-    name = TextAreaField("Kirjoita sanonta", [validators.Length(min=5, max = 2000, message="Sanonnan tulee olla vähintään 5 merkkiä pitkä")])
+    name = TextAreaField("Kirjoita sanonta", [validators.Length(min=5, max = 2000, message="Sanonnan tulee olla  5-2000 merkkiä pitkä")])
     age = IntegerField("Ikä jolloin sanottu", [validators.NumberRange(min=0, max=99, message="Iän tulee olla väliltä 0-99")])
 
     categories = SelectBox('Valitse kategoriat, johon sanonta kuuluu:', [validators.DataRequired('Valitse vähintään yksi kategoria')],coerce=str)

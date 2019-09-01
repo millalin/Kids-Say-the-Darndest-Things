@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, validators, SelectField
 
 class CategoryForm(FlaskForm):
-    name = StringField("Kategorian nimi", [validators.Length(min=2, max = 30, message="Kategorian nimen tulee olla vähintään 2 merkkiä pitkä")])
+    name = StringField("Kategorian nimi", [validators.Length(min=2, max = 20, message="Kategorian nimen tulee olla 2-20 merkkiä pitkä")])
     
     class Meta:
         csrf = False
