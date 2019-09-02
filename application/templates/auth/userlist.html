@@ -1,45 +1,50 @@
-
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-      <tr>
-          <th>Käyttäjänimi &nbsp;&nbsp;</th>
-          <th>Lapsimäärä</th>
-      </tr>
-    <tr>
-      <h3 style="color: teal">Käyttäjät</h3>
-    </tr>
-    {% for user in childrencount %}
-    <tr>
-        
-        <td style="color: teal">{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
-      <td style="color: teal">Lapsia: {{ user.total }} kpl &nbsp; &nbsp; &nbsp;</td>
+<table>
+  <tr>
+    <th>Käyttäjänimi &nbsp;&nbsp;</th>
+    <th>Lapsimäärä</th>
+  </tr>
+  <tr>
+    <h3 style="color: teal">Käyttäjät</h3>
+  </tr>
+  {% for user in childrencount %}
+  <tr>
 
-      {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
-      <td>
-        <a href="{{ url_for('user_delete', user_id = user.id) }}">
-            <button type="submit" class="btn btn-default">Poista käyttäjä</button>
-        </a>
+    <td style="color: teal">{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
+    <td style="color: teal">Lapsia: {{ user.total }} kpl &nbsp; &nbsp; &nbsp;</td>
+
+
+    <td>
+      <a href="{{ url_for('user_delete', user_id = user.id) }}">
+        <button type="submit" class="btn btn-default">Poista käyttäjä</button>
+      </a>
     </td>
     <td>
       <a href="{{ url_for('user_show', user_id = user.id) }}">
-          <button type="submit" class="btn btn-default">Näytä käyttäjän tiedot</button>
+        <button type="submit" class="btn btn-default">Näytä käyttäjän tiedot</button>
       </a>
-      
-  </td>
-  
-    {% endif %}
-    </tr>
-   
+
+    </td>
+    <td>
+      <a href="{{ url_for('user_update_role', user_id = user.id) }}">
+        <button type="submit" class="btn btn-default">Tee käyttäjästä ylläpitäjä</button>
+      </a>
+
+    </td>
+
+
+  </tr>
+
+  {% endfor %}
+  <tr>
+    {% for user in user_in_all %}
+    <h6>Käyttäjiä yhteensä: {{user.total}} &nbsp; &nbsp; &nbsp;</h6>
     {% endfor %}
-    <tr>
-        {% for user in user_in_all %}
-        <h6>Käyttäjiä yhteensä: {{user.total}} &nbsp; &nbsp; &nbsp;</h6>
-        {% endfor %}
-        {% for child in child_in_all %}
-      <h6>Lapsia yhteensä: {{child.total}}</h6>
-      {% endfor %}
-    </tr>
-  </table>
+    {% for child in child_in_all %}
+    <h6>Lapsia yhteensä: {{child.total}}</h6>
+    {% endfor %}
+  </tr>
+</table>
 {% endblock %}

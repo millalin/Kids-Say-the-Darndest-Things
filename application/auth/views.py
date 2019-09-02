@@ -187,3 +187,16 @@ def user_confirmupdate(user_id):
     children = Child.query.filter(Child.account_id == user_id)
 
     return render_template("auth/showuser.html", children=children, user = user)
+
+@app.route("/auth/updateuserrole/<user_id>", methods=["GET","POST"])
+@login_required(role="ADMIN")
+def user_update_role(user_id):
+    #asetetaan lomakkeelle valmiiksi olevat tiedot paitsi salasana
+    
+    user = User.query.get(user_id)
+    user.role = "ADMIN"
+    db.session().commit()
+
+    children = Child.query.filter(Child.account_id == user_id)
+    
+    return render_template("auth/showuser.html", children=children, user = user)

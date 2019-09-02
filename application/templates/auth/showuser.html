@@ -4,21 +4,23 @@
 <table>
   <tr>
     <th>Käyttäjän id:: &nbsp; &nbsp; &nbsp;</th>
-    <th>Nimi: &nbsp; &nbsp; &nbsp;</th>
+    <th>Nimi: &nbsp; </th>
     <th>Käyttäjänimi &nbsp; &nbsp; &nbsp; </th>
-    <th>Luotu: &nbsp; &nbsp; &nbsp;</th>
-    <th> Muokattu: &nbsp; &nbsp; &nbsp;</th>
+    <th>Käyttäjärooli &nbsp; &nbsp; &nbsp; </th>
+    <th>Luotu: &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th> Muokattu: </th>
   </tr>
   <tr>
     <h3 style="color: teal">Käyttäjä {{user.name}}</h3>
   </tr>
 
   <tr>
-    <td>{{ user.id }} &nbsp; &nbsp; &nbsp;</td>
-    <td>{{ user.name }} &nbsp; &nbsp; &nbsp;</td>
-    <td>{{ user.username }} &nbsp; &nbsp; &nbsp; </td>
-    <td>{{ user.date_created }} &nbsp; &nbsp; &nbsp;</td>
-    <td>{{ user.date_modified }} &nbsp; &nbsp; &nbsp; </td>
+    <td>{{ user.id }} </td>
+    <td>{{ user.name }} </td>
+    <td>{{ user.username }}  </td>
+    <td>{{ user.role }} </td>
+    <td>{{ user.date_created }} </td>
+    <td>{{ user.date_modified }} </td>
 
   </tr>
   {% if current_user.is_authenticated and current_user.role == 'USER' %}
