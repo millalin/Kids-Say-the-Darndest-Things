@@ -165,7 +165,7 @@ Ylläpitäjänä haluan...
         DELETE FROM category WHERE category.id = ?
 
 - voida poistaa (mahdollisesti sopimattomia) sanontoja (SQL lause ylempänä käyttäjän sanonnan poiston yhteydessä)
-        
+
 - voida nähdä kaikkien käyttäjien listauksen ja heidän lapsimääränsä
 
         SELECT Account.id, Account.username, COUNT(Child.id) AS total FROM Account
@@ -186,7 +186,7 @@ Ylläpitäjänä haluan...
 
 - voida poistaa rekisteröityneen käyttäjän
 
-        Tässä tulee poistaa myös käyttäjään liittyvät lapset, lapsien sanonnat ja sanonto$
+        Tässä tulee poistaa myös käyttäjään liittyvät lapset, lapsien sanonnat ja sanontojen tykkäykset
 
         DELETE FROM quotecategory WHERE quotecategory.quote_id = ? AND quotecategory.category_id = ?
         DELETE FROM likes WHERE likes.id = ?
