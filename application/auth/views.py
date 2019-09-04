@@ -78,7 +78,7 @@ def auth_logout():
     return redirect(url_for("index")) 
 
 @app.route("/auth/<user_id>/delete", methods=["POST","GET"])
-@login_required(role="ADMIN")
+@login_required(role="ANY")
 def user_delete(user_id):
    
     # Tarkistuslomake, jotta käyttäjää ei poisteta liian helpolla

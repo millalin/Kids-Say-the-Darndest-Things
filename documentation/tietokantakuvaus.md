@@ -23,7 +23,8 @@ Käyttäjä (CRUD)
 - kaikkien käyttäjien listaus (vain admin)
 - käyttäjän tietojen tarkastelu 
 - Käyttäjän tietojen muokkaaminen
-- käyttäjän poisto (vain admin)
+- käyttäjän poisto 
+- kaikkien käyttäjien poistomahdollisuus (vain admin)
 
 
 Lapsi (CRUD) 
@@ -44,10 +45,11 @@ Sanonta (CRUD)
 - sanonnan listaus kategorian mukaan (myös ei kirjautunut)
 - sanonnan listaus iän mukaan (myös ei kirjautunut)
 
-Kategoria (CRD)
+Kategoria (CRUD)
 
 - kategorian lisäys (vain admin)
 - kategorian poisto (vain admin)
+- kategorian muokkaus ja tarkempien tietojen näyttäminen (vain admin)
 - kaikkien kategorieoiden listaus
 
 Tykkäys (CD)
@@ -59,7 +61,7 @@ Tykkäys (CD)
 
 ### Tietokannan normalisointi
 
-Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty lapsen ikä sanonnan tauluun, sillä tämä näytetään useissa listauksissa ja sanonnan ikää ei voida laskea lapsen syntymäpäivästä, sillä vanhempi saattaa lisätä ja muokata sanontoja myöhemminkin, eikä reaaliaikaisesti. Sanonnan päivämäärällä, oltaisiin voitu laskea lapsen syntymäpäivästä ikä, mutta käyttäjän kannalta mielekkäämmäksi ajateltiin vain lapsen iän ilmoittaminen. 
+Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty lapsen ikä sanonnan tauluun, sillä tämä näytetään useissa listauksissa ja sanonnan ikää ei voida laskea lapsen syntymäpäivästä, sillä vanhempi saattaa lisätä ja muokata sanontoja myöhemminkin, eikä reaaliaikaisesti. Sanonnan päivämäärän syöttämisellä (lomakkeessa ikä, jollion sanottu sijasta olisi päivämäärä, jolloin sanottu), oltaisiin voitu laskea lapsen syntymäpäivästä ikä, mutta käyttäjän kannalta mielekkäämmäksi ajateltiin vain lapsen iän ilmoittaminen. 
 
 ### Tietokannan CREATE TABLE -lauseet
 

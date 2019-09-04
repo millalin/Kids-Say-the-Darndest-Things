@@ -162,7 +162,13 @@ Ylläpitäjänä haluan...
         INSERT INTO category (date_created, date_modified, name) 
         VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
 
+- voida poistaa kategorioita
+
         DELETE FROM category WHERE category.id = ?
+
+- voida muokata kategoriaa
+
+        UPDATE category SET date_modified=CURRENT_TIMESTAMP, name=? WHERE category.id = ?
 
 - voida poistaa (mahdollisesti sopimattomia) sanontoja (SQL lause ylempänä käyttäjän sanonnan poiston yhteydessä)
 

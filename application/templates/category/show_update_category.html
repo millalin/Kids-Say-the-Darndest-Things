@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    <tr>
+        <h3 style="color: teal">Kategoria {{c.name}}</h3>
+    </tr>
+    <tr>
+        <th>Kategoria id: &nbsp; &nbsp; &nbsp;</th>
+        <th>Nimi: &nbsp;&nbsp;&nbsp; </th>
+        <th>Luotu: &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th> Muokattu: </th>
+    </tr>
+
+
+    <tr>
+        <td>{{ c.id }} </td>
+        <td>{{ c.name }} </td>
+        <td>{{ c.date_created }} </td>
+        <td>{{ c.date_modified }} </td>
+
+    </tr>
+
+    <a href="{{ url_for('category_index')}}">
+        <button type="submit" class="btn btn-default">Palaa listaukseen</button>
+    </a>
+
+
+    <form method="POST" action="{{ url_for('category_update', category_id = category_id) }}">
+</table>
+<table> <br><br>
+    <tr> Vaihda kategorian nimi:
+    </tr>
+    <tr>
+
+        <td>
+            {{ form.name }}
+        </td>
+        <td>
+            <ul>
+                {% for error in form.name.errors %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Muokkaa" />
+        </td>
+    </tr>
+    </form>
+    {% endblock %}

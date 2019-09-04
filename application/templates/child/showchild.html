@@ -1,31 +1,32 @@
-
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-      <tr>
-            <th>Nimi: &nbsp; &nbsp; &nbsp;</th>
-            <th>Luotu &nbsp; &nbsp; &nbsp; </th>
-            <th>Muokattu:  &nbsp; &nbsp; &nbsp;</th>
-            <th> Syntymäpäivä &nbsp; &nbsp; &nbsp;</th>
-      </tr>
-    <tr>
-      <h3 style="color: teal">Lapsi {{child.name}}</h3>
-    </tr>
-    
-    <tr>
-        <td>{{ child.name }} &nbsp; &nbsp; &nbsp;</td>
-        <td>{{ child.date_created }} &nbsp; &nbsp; &nbsp; </td>
-        <td>{{ child.date_modified }} &nbsp; &nbsp; &nbsp;</td>
-        <td>  {{ child.birthday }} &nbsp; &nbsp; &nbsp;</td>
-    </tr>
-   
-    <td>
-            <a href="{{ url_for('child_userchildren')}}">
-                <button type="submit" class="btn btn-default">Palaa listaukseen</button>
-            </a>
-        </td>
-  </table>
+<table>
+  <tr>
+
+    <th>Nimi: &nbsp; &nbsp; &nbsp;</th>
+    <th>Luotu &nbsp; &nbsp; &nbsp; </th>
+    <th>Muokattu: &nbsp; &nbsp; &nbsp;</th>
+    <th> Syntymäpäivä &nbsp; &nbsp; &nbsp;</th>
+    <th>Id: &nbsp; &nbsp; &nbsp;</th>
+  </tr>
+  <tr>
+    <h3 style="color: teal">Lapsi {{child.name}}</h3>
+  </tr>
+
+  <tr>
+
+    <td>{{ child.name }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ child.date_created }} &nbsp; &nbsp; &nbsp; </td>
+    <td>{{ child.date_modified }} &nbsp; &nbsp; &nbsp;</td>
+    <td> {{ child.birthday }} &nbsp; &nbsp; &nbsp;</td>
+    <td>{{ child.id }} &nbsp; &nbsp; &nbsp;</td>
+  </tr>
+
+  <td>
+    <a href="{{ url_for('child_userchildren')}}">
+      <button type="submit" class="btn btn-default">Palaa listaukseen</button>
+    </a>
+  </td>
+</table>
 {% endblock %}
-
-

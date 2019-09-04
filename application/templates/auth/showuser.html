@@ -29,6 +29,11 @@
       <button type="submit" class="btn btn-default">Muokkaa tietoja tai vaihda salasana</button>
     </a>
   </td>
+  <td>
+      <a href="{{ url_for('user_delete', user_id = user.id) }}">
+        <button type="submit" class="btn btn-default">Poista käyttäjätili</button>
+      </a>
+    </td>
   {% endif %}
   <tr>
     <th>Lapset: &nbsp; &nbsp; &nbsp;</th>

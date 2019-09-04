@@ -30,6 +30,31 @@ def category_create():
   
     return  redirect(url_for("category_index"))
 
+@app.route("/category/updatecategory/<category_id>/", methods=["GET", "POST"])
+@login_required(role="ADMIN")
+def category_update_category(category_id):
+    # Asetetaan lomakkeelle valmiiksi olemassaolevat tiedot
+    form=CategoryForm()
+    c = Category.query.get(category_id)
+    form.name.data = c.name
+    
+    return render_template("category/show_update_category.html", form = form, category_id=category_id, c=c)
+
+@app.route("/category/update/<category_id>", methods=["GET","POST"])
+@login_required(role="ADMIN")
+def category_update(category_id):
+    form = CategoryForm(request.form)
+
+    c = Category.query.get(category_id)
+    if not form.validate():
+        return render_template("category/show_update_category.html", form = form,c=c, category_id=category_id)
+
+    c.name = form.name.data
+
+    db.session().commit()
+  
+    return  redirect(url_for("category_index"))
+
 @app.route("/category/delete/<category_id>", methods=["GET","POST"])
 @login_required(role="ADMIN")
 def category_delete(category_id):

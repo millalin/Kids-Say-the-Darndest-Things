@@ -44,6 +44,8 @@ Kaikki omat lisätyt lapset pääsee näkemään yläpalkin valikon kohdata "Oma
 
 #### Sanontojen lisäys 
 
+Jotta sanonta voidaan lisätä, on ylläpitäjän täytynyt lisätä sovellukseen valmiiksi kategorioita.
+
 Sanonta voidaan lisätä vain luodulle lapselle. Sanonnassa tulee täyttää seuraavat tiedot:
 - Sanonta. Pakollinen, pituuden tulee olla vähintään 5 merkkiä.
 - Ikä, jolloin sanonta on sanottu. Pakollinen, luvun tulee olla välillä 0-99.
@@ -66,7 +68,7 @@ Poista painikkeesta sanonta voidaan poistaa.
 
 Kaikkien lasten sanonnat nähdään ylävalikon painikkeesta "Listaa kaikki sanonnat". Lapsen iän ja nimen perässä on sydän, jota painamalla voidaan tykätä sanonnasta. Kun sanonnasta on tykätty, sydän muuttuu punaiseksi. Tykkäys voidaan poistaa painamalla sydämestä uudelleen. 
 
-![img](img/like.png) ![img](like2.png)
+![img](img/like.png) ![img](img/like2.png)
 
 #### Kategorioiden listaaminen
 
