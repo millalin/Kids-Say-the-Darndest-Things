@@ -87,7 +87,7 @@ def user_delete(user_id):
     return render_template("auth/deleteuser.html", form = form, user_id=user_id)
 
 @app.route("/auth/<user_id>/del", methods=["POST"])
-@login_required(role="ADMIN")
+@login_required(role="ANY")
 def user_deleteConfirm(user_id):
 
     form = MakeSureFormUser(request.form)
