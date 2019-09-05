@@ -14,6 +14,7 @@ Rekisteröitymissivulla on mahdollista luoda uusi asiakastili ja sinne pääsee 
 - nimi. Pakollinen, 2-30 merkkiä pitkä.
 - käyttäjätunnus. Pakollinen, 2-20 merkkiä pitkä. 
 - salasana. Pakollinen, vähintään 8 merkkiä pitkä.
+- salasana uudelleen. Pakollinen, täsmättävä aiemmin kirjoitetun salasanan kanssa.
 
 ![img](img/registration.png)
 
@@ -21,7 +22,7 @@ Jos pääkäyttäjää (admin) ei ole vielä luotu, sen voi luoda rekisteröitym
 
 #### Kirjautuminen
 
-Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumisessa tulee syöttää luotu käyttäjänimi sekä salasana. Kirjautumaan pääsee ylävalikosta $
+Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumisessa tulee syöttää luotu käyttäjänimi sekä salasana. Kirjautumaan pääsee ylävalikosta kohdasta "Kirjaudu".
 
 
 ### Rekisteröitynyt ja kirjautunut käyttäjä 
@@ -44,7 +45,7 @@ Kaikki omat lisätyt lapset pääsee näkemään yläpalkin valikon kohdata "Oma
 
 #### Sanontojen lisäys 
 
-Jotta sanonta voidaan lisätä, on ylläpitäjän täytynyt lisätä sovellukseen valmiiksi kategorioita.
+Jotta sanonta voidaan lisätä, on ylläpitäjän täytynyt lisätä sovellukseen valmiiksi kategorioita. 
 
 Sanonta voidaan lisätä vain luodulle lapselle. Sanonnassa tulee täyttää seuraavat tiedot:
 - Sanonta. Pakollinen, pituuden tulee olla vähintään 5 merkkiä.
@@ -68,18 +69,25 @@ Poista painikkeesta sanonta voidaan poistaa.
 
 Kaikkien lasten sanonnat nähdään ylävalikon painikkeesta "Listaa kaikki sanonnat". Lapsen iän ja nimen perässä on sydän, jota painamalla voidaan tykätä sanonnasta. Kun sanonnasta on tykätty, sydän muuttuu punaiseksi. Tykkäys voidaan poistaa painamalla sydämestä uudelleen. 
 
-![img](img/like.png) ![img](img/like2.png)
+![img](img/like2.png)
+
+![img](img/like.png) 
 
 #### Kategorioiden listaaminen
 
 Kaikki olemassaolevat kategoriat on mahdollista listata näkyviin ylävalikon kohdasta "Listaa kategoriat"
 
 
+
 ### Pääkäyttäjä
 
 #### Kategorian lisäys, listaus ja poisto
 
-Pääkäyttäjä voi lisätä kategorioita yläpalkin valikosta "Lisää kategoria". Kategorialle tulee antaa nimi ja painaa lisää nappia. Ylävalikon kohdasta "Listaa kategoriat" pääsee lisättyjen kategorioiden listaukseen. Pääkäyttäjän näkymässä on kategorian perässä poista nappi, josta kategorian voi poistaa. Kategorian muokkaustoiminto on jätetty pois, jottei sanonnoille lisättyjen kategorioiden nimityksiä enää vaihdettaisi (edes ylläpitäjän toimesta).
+Pääkäyttäjä voi lisätä kategorioita yläpalkin valikosta "Lisää kategoria". Kategorialle tulee antaa nimi ja painaa lisää nappia. Ylävalikon kohdasta "Listaa kategoriat" pääsee lisättyjen kategorioiden listaukseen. Pääkäyttäjän näkymässä on kategorian perässä poista nappi, josta kategorian voi poistaa. 
+
+#### Kategorian muokkaus
+
+Kategorioiden listauksessa "Näytä ja muokkaa" painikkeesta päästään näkemään kategorian tarkemmat tiedot. Tästä päästään myös muokkaamaan sanonnan nimeä. On kuitenkin suositeltavaa, ettei ylläpitäjä muokkaa kuin kirjoitusvirheitä tai vastaavia eikä vaihda koko kategorian nimeä/aihetta muokkaamalla, sillä kategoriat on lisättyinä sanontoihin, jolloin ne voisivat vaihtua "epäsopiviksi".
 
 #### Sanonnan poisto
 

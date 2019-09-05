@@ -11,19 +11,14 @@
     <br>
     <br>
 
-
     {% for quote in list %}
-
-
     <blockquote class="blockquote" , style="font-size:24px">
 
       <p class="mb-0 " style="color:rgb(3, 134, 127);"><em>{{ quote.name }}</em></p>
-
       <p>
         <font size="4px" color="858483"> &nbsp;&nbsp;&nbsp; - {{ quote.n }} {{quote.agesaid}} vuotta </font>
 
         {% if current_user.is_authenticated %}
-
 
         {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
         <a href="{{ url_for('unlike_quote', quote_id = quote.id, page=page)}}">
@@ -35,19 +30,15 @@
         <a href="{{ url_for('like_quote', quote_id = quote.id, page=page)}}">
           <button type="submit" class="btn1"><i class="fa fa-heart-o"></i></button>
         </a>
-
         {% endif %}
         {% endif %}
-
         {% if current_user.is_authenticated and current_user.role == 'ADMIN' %}
-
         <a href="{{ url_for('quotes_admin_delete', quote_id = quote.id, page=page)}}">
           <button type="submit" class="btn btn-purple btn-xs">Poista sanonta</button>
         </a>
         {% endif %}
         <br>
         <br>
-
       </p>
 
 

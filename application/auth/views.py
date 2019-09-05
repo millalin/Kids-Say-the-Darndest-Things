@@ -39,9 +39,9 @@ def user_create():
     u = User(name = form.name.data, username = form.username.data, password = pw_hash, role = "USER")
 
     username = form.username.data
+
     if username == "admin":
         u = User(name = form.name.data, username = form.username.data, password = pw_hash, role = "ADMIN")
-    
 
     db.session().add(u)
     db.session().commit() 
@@ -67,7 +67,6 @@ def auth_login():
     if not bcrypt.check_password_hash(user.password, password):
         return render_template("auth/loginform.html", form = form,
                                error = "käyttäjänimi tai salasana virheellinen")
-
 
     login_user(user)
     return redirect(url_for("index")) 
@@ -106,9 +105,7 @@ def user_deleteConfirm(user_id):
             c_id=c.id
             q = Quote.query.filter(Quote.child_id == c_id)
           
-            for quote in q: 
-            
-                
+            for quote in q:     
 
                 # Etsitään kaikki sanontoihin liittyvät tykkäykset ja poistetaan ne
                 likes = Likes.query.filter(Likes.quote_id == quote.id)

@@ -5,7 +5,7 @@ from application.likes.models import Likes
 from flask_login import current_user
 
 
-# Sanonnan tykkäys
+# Sanonnan tykkäys koko listauksessa
 @app.route("/quotes/<page>/<quote_id>/like/", methods=["GET","POST"])
 @login_required(role="ANY")
 def like_quote(quote_id, page):
@@ -14,7 +14,7 @@ def like_quote(quote_id, page):
 
     return redirect(url_for("quotes_index", page=page))
 
-#  Tykkäyksen poisto    
+#  Tykkäyksen poisto koko listauksessa   
 @app.route("/quotes/<page>/<quote_id>/unlike/", methods=["GET","POST"])
 @login_required(role="ANY")
 def unlike_quote(quote_id, page):
@@ -41,7 +41,7 @@ def unlike_quote_agelist(quote_id, page, age):
 
     return redirect(url_for("quotes_by_age", page=page, age=age))
 
-# Sanonnan tykkäys ikävalinnassa, oma metodi, jotta tykkäyksen jälkeen voidaan ohjata jäämään oikealle sivulle edelleen haetulla kategorialla
+# Sanonnan tykkäys kategoriavalinnassa, oma metodi, jotta tykkäyksen jälkeen voidaan ohjata jäämään oikealle sivulle edelleen haetulla kategorialla
 @app.route("/quotes/<page>/<quote_id>/like/<name>/<category_id>", methods=["GET","POST"])
 @login_required(role="ANY")
 def like_quote_categorylist(quote_id, page, name, category_id):
@@ -59,6 +59,7 @@ def unlike_quote_categorylist(quote_id, page, name, category_id):
 
     return redirect(url_for("quotes_by", page=page, name=name, category_id=category_id))
 
+# tykkäys
 def like(quote_id):
     q = Quote.query.get(quote_id)
     u = current_user
@@ -69,6 +70,7 @@ def like(quote_id):
     db.session().add(l)
     db.session().commit()
 
+# tykkäyksen poisto
 def unlike(quote_id):
     q = Quote.query.get(quote_id)
     u = current_user

@@ -19,8 +19,6 @@ class Category(Base):
         return self.name
 
    
-
-    
     def findCategories(q_id):
         stmt = text("SELECT Category.id, Category.name FROM Category"
                     " JOIN quotecategory ON quotecategory.category_id = Category.id"

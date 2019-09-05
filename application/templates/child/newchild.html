@@ -16,8 +16,8 @@
         <ul>
           {% for error in form.name.errors %}
           <div class="alert alert-danger">
-              {{ error }}
-              </div>
+            {{ error }}
+          </div>
           {% endfor %}
         </ul>
       </td>
@@ -27,21 +27,19 @@
         {{ form.birthday.label }}
       </td>
       <td>
-        {{ form.birthday (placeholder="yyyy-mm-dd")}} 
+        {{ form.birthday (placeholder="yyyy-mm-dd")}}
       </td>
       <td>
         <ul>
           {% for error in form.birthday.errors %}
           <div class="alert alert-danger">
-              {{ error }}
-              </div>
+            {{ error }}
+          </div>
           {% endfor %}
         </ul>
       </td>
     </tr>
- 
     <tr>
-        
       <td colspan="2">
         <input type="submit" value="Lisää lapsi" />
       </td>

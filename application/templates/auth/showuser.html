@@ -17,7 +17,7 @@
   <tr>
     <td>{{ user.id }} </td>
     <td>{{ user.name }} </td>
-    <td>{{ user.username }}  </td>
+    <td>{{ user.username }} </td>
     <td>{{ user.role }} </td>
     <td>{{ user.date_created }} </td>
     <td>{{ user.date_modified }} </td>
@@ -30,23 +30,19 @@
     </a>
   </td>
   <td>
-      <a href="{{ url_for('user_delete', user_id = user.id) }}">
-        <button type="submit" class="btn btn-default">Poista käyttäjätili</button>
-      </a>
-    </td>
+    <a href="{{ url_for('user_delete', user_id = user.id) }}">
+      <button type="submit" class="btn btn-default">Poista käyttäjätili</button>
+    </a>
+  </td>
   {% endif %}
   <tr>
     <th>Lapset: &nbsp; &nbsp; &nbsp;</th>
-
   </tr>
   <tr>
     <th>Lapsen nimi: &nbsp; &nbsp; &nbsp;</th>
     <th>Lapsen syntymäpäivä: &nbsp; &nbsp; &nbsp;</th>
-
   </tr>
-
   {% for c in children %}
-
   <tr>
     <td>{{ c.name }} &nbsp; &nbsp; &nbsp;</td>
     <td>{{ c.birthday }} &nbsp; &nbsp; &nbsp;</td>

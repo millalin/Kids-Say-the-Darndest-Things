@@ -13,7 +13,7 @@ from wtforms import ValidationError
 def child_index():
     return render_template("child/listchild.html", quotes = Child.query.all())
 
-# Käyttäjän omien lapsien halu kyselyllä
+# Käyttäjän omien lapsien haku kyselyllä
 @app.route("/child/userlist/", methods=["GET"])
 @login_required
 def child_userchildren():

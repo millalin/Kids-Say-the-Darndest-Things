@@ -9,13 +9,12 @@
     {% endif %}
   </tr>
 
-
   {% if list is defined and list|length > 0 %}
 
   {% for sum in counts %}
   Kategoriassa sanontoja yhteensä {{sum.total}} kappaletta {{sum.childcount}} lapselta
   {% endfor%}
-  
+
   {% for quote in list %}
   <br>
   <br>
@@ -25,7 +24,6 @@
       <font size="4px" color="858483"> &nbsp;&nbsp;&nbsp; - {{ quote.n }} {{quote.agesaid}} vuotta </font>
 
       {% if current_user.is_authenticated %}
-
 
       {% if Quote.query.get(quote.id).likestatus(quote.id) == 1 %}
       <a
@@ -46,7 +44,6 @@
   </blockquote>
 
   {% endfor %}
-
 
   {% else %}
   Tällä kategorialle ei ole vielä lisätty sanontoja

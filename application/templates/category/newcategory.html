@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
-  
+
 {% block body %}
 <form method="POST" action="{{ url_for('category_create') }}">
   <table>
-  <tr>
-    <td>
-      {{ form.name.label }}
-    </td>
-    <td>
-      {{ form.name }}
-    </td>
-    <td>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+      <td>
         <ul>
           {% for error in form.name.errors %}
           <li>{{ error }}</li>
@@ -18,10 +18,9 @@
         </ul>
       </td>
     </tr>
- 
-      <td colspan="2">
-        <input type="submit" value="Lisää kategoria"/>
-      </td>
-        </tr>
+    <td colspan="2">
+      <input type="submit" value="Lisää kategoria" />
+    </td>
+    </tr>
 </form>
 {% endblock %}

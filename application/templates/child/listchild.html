@@ -1,29 +1,29 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Lapset</th>
-    </tr>
-    {% for child in quotes %}
-    <tr>
-      <td>{{ child.name }}</td>
-      <td>{{ child.birthday }}</td>
-      <td>
-            <form method="POST" action="{{ url_for('quotes_form', child_id = child.id) }}">
-                    <button type="submit" class=>Lisää sanonta</button> 
-                </form>
-            
-          <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
-              <button type="submit" class=>Muokkaa lapsen tietoja</button> 
-              </form>
+<table>
+  <tr>
+    <th>Lapset</th>
+  </tr>
+  {% for child in quotes %}
+  <tr>
+    <td>{{ child.name }}</td>
+    <td>{{ child.birthday }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('quotes_form', child_id = child.id) }}">
+        <button type="submit" class=>Lisää sanonta</button>
+      </form>
 
-              <form method="POST" action="{{ url_for('child_delete', child_id = child.id) }}">
-                  <button type="submit" class=>Poista lapsi</button> 
-                  </form>
-            </a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+      <form method="POST" action="{{ url_for('child_modifychild', child_id = child.id) }}">
+        <button type="submit" class=>Muokkaa lapsen tietoja</button>
+      </form>
+
+      <form method="POST" action="{{ url_for('child_delete', child_id = child.id) }}">
+        <button type="submit" class=>Poista lapsi</button>
+      </form>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

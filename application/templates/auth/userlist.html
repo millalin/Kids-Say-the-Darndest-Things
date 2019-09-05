@@ -11,11 +11,8 @@
   </tr>
   {% for user in childrencount %}
   <tr>
-
     <td style="color: teal">{{ user.username }} &nbsp; &nbsp; &nbsp;</td>
     <td style="color: teal">Lapsia: {{ user.total }} kpl &nbsp; &nbsp; &nbsp;</td>
-
-
     <td>
       <a href="{{ url_for('user_delete', user_id = user.id) }}">
         <button type="submit" class="btn btn-default">Poista käyttäjä</button>
@@ -25,18 +22,13 @@
       <a href="{{ url_for('user_show', user_id = user.id) }}">
         <button type="submit" class="btn btn-default">Näytä käyttäjän tiedot</button>
       </a>
-
     </td>
     <td>
       <a href="{{ url_for('user_update_role', user_id = user.id) }}">
         <button type="submit" class="btn btn-default">Tee käyttäjästä ylläpitäjä</button>
       </a>
-
     </td>
-
-
   </tr>
-
   {% endfor %}
   <tr>
     {% for user in user_in_all %}

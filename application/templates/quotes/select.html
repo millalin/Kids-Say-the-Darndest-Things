@@ -6,7 +6,6 @@
     <h3 style="color: teal">Valitse hakutoiminto joko kategorian tai iän mukaan</h3>
     <br>
     <h5>Jos haluat hakea sanonnat kategorian mukaan</h5>
-
     <tr>
       <td>
         {{ form1.selection.label }}
@@ -16,24 +15,24 @@
         {{ form1.selection }}
       </td>
     </tr>
-<tr>
-    <ul>
-      {% for error in form1.selection.errors %}
-      <li>{{ error }}</li>
-      {% endfor %}
-    </ul>
-    </td>
+    <tr>
+      <ul>
+        {% for error in form1.selection.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      </td>
     </tr>
     <tr>
       <td colspan="2">
         <button type="submit" class="btn btn-secondary">Näytä sanonnat kategorialle</button>
       </td>
     </tr>
-  </tr>
+    </tr>
 </form>
 </table>
 <form method="POST" action="{{ url_for('quotes_get_by_age') }}">
-  
+
   <table>
     <br>
     <br>
@@ -43,22 +42,17 @@
         {{ form2.age.label }}
       </td>
     <tr>
-
-
       <td>
         {{ form2.age }}
       </td>
     </tr>
     <td>
-      
-        {% for error in form2.age.errors %}
-        <div class="alert alert-danger">
-          {{ error }}
-        </div>
-        {% endfor %}
-    
+      {% for error in form2.age.errors %}
+      <div class="alert alert-danger">
+        {{ error }}
+      </div>
+      {% endfor %}
     </td>
-    
     <tr>
       <td colspan="2">
         <button type="submit" class="btn btn-secondary">Näytä sanonnat valitulle iälle</button>

@@ -203,8 +203,6 @@ def quotes_childquotes(child_id):
     return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes, child_id = child_id, name=name)  
     
 
-
-
 # sivun haku kun sanontaa halutaan muokata
 @app.route("/quotes/modifyState/<quote_id>/<child_id>", methods=["GET", "POST"])
 @login_required(role="ANY")
@@ -214,13 +212,11 @@ def quotes_modifyState(quote_id, child_id):
     c_list=[(i.name,i.name) for i in cates]
 
     quote = Quote.query.get(quote_id)
-    
     form = QuoteForm()
     
     form.name.data = quote.quote
     form.age.data = quote.agesaid
     form.categories.choices = c_list
-    
     
     return render_template("quotes/modifystate.html",form = form, quote_id = quote_id, child_id=child_id)
 

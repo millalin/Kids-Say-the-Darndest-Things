@@ -18,7 +18,7 @@ Toiminnot ovat kirjautuneelle käyttäjälle, ellei toisin mainita.
 
 Käyttäjä (CRUD)
 
-- käyttäjän rekisteröityminen, tunnusten luominen (kaikki käyttäjät)
+- käyttäjän rekisteröityminen, tunnusten luominen 
 - rekisteröityneen käyttäjän kirjautuminen 
 - kaikkien käyttäjien listaus (vain admin)
 - käyttäjän tietojen tarkastelu 
@@ -50,7 +50,7 @@ Kategoria (CRUD)
 - kategorian lisäys (vain admin)
 - kategorian poisto (vain admin)
 - kategorian muokkaus ja tarkempien tietojen näyttäminen (vain admin)
-- kaikkien kategorieoiden listaus
+- kaikkien kategorioiden listaus
 
 Tykkäys (CD)
 
@@ -61,7 +61,7 @@ Tykkäys (CD)
 
 ### Tietokannan normalisointi
 
-Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty lapsen ikä sanonnan tauluun, sillä tämä näytetään useissa listauksissa ja sanonnan ikää ei voida laskea lapsen syntymäpäivästä, sillä vanhempi saattaa lisätä ja muokata sanontoja myöhemminkin, eikä reaaliaikaisesti. Sanonnan päivämäärän syöttämisellä (lomakkeessa ikä, jollion sanottu sijasta olisi päivämäärä, jolloin sanottu), oltaisiin voitu laskea lapsen syntymäpäivästä ikä, mutta käyttäjän kannalta mielekkäämmäksi ajateltiin vain lapsen iän ilmoittaminen. 
+Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty lapsen ikä sanonnan tauluun, sillä tämä näytetään useissa listauksissa ja sanonnan ikää ei voida laskea lapsen syntymäpäivästä, sillä vanhempi saattaa lisätä ja muokata sanontoja myöhemminkin, eikä reaaliaikaisesti. Sanonnan päivämäärän syöttämisellä (lomakkeessa ikä, jolloin sanottu sijasta olisi päivämäärä, jolloin sanottu), oltaisiin voitu laskea lapsen syntymäpäivästä ikä, mutta käyttäjän kannalta mielekkäämmäksi ajateltiin vain lapsen iän ilmoittaminen. 
 
 ### Tietokannan CREATE TABLE -lauseet
 
@@ -144,5 +144,5 @@ Tietokanta on pääsääntöisesti normaalimuodossa. Sanonnassa on jätetty laps
 
 - lapsilla voi olla tällä hetkellä vain yksi käyttäjätili (vanhempi). Tätä voisi muokata niin, että samoille lapsille voisi olla muitakin käyttäjiä (toinen vanhempi, isovanhempi tms) ja olisi mahdollista myös esimerkiksi tarkastella, kuka on lisännyt minkäkin sanonnan lapselle. 
 - lapsen lisäyksessä syntymäpäivän kohdalla voisi olla kalenterivalikko, josta päivämäärän voisi valita, nyt syöttäminen täytyy tehdä tietyssä muodossa
-- sivutuksessa voisi olla numerointi myös monta sivua, jotta voisi navigoida suoraan jollekin sivustolle (esimerkiksi nro 5)
+- sivutuksessa voisi olla numerointi myös monta sivua, jotta voisi navigoida suoraan jollekin sivustolle (esimerkiksi nro 5). Sanonnat haettiin SELECT kyselyllä, jotta lapsen nimi saatiin myös listaan ja paginate-metodia ei voitu käyttää. Tämän vuoksi sivutuksen toteutus on hieman erilainen (OFFSET kyselyssä) ja sivutuksessa on nyt vain seuraava ja edellinen toiminnot
 - haun voisi toteuttaa lisäksi myös esimerkiksi niin, että se hakisi sekä ikällä että kategorialla. Lisäksi oman lapsen sanonnoissa voisi olla ikähakutoiminto.

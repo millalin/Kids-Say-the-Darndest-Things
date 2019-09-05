@@ -3,10 +3,9 @@
 {% block body %}
 <form method="POST" action="{{ url_for('quotes_by_child') }}">
     <table>
-            {% if child_list|length > 0 %}
+        {% if child_list|length > 0 %}
         <tr>
             <td>
-                
                 <ul class="list-unstyled">
                     <li> Valitse lapsi, jonka sanonnat haluat nähdä</li>
                     <li style="color:teal;"> {{ form.selection }}</li>
