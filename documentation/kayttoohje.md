@@ -24,6 +24,13 @@ Jos pääkäyttäjää (admin) ei ole vielä luotu, sen voi luoda rekisteröitym
 
 Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumisessa tulee syöttää luotu käyttäjänimi sekä salasana. Kirjautumaan pääsee ylävalikosta kohdasta "Kirjaudu".
 
+#### Sanontojen listaus
+
+Kaikki sovellukseen lisätyt sanonnat päästään listaamaan kohdasta "Listaa kaikki sanonnat"
+
+#### Sanontojen haku
+
+Sanontoja voidaan hakea joko kategorian tai iän mukaan. Tämä tapahtuu ylävalikon Haku painikkeesta. Tämän jälkeen tulee valita joko kategoria, jonka mukaiset sanonnat halutaan listata tai kirjoittaa ikä väliltä 0-99, jonka ikäisen sanonnat halutaan listata. 
 
 ### Rekisteröitynyt ja kirjautunut käyttäjä 
 
@@ -31,17 +38,24 @@ Kun käyttäjä on rekisteröitynyt, voi hän kirjautua sovellukseen. Kirjautumi
 
 Omia tietojaan pääsee tarkastelemaan yläpalkin valikosta oikealta painamalla oman nimensä kohdasta. Tiedoissa näkyy id, nimi, käyttäjänimi, luomispäivä, muokkaamispäivä sekä lapsien listaus. Painikkeesta "Muokkaa tietoja tai vaihda salasana" pääsee vaihtamaan nimen, käyttäjänimen ja/tai salasanan. 
 
+#### Käyttäjätilin poistaminen
+
+Oman käyttäjätilinsä voi poistaa omien tietojen tarkastelusta painikkeesta "Poista käyttäjätili". Huomioi, että tämä toiminto poistaa kaikki lisätyt lapset ja lapsien sanonnat. Poistotoiminto vaatii varmistuksen, ja varmistuskohtaan tulee kirjoittaa (pieni) x -kirjain.
+
 #### Lapsen lisääminen
 
 Kirjautunut käyttäjä voi lisätä itselleen lapsia yläpalkin valikon kohdasta "Omat lapset" ja valitsemalla "Lisää lapsi". Lapselle tulee syöttää seuraavat tiedot:
 - nimi. Pakollinen, 2-30 merkkiä pitkä.
 - syntymäpäivä. Pakollinen, muodossa yyyy-mm-dd.
 
-#### Lapsien listaus 
+#### Lapsien listaus ja poistaminen
 
-Kaikki omat lisätyt lapset pääsee näkemään yläpalkin valikon kohdata "Omat lapset" ja valitsemalla lapsiesi tiedot. Lapsien listauksessa näkyy lapsen nimi ja syntymäpäivä sekä painikkeet eri toiminnoille. Painikkeesta "Näytä lapsen tarkemmat tiedot" pääsee tarkastelemaan lisäksi esimerkiksi luomis ja muokkaamispäiviä. Painikkeesta "Muokkaa lapsen tietoja" pääsee muokkaamaan Lapsen nimeä tai syntymäpäivää. Poisto painike poistaa lapsen. Tästä tulee vielä varmistuskysely, jottei lasta ja hänen kaikkia sanontojaan tule poistettua vahinkopainalluksella.
+Kaikki omat lisätyt lapset pääsee näkemään yläpalkin valikon kohdata "Omat lapset" ja valitsemalla lapsiesi tiedot. Lapsien listauksessa näkyy lapsen nimi ja syntymäpäivä sekä painikkeet eri toiminnoille. Painikkeesta "Näytä lapsen tarkemmat tiedot" pääsee tarkastelemaan lisäksi esimerkiksi luomis ja muokkaamispäiviä. Painikkeesta "Muokkaa lapsen tietoja" pääsee muokkaamaan Lapsen nimeä tai syntymäpäivää. 
+
+Poisto painike poistaa lapsen. Tästä tulee vielä varmistuskysely, jottei lasta ja hänen kaikkia sanontojaan tule poistettua vahinkopainalluksella. Varmistuskohtaan tulee kirjoittaa (pieni) x -kirjain poiston varmistamiseksi.
  
 ![img](img/addchild.png)
+
 
 #### Sanontojen lisäys 
 
@@ -56,7 +70,7 @@ Ylävalikosta kohdasta "Omat sanonnat" pääsee valitsemaan haluaako lisätä uu
 
 ![img](img/addquote.png)
  
-#### Lapsen sanontojen listaus
+#### Lapsen sanontojen listaus, tarkastelu ja poisto
 
 Lapsen omat sanonnat voidaan listata valitsemalla ylävalikosta "Omat sanonnat" ja tämän jälkeen lapsi, jonka sanonnat halutaan listata. Tästä päästään listaukseen, jossa on listattuna lapsen sanonnat, kussakin ikä jolloin sanonta on sanottu ja valintapainikkeet. Sanontaa voidaan muokata painikkeesta "Muokkaa", jolloin päästään sanonnan lomakkeeseen. Tähän täytyy syöttää samat tiedot pakollisena, kuin sanontaa lisätessä. 
 
@@ -101,4 +115,4 @@ Pääkäyttäjän on mahdollista listata kaikki sovelluksessa olevat käyttäjä
 
 #### Käyttäjän poistaminen
 
-Pääkäyttäjän on mahdollista poistaa käyttäjiä. Tämä tapahtuu painamalla "Poista käyttäjä" painiketta käyttäjälistauksessa. Poistosta pyydetään vielä varmistus, jottei käyttäjää, kaikkia hänen lapsiaan ja lapsiensa sanontoja tule poistettua vahinkopainalluksella. 
+Pääkäyttäjän on mahdollista poistaa käyttäjiä. Tämä tapahtuu painamalla "Poista käyttäjä" painiketta käyttäjälistauksessa. Poistosta pyydetään vielä varmistus, jottei käyttäjää, kaikkia hänen lapsiaan ja lapsiensa sanontoja tule poistettua vahinkopainalluksella. Poiston vahvistamiseksi varmistuslomakkeelle tulee kirjoittaa (pieni) x -kirjain.

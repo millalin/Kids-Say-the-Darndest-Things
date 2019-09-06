@@ -1,4 +1,4 @@
-# Tietokanta- ja arkkitehtuurikuvaus
+# Tietokantakuvaus
 
 ### Yleiskuvaus
 
@@ -18,13 +18,14 @@ Toiminnot ovat kirjautuneelle käyttäjälle, ellei toisin mainita.
 
 Käyttäjä (CRUD)
 
-- käyttäjän rekisteröityminen, tunnusten luominen 
+- käyttäjän rekisteröityminen, tunnusten luominen (kuka tahansa käyttäjä) 
 - rekisteröityneen käyttäjän kirjautuminen 
 - kaikkien käyttäjien listaus (vain admin)
-- käyttäjän tietojen tarkastelu 
+- käyttäjän omien tietojen tarkastelu 
 - Käyttäjän tietojen muokkaaminen
 - käyttäjän poisto 
 - kaikkien käyttäjien poistomahdollisuus (vain admin)
+- kaikkien käyttäjien tarkempien tietojen katselu (vain admin)
 
 
 Lapsi (CRUD) 
