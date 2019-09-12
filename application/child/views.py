@@ -33,9 +33,9 @@ def child_create():
         return render_template("child/newchild.html", form = form)
 
     # Tarkastetaan, ettei käyttäjällä ole samannimistä lasta
-    alreadyExistsChild = Child.query.filter_by(name=form.name.data).first()
+    alreadyExistsChild = Child.query.filter_by(name=form.name.data, account_id=current_user.id).first()
     if alreadyExistsChild:
-        form.username.errors.append("Sinulla on jo tämänniminen lapsi olemassa.")
+        form.name.errors.append("Sinulla on jo tämänniminen lapsi olemassa.")
         return render_template("child/newchild.html", form = form)
 
 
