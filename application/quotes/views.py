@@ -125,7 +125,7 @@ def quotes_add_by_child():
     form2=ChildSelectForm()
     name=form2.selection.data
     
-    child = Child.query.filter_by(name=name).first()
+    child = Child.query.filter_by(name=name, account_id=current_user.id).first()
     child_id=child.getId()
 
     # Haetaan valintalomakkeelle olemassaolevat kategoriat
