@@ -188,7 +188,7 @@ def quotes_by_child():
     form=ChildSelectForm()
     name=form.selection.data
     
-    child = Child.query.filter_by(name=name).first()
+    child = Child.query.filter_by(name=name, account_id=current_user.id).first()
     child_id=child.getId()
 
     return render_template("quotes/ownquoteslist.html", find_child_quotes = Quote.find_child_quotes,child_id=child_id, name=name)

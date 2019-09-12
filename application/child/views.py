@@ -68,6 +68,12 @@ def child_update(child_id):
     if not form.validate():
         return render_template("child/modifyChild.html", form = form, child_id=child_id)
 
+    # Tarkastetaan, ettei käyttäjällä ole samannimistä lasta
+    alreadyExistsChild = Child.query.filter_by(name=form.name.data, account_id=current_user.id).first()
+    if alreadyExistsChild and child != alreadyExistsChild:
+        form.name.errors.append("Sinulla on jo tämänniminen lapsi olemassa.")
+        return render_template("child/modifyChild.html", form = form, child_id=child_id)
+
     child.name = form.name.data
     child.birthday =form.birthday.data
     
