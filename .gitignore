@@ -131,3 +131,6 @@ dmypy.json
 
 quotes.db
 .vscode
+
+
+passwords/

@@ -12,12 +12,6 @@ Tavallinen käyttäjä:
 - käyttäjänimi: user
 - salasana: password
 
-Ylläpitäjä:
-- käyttäjänimi: admin
-- salasana: password
-
-
-
 
 
 Tarkempi dokumentaatio:
